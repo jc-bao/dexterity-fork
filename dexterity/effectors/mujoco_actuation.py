@@ -9,40 +9,40 @@ from dexterity import hints
 
 
 class MujocoEffector(effector.Effector):
-    """A generic effector for multiple MuJoCo actuators."""
+  """A generic effector for multiple MuJoCo actuators."""
 
-    def __init__(
-        self,
-        actuators: Sequence[hints.MjcfElement],
-        prefix: str = "",
-    ) -> None:
-        self._actuators = actuators
-        self._prefix = prefix
-        self._action_spec = None
+  def __init__(
+      self,
+      actuators: Sequence[hints.MjcfElement],
+      prefix: str = "",
+  ) -> None:
+    self._actuators = actuators
+    self._prefix = prefix
+    self._action_spec = None
 
-    def action_spec(self, physics: mjcf.Physics) -> specs.BoundedArray:
-        if self._action_spec is None:
-            self._action_spec = create_action_spec(
-                physics, self._actuators, self._prefix
-            )
-        return self._action_spec
+  def action_spec(self, physics: mjcf.Physics) -> specs.BoundedArray:
+    if self._action_spec is None:
+      self._action_spec = create_action_spec(
+        physics, self._actuators, self._prefix
+      )
+    return self._action_spec
 
-    def set_control(self, physics: mjcf.Physics, command: np.ndarray) -> None:
-        # Note: MuJoCo automatically clips out-of-bounds control inputs so we don't
-        # need to do anything special here.
-        physics.bind(self._actuators).ctrl = command
+  def set_control(self, physics: mjcf.Physics, command: np.ndarray) -> None:
+    # Note: MuJoCo automatically clips out-of-bounds control inputs so we don't
+    # need to do anything special here.
+    physics.bind(self._actuators).ctrl = command
 
-    @property
-    def prefix(self) -> str:
-        return self._prefix
+  @property
+  def prefix(self) -> str:
+    return self._prefix
 
-    def after_compile(self, mjcf_model: mjcf.RootElement) -> None:
-        del mjcf_model  # Unused.
+  def after_compile(self, mjcf_model: mjcf.RootElement) -> None:
+    del mjcf_model  # Unused.
 
-    def initialize_episode(
-        self, physics: mjcf.Physics, random_state: np.random.RandomState
-    ) -> None:
-        del physics, random_state  # Unused.
+  def initialize_episode(
+      self, physics: mjcf.Physics, random_state: np.random.RandomState
+  ) -> None:
+    del physics, random_state  # Unused.
 
 
 def create_action_spec(
@@ -50,18 +50,18 @@ def create_action_spec(
     actuators: Sequence[hints.MjcfElement],
     prefix: str = "",
 ) -> specs.BoundedArray:
-    """Creates an action range for the given actuators."""
-    num_actuators = len(actuators)
-    actuator_names = [f"{prefix}{i}" for i in range(num_actuators)]
-    control_range = physics.bind(actuators).ctrlrange
-    is_limited = physics.bind(actuators).ctrllimited.astype(bool)
-    action_min = np.full(num_actuators, fill_value=-np.inf, dtype=np.float32)
-    action_max = np.full(num_actuators, fill_value=np.inf, dtype=np.float32)
-    action_min[is_limited], action_max[is_limited] = control_range[is_limited].T
-    return specs.BoundedArray(
-        shape=(num_actuators,),
-        dtype=np.float32,
-        minimum=action_min,
-        maximum=action_max,
-        name="\t".join(actuator_names),
-    )
+  """Creates an action range for the given actuators."""
+  num_actuators = len(actuators)
+  actuator_names = [f"{prefix}{i}" for i in range(num_actuators)]
+  control_range = physics.bind(actuators).ctrlrange
+  is_limited = physics.bind(actuators).ctrllimited.astype(bool)
+  action_min = np.full(num_actuators, fill_value=-np.inf, dtype=np.float32)
+  action_max = np.full(num_actuators, fill_value=np.inf, dtype=np.float32)
+  action_min[is_limited], action_max[is_limited] = control_range[is_limited].T
+  return specs.BoundedArray(
+    shape=(num_actuators,),
+    dtype=np.float32,
+    minimum=action_min,
+    maximum=action_max,
+    name="\t".join(actuator_names),
+  )

@@ -8,56 +8,56 @@ from dexterity.effectors.wrappers import base
 
 
 class ExponentialSmoother:
-    """An exponential moving average."""
+  """An exponential moving average."""
 
-    def __init__(self, alpha: float) -> None:
-        if not 0.0 <= alpha <= 1.0:
-            raise ValueError("`alpha` must be between 0.0 and 1.0")
+  def __init__(self, alpha: float) -> None:
+    if not 0.0 <= alpha <= 1.0:
+      raise ValueError("`alpha` must be between 0.0 and 1.0")
 
-        self._alpha = alpha
-        self._value: Optional[np.ndarray] = None
+    self._alpha = alpha
+    self._value: Optional[np.ndarray] = None
 
-    def update(self, value: np.ndarray) -> None:
-        if self._value is None:
-            self._value = value
-        else:
-            self._value = self._alpha * self._value + (1 - self._alpha) * value
+  def update(self, value: np.ndarray) -> None:
+    if self._value is None:
+      self._value = value
+    else:
+      self._value = self._alpha * self._value + (1 - self._alpha) * value
 
-    @property
-    def alpha(self) -> float:
-        return self._alpha
+  @property
+  def alpha(self) -> float:
+    return self._alpha
 
-    @property
-    def smoothed_value(self) -> np.ndarray:
-        if self._value is None:
-            raise ValueError("No value has been seen yet.")
-        return self._value
+  @property
+  def smoothed_value(self) -> np.ndarray:
+    if self._value is None:
+      raise ValueError("No value has been seen yet.")
+    return self._value
 
 
 class SmoothAction(base.Wrapper):
-    """Smoothes the action using an exponential moving average."""
+  """Smoothes the action using an exponential moving average."""
 
-    def __init__(self, effector: effector.Effector, alpha: float) -> None:
-        super().__init__(effector)
+  def __init__(self, effector: effector.Effector, alpha: float) -> None:
+    super().__init__(effector)
 
-        self._alpha = alpha
-        self._ema = ExponentialSmoother(alpha)
+    self._alpha = alpha
+    self._ema = ExponentialSmoother(alpha)
 
-    def initialize_episode(
-        self, physics: mjcf.Physics, random_state: np.random.RandomState
-    ) -> None:
-        # Reset the exponential moving average.
-        self._ema = ExponentialSmoother(alpha=self._alpha)
+  def initialize_episode(
+      self, physics: mjcf.Physics, random_state: np.random.RandomState
+  ) -> None:
+    # Reset the exponential moving average.
+    self._ema = ExponentialSmoother(alpha=self._alpha)
 
-        super().initialize_episode(physics, random_state)
+    super().initialize_episode(physics, random_state)
 
-    def set_control(self, physics: mjcf.Physics, command: np.ndarray) -> None:
-        # Update the exponential moving average.
-        self._ema.update(command)
+  def set_control(self, physics: mjcf.Physics, command: np.ndarray) -> None:
+    # Update the exponential moving average.
+    self._ema.update(command)
 
-        # Get the smoothed action and forward it to the effector.
-        super().set_control(physics, self._ema.smoothed_value)
+    # Get the smoothed action and forward it to the effector.
+    super().set_control(physics, self._ema.smoothed_value)
 
-    @property
-    def ema(self) -> ExponentialSmoother:
-        return self._ema
+  @property
+  def ema(self) -> ExponentialSmoother:
+    return self._ema

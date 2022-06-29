@@ -1,695 +1,692 @@
 <mujoco>
-    <compiler angle="radian" coordinate="local" meshdir="../meshes" />
+  <compiler angle="radian" coordinate="local" meshdir="../meshes" />
 
-    <visual>
-        <quality shadowsize="4096"/>
-    </visual>
+  <visual>
+    <quality shadowsize="4096" />
+  </visual>
 
-    <size njmax="500" nconmax="200"/>
+  <size njmax="500" nconmax="200" />
 
-    <asset>
-        <material name="metal" reflectance="1.0" rgba="0.6 0.6 0.6 1.0" shininess="0.5" specular="1.0"/>
-        <material name="plastic" specular="0.75" shininess=".1" reflectance="0.5" rgba=".15 .15 .15 1"/>
-        <material name="rubber" rgba="0.3 0.3 0.3 1.0" shininess="0.0"/>
+  <asset>
+    <material name="metal" reflectance="1.0" rgba="0.6 0.6 0.6 1.0" shininess="0.5" specular="1.0" />
+    <material name="plastic" specular="0.75" shininess=".1" reflectance="0.5" rgba=".15 .15 .15 1" />
+    <material name="rubber" rgba="0.3 0.3 0.3 1.0" shininess="0.0" />
 
-        <mesh name="F1_visual" file="visual/F1.stl"/>
-        <mesh name="F1_collision" file="collision/F1.stl"/>
+    <mesh name="F1_visual" file="visual/F1.stl" />
+    <mesh name="F1_collision" file="collision/F1.stl" />
 
-        <mesh name="F2_visual" file="visual/F2.stl"/>
-        <mesh name="F2_collision_proximal" file="collision/decomposed/F2/F2_proximal.stl"/>
-        <mesh name="F2_collision_middle" file="collision/decomposed/F2/F2_middle.stl"/>
-        <mesh name="F2_collision_distal" file="collision/decomposed/F2/F2_distal.stl"/>
+    <mesh name="F2_visual" file="visual/F2.stl" />
+    <mesh name="F2_collision_proximal" file="collision/decomposed/F2/F2_proximal.stl" />
+    <mesh name="F2_collision_middle" file="collision/decomposed/F2/F2_middle.stl" />
+    <mesh name="F2_collision_distal" file="collision/decomposed/F2/F2_distal.stl" />
 
-        <mesh name="F3_visual" file="visual/F3.stl"/>
-        <mesh name="F3_collision_proximal" file="collision/decomposed/F3/F3_proximal.stl"/>
-        <mesh name="F3_collision_distal" file="collision/decomposed/F3/F3_distal.stl"/>
+    <mesh name="F3_visual" file="visual/F3.stl" />
+    <mesh name="F3_collision_proximal" file="collision/decomposed/F3/F3_proximal.stl" />
+    <mesh name="F3_collision_distal" file="collision/decomposed/F3/F3_distal.stl" />
 
-        <mesh name="TH1_visual" file="visual/TH1_z.stl"/>
-        <mesh name="TH1_collision" file="collision/TH1.stl"/>
-        <mesh name="TH2_visual" file="visual/TH2_z.stl"/>
-        <mesh name="TH2_collision_proximal" file="collision/decomposed/TH2/TH2_proximal.stl"/>
-        <mesh name="TH2_collision_middle" file="collision/decomposed/TH2/TH2_middle.stl"/>
-        <mesh name="TH2_collision_distal" file="collision/decomposed/TH2/TH2_distal.stl"/>
-        <mesh name="TH3_visual" file="visual/TH3_z.stl"/>
-        <mesh name="TH3_collision_proximal" file="collision/decomposed/TH3/TH3_proximal.stl"/>
-        <mesh name="TH3_collision_distal" file="collision/decomposed/TH3/TH3_distal.stl"/>
+    <mesh name="TH1_visual" file="visual/TH1_z.stl" />
+    <mesh name="TH1_collision" file="collision/TH1.stl" />
+    <mesh name="TH2_visual" file="visual/TH2_z.stl" />
+    <mesh name="TH2_collision_proximal" file="collision/decomposed/TH2/TH2_proximal.stl" />
+    <mesh name="TH2_collision_middle" file="collision/decomposed/TH2/TH2_middle.stl" />
+    <mesh name="TH2_collision_distal" file="collision/decomposed/TH2/TH2_distal.stl" />
+    <mesh name="TH3_visual" file="visual/TH3_z.stl" />
+    <mesh name="TH3_collision_proximal" file="collision/decomposed/TH3/TH3_proximal.stl" />
+    <mesh name="TH3_collision_distal" file="collision/decomposed/TH3/TH3_distal.stl" />
 
-        <mesh name="forearm_visual" file="visual/forearm.stl"/>
-        <mesh name="forearm_collision" file="collision/decomposed/forearm/forearm.stl"/>
-        <mesh name="forearm_collision_wrist" file="collision/decomposed/forearm/forearm_wrist.stl"/>
-        <mesh name="forearm_plus_visual" file="visual/forearm_plus.stl"/>
-        <mesh name="forearm_plus_collision_1" file="collision/decomposed/forearm_plus/forearm_plus_1.stl"/>
-        <mesh name="forearm_plus_collision_2" file="collision/decomposed/forearm_plus/forearm_plus_2.stl"/>
-        <mesh name="forearm_plus_collision_3" file="collision/decomposed/forearm_plus/forearm_plus_3.stl"/>
-        <mesh name="forearm_plus_collision_4" file="collision/decomposed/forearm_plus/forearm_plus_4.stl"/>
-        <mesh name="forearm_plus_collision_5" file="collision/decomposed/forearm_plus/forearm_plus_5.stl"/>
+    <mesh name="forearm_visual" file="visual/forearm.stl" />
+    <mesh name="forearm_collision" file="collision/decomposed/forearm/forearm.stl" />
+    <mesh name="forearm_collision_wrist" file="collision/decomposed/forearm/forearm_wrist.stl" />
+    <mesh name="forearm_plus_visual" file="visual/forearm_plus.stl" />
+    <mesh name="forearm_plus_collision_1" file="collision/decomposed/forearm_plus/forearm_plus_1.stl" />
+    <mesh name="forearm_plus_collision_2" file="collision/decomposed/forearm_plus/forearm_plus_2.stl" />
+    <mesh name="forearm_plus_collision_3" file="collision/decomposed/forearm_plus/forearm_plus_3.stl" />
+    <mesh name="forearm_plus_collision_4" file="collision/decomposed/forearm_plus/forearm_plus_4.stl" />
+    <mesh name="forearm_plus_collision_5" file="collision/decomposed/forearm_plus/forearm_plus_5.stl" />
 
-        <mesh name="knuckle_visual" file="visual/knuckle.stl"/>
-        <mesh name="knuckle_collision" file="collision/knuckle.stl"/>
+    <mesh name="knuckle_visual" file="visual/knuckle.stl" />
+    <mesh name="knuckle_collision" file="collision/knuckle.stl" />
 
-        <mesh name="palm_visual" file="visual/palm.stl"/>
-        <mesh name="palm_collision_0" file="collision/decomposed/palm/palmShape_IndexedFaceSet.stl"/>
-        <mesh name="palm_collision_1" file="collision/decomposed/palm/palmShape_IndexedFaceSet_001.stl"/>
-        <mesh name="palm_collision_2" file="collision/decomposed/palm/palmShape_IndexedFaceSet_002.stl"/>
-        <mesh name="palm_collision_3" file="collision/decomposed/palm/palmShape_IndexedFaceSet_003.stl"/>
-        <mesh name="palm_collision_4" file="collision/decomposed/palm/palmShape_IndexedFaceSet_004.stl"/>
-        <mesh name="palm_collision_5" file="collision/decomposed/palm/palmShape_IndexedFaceSet_005.stl"/>
-        <mesh name="palm_collision_6" file="collision/decomposed/palm/palmShape_IndexedFaceSet_006.stl"/>
-        <mesh name="palm_collision_7" file="collision/decomposed/palm/palmShape_IndexedFaceSet_007.stl"/>
-        <mesh name="palm_collision_8" file="collision/decomposed/palm/palmShape_IndexedFaceSet_008.stl"/>
-        <mesh name="palm_collision_9" file="collision/decomposed/palm/palmShape_IndexedFaceSet_009.stl"/>
-        <mesh name="palm_collision_10" file="collision/decomposed/palm/palmShape_IndexedFaceSet_010.stl"/>
-        <mesh name="palm_collision_11" file="collision/decomposed/palm/palmShape_IndexedFaceSet_011.stl"/>
-        <mesh name="palm_collision_12" file="collision/decomposed/palm/palmShape_IndexedFaceSet_012.stl"/>
-        <mesh name="palm_collision_13" file="collision/decomposed/palm/palmShape_IndexedFaceSet_013.stl"/>
-        <mesh name="palm_collision_14" file="collision/decomposed/palm/palmShape_IndexedFaceSet_014.stl"/>
-        <mesh name="palm_collision_15" file="collision/decomposed/palm/palmShape_IndexedFaceSet_015.stl"/>
-        <mesh name="palm_collision_16" file="collision/decomposed/palm/palmShape_IndexedFaceSet_016.stl"/>
-        <mesh name="palm_collision_17" file="collision/decomposed/palm/palmShape_IndexedFaceSet_017.stl"/>
-        <mesh name="palm_collision_18" file="collision/decomposed/palm/palmShape_IndexedFaceSet_018.stl"/>
-        <mesh name="palm_collision_19" file="collision/decomposed/palm/palmShape_IndexedFaceSet_019.stl"/>
-        <mesh name="palm_collision_20" file="collision/decomposed/palm/palmShape_IndexedFaceSet_020.stl"/>
-        <mesh name="palm_collision_21" file="collision/decomposed/palm/palmShape_IndexedFaceSet_021.stl"/>
-        <mesh name="palm_collision_22" file="collision/decomposed/palm/palmShape_IndexedFaceSet_022.stl"/>
-        <mesh name="palm_collision_23" file="collision/decomposed/palm/palmShape_IndexedFaceSet_023.stl"/>
-        <mesh name="palm_collision_24" file="collision/decomposed/palm/palmShape_IndexedFaceSet_024.stl"/>
-        <mesh name="palm_collision_25" file="collision/decomposed/palm/palmShape_IndexedFaceSet_025.stl"/>
-        <mesh name="palm_collision_26" file="collision/decomposed/palm/palmShape_IndexedFaceSet_026.stl"/>
-        <mesh name="palm_collision_27" file="collision/decomposed/palm/palmShape_IndexedFaceSet_027.stl"/>
-        <mesh name="palm_collision_28" file="collision/decomposed/palm/palmShape_IndexedFaceSet_028.stl"/>
-        <mesh name="palm_collision_29" file="collision/decomposed/palm/palmShape_IndexedFaceSet_029.stl"/>
-        <mesh name="palm_collision_30" file="collision/decomposed/palm/palmShape_IndexedFaceSet_030.stl"/>
-        <mesh name="palm_collision_31" file="collision/decomposed/palm/palmShape_IndexedFaceSet_031.stl"/>
-        <mesh name="palm_collision_32" file="collision/decomposed/palm/palmShape_IndexedFaceSet_032.stl"/>
-        <mesh name="palm_collision_33" file="collision/decomposed/palm/palmShape_IndexedFaceSet_033.stl"/>
-        <mesh name="palm_collision_34" file="collision/decomposed/palm/palmShape_IndexedFaceSet_034.stl"/>
-        <mesh name="palm_collision_35" file="collision/decomposed/palm/palmShape_IndexedFaceSet_035.stl"/>
-        <mesh name="palm_collision_36" file="collision/decomposed/palm/palmShape_IndexedFaceSet_036.stl"/>
-        <mesh name="palm_collision_37" file="collision/decomposed/palm/palmShape_IndexedFaceSet_037.stl"/>
-        <mesh name="palm_collision_38" file="collision/decomposed/palm/palmShape_IndexedFaceSet_038.stl"/>
-        <mesh name="palm_collision_39" file="collision/decomposed/palm/palmShape_IndexedFaceSet_039.stl"/>
-        <mesh name="palm_collision_40" file="collision/decomposed/palm/palmShape_IndexedFaceSet_040.stl"/>
-        <mesh name="palm_collision_41" file="collision/decomposed/palm/palmShape_IndexedFaceSet_041.stl"/>
-        <mesh name="palm_collision_42" file="collision/decomposed/palm/palmShape_IndexedFaceSet_042.stl"/>
-        <mesh name="palm_collision_43" file="collision/decomposed/palm/palmShape_IndexedFaceSet_043.stl"/>
-        <mesh name="palm_collision_44" file="collision/decomposed/palm/palmShape_IndexedFaceSet_044.stl"/>
-        <mesh name="palm_collision_45" file="collision/decomposed/palm/palmShape_IndexedFaceSet_045.stl"/>
-        <mesh name="palm_collision_46" file="collision/decomposed/palm/palmShape_IndexedFaceSet_046.stl"/>
-        <mesh name="palm_collision_47" file="collision/decomposed/palm/palmShape_IndexedFaceSet_047.stl"/>
-        <mesh name="palm_collision_48" file="collision/decomposed/palm/palmShape_IndexedFaceSet_048.stl"/>
-        <mesh name="palm_collision_49" file="collision/decomposed/palm/palmShape_IndexedFaceSet_049.stl"/>
-        <mesh name="palm_collision_50" file="collision/decomposed/palm/palmShape_IndexedFaceSet_050.stl"/>
-        <mesh name="palm_collision_51" file="collision/decomposed/palm/palmShape_IndexedFaceSet_051.stl"/>
-        <mesh name="palm_collision_52" file="collision/decomposed/palm/palmShape_IndexedFaceSet_052.stl"/>
-        <mesh name="palm_collision_53" file="collision/decomposed/palm/palmShape_IndexedFaceSet_053.stl"/>
-        <mesh name="palm_collision_54" file="collision/decomposed/palm/palmShape_IndexedFaceSet_054.stl"/>
-        <mesh name="palm_collision_55" file="collision/decomposed/palm/palmShape_IndexedFaceSet_055.stl"/>
-        <mesh name="palm_collision_56" file="collision/decomposed/palm/palmShape_IndexedFaceSet_056.stl"/>
-        <mesh name="palm_collision_57" file="collision/decomposed/palm/palmShape_IndexedFaceSet_057.stl"/>
-        <mesh name="palm_collision_58" file="collision/decomposed/palm/palmShape_IndexedFaceSet_058.stl"/>
-        <mesh name="palm_collision_59" file="collision/decomposed/palm/palmShape_IndexedFaceSet_059.stl"/>
-        <mesh name="palm_collision_60" file="collision/decomposed/palm/palmShape_IndexedFaceSet_060.stl"/>
-        <mesh name="palm_collision_61" file="collision/decomposed/palm/palmShape_IndexedFaceSet_061.stl"/>
-        <mesh name="palm_collision_62" file="collision/decomposed/palm/palmShape_IndexedFaceSet_062.stl"/>
-        <mesh name="palm_collision_63" file="collision/decomposed/palm/palmShape_IndexedFaceSet_063.stl"/>
-        <mesh name="palm_collision_64" file="collision/decomposed/palm/palmShape_IndexedFaceSet_064.stl"/>
-        <mesh name="palm_collision_65" file="collision/decomposed/palm/palmShape_IndexedFaceSet_065.stl"/>
-        <mesh name="palm_collision_66" file="collision/decomposed/palm/palmShape_IndexedFaceSet_066.stl"/>
-        <mesh name="palm_collision_67" file="collision/decomposed/palm/palmShape_IndexedFaceSet_067.stl"/>
-        <mesh name="palm_collision_68" file="collision/decomposed/palm/palmShape_IndexedFaceSet_068.stl"/>
-        <mesh name="palm_collision_69" file="collision/decomposed/palm/palmShape_IndexedFaceSet_069.stl"/>
-        <mesh name="palm_collision_70" file="collision/decomposed/palm/palmShape_IndexedFaceSet_070.stl"/>
-        <mesh name="palm_collision_71" file="collision/decomposed/palm/palmShape_IndexedFaceSet_071.stl"/>
-        <mesh name="palm_collision_72" file="collision/decomposed/palm/palmShape_IndexedFaceSet_072.stl"/>
-        <mesh name="palm_collision_73" file="collision/decomposed/palm/palmShape_IndexedFaceSet_073.stl"/>
-        <mesh name="palm_collision_74" file="collision/decomposed/palm/palmShape_IndexedFaceSet_074.stl"/>
-        <mesh name="palm_collision_75" file="collision/decomposed/palm/palmShape_IndexedFaceSet_075.stl"/>
-        <mesh name="palm_collision_76" file="collision/decomposed/palm/palmShape_IndexedFaceSet_076.stl"/>
-        <mesh name="palm_collision_77" file="collision/decomposed/palm/palmShape_IndexedFaceSet_077.stl"/>
-        <mesh name="palm_collision_78" file="collision/decomposed/palm/palmShape_IndexedFaceSet_078.stl"/>
-        <mesh name="palm_collision_79" file="collision/decomposed/palm/palmShape_IndexedFaceSet_079.stl"/>
-        <mesh name="palm_collision_80" file="collision/decomposed/palm/palmShape_IndexedFaceSet_080.stl"/>
-        <mesh name="palm_collision_81" file="collision/decomposed/palm/palmShape_IndexedFaceSet_081.stl"/>
-        <mesh name="palm_collision_82" file="collision/decomposed/palm/palmShape_IndexedFaceSet_082.stl"/>
-        <mesh name="palm_collision_83" file="collision/decomposed/palm/palmShape_IndexedFaceSet_083.stl"/>
-        <mesh name="palm_collision_84" file="collision/decomposed/palm/palmShape_IndexedFaceSet_084.stl"/>
-        <mesh name="palm_collision_85" file="collision/decomposed/palm/palmShape_IndexedFaceSet_085.stl"/>
-        <mesh name="palm_collision_86" file="collision/decomposed/palm/palmShape_IndexedFaceSet_086.stl"/>
-        <mesh name="palm_collision_87" file="collision/decomposed/palm/palmShape_IndexedFaceSet_087.stl"/>
-        <mesh name="palm_collision_88" file="collision/decomposed/palm/palmShape_IndexedFaceSet_088.stl"/>
-        <mesh name="palm_collision_89" file="collision/decomposed/palm/palmShape_IndexedFaceSet_089.stl"/>
-        <mesh name="palm_collision_90" file="collision/decomposed/palm/palmShape_IndexedFaceSet_090.stl"/>
-        <mesh name="palm_collision_91" file="collision/decomposed/palm/palmShape_IndexedFaceSet_091.stl"/>
-        <mesh name="palm_collision_92" file="collision/decomposed/palm/palmShape_IndexedFaceSet_092.stl"/>
-        <mesh name="palm_collision_93" file="collision/decomposed/palm/palmShape_IndexedFaceSet_093.stl"/>
-        <mesh name="palm_collision_94" file="collision/decomposed/palm/palmShape_IndexedFaceSet_094.stl"/>
-        <mesh name="palm_collision_95" file="collision/decomposed/palm/palmShape_IndexedFaceSet_095.stl"/>
-        <mesh name="palm_collision_96" file="collision/decomposed/palm/palmShape_IndexedFaceSet_096.stl"/>
-        <mesh name="palm_collision_97" file="collision/decomposed/palm/palmShape_IndexedFaceSet_097.stl"/>
-        <mesh name="palm_collision_98" file="collision/decomposed/palm/palmShape_IndexedFaceSet_098.stl"/>
-        <mesh name="palm_collision_99" file="collision/decomposed/palm/palmShape_IndexedFaceSet_099.stl"/>
-        <mesh name="palm_collision_100" file="collision/decomposed/palm/palmShape_IndexedFaceSet_100.stl"/>
-        <mesh name="palm_collision_101" file="collision/decomposed/palm/palmShape_IndexedFaceSet_101.stl"/>
-        <mesh name="palm_collision_102" file="collision/decomposed/palm/palmShape_IndexedFaceSet_102.stl"/>
-        <mesh name="palm_collision_103" file="collision/decomposed/palm/palmShape_IndexedFaceSet_103.stl"/>
-        <mesh name="palm_collision_104" file="collision/decomposed/palm/palmShape_IndexedFaceSet_104.stl"/>
-        <mesh name="palm_collision_105" file="collision/decomposed/palm/palmShape_IndexedFaceSet_105.stl"/>
-        <mesh name="palm_collision_106" file="collision/decomposed/palm/palmShape_IndexedFaceSet_106.stl"/>
-        <mesh name="palm_collision_107" file="collision/decomposed/palm/palmShape_IndexedFaceSet_107.stl"/>
-        <mesh name="palm_collision_108" file="collision/decomposed/palm/palmShape_IndexedFaceSet_108.stl"/>
-        <mesh name="palm_collision_109" file="collision/decomposed/palm/palmShape_IndexedFaceSet_109.stl"/>
-        <mesh name="palm_collision_110" file="collision/decomposed/palm/palmShape_IndexedFaceSet_110.stl"/>
-        <mesh name="palm_collision_111" file="collision/decomposed/palm/palmShape_IndexedFaceSet_111.stl"/>
-        <mesh name="palm_collision_112" file="collision/decomposed/palm/palmShape_IndexedFaceSet_112.stl"/>
-        <mesh name="palm_collision_113" file="collision/decomposed/palm/palmShape_IndexedFaceSet_113.stl"/>
-        <mesh name="palm_collision_114" file="collision/decomposed/palm/palmShape_IndexedFaceSet_114.stl"/>
-        <mesh name="palm_collision_115" file="collision/decomposed/palm/palmShape_IndexedFaceSet_115.stl"/>
-        <mesh name="palm_collision_116" file="collision/decomposed/palm/palmShape_IndexedFaceSet_116.stl"/>
-        <mesh name="palm_collision_117" file="collision/decomposed/palm/palmShape_IndexedFaceSet_117.stl"/>
-        <mesh name="palm_collision_118" file="collision/decomposed/palm/palmShape_IndexedFaceSet_118.stl"/>
-        <mesh name="palm_collision_119" file="collision/decomposed/palm/palmShape_IndexedFaceSet_119.stl"/>
-        <mesh name="palm_collision_120" file="collision/decomposed/palm/palmShape_IndexedFaceSet_120.stl"/>
-        <mesh name="palm_collision_121" file="collision/decomposed/palm/palmShape_IndexedFaceSet_121.stl"/>
-        <mesh name="palm_collision_122" file="collision/decomposed/palm/palmShape_IndexedFaceSet_122.stl"/>
-        <mesh name="palm_collision_123" file="collision/decomposed/palm/palmShape_IndexedFaceSet_123.stl"/>
-        <mesh name="palm_collision_124" file="collision/decomposed/palm/palmShape_IndexedFaceSet_124.stl"/>
-        <mesh name="palm_collision_125" file="collision/decomposed/palm/palmShape_IndexedFaceSet_125.stl"/>
-        <mesh name="palm_collision_126" file="collision/decomposed/palm/palmShape_IndexedFaceSet_126.stl"/>
-        <mesh name="palm_collision_127" file="collision/decomposed/palm/palmShape_IndexedFaceSet_127.stl"/>
-        <mesh name="palm_collision_128" file="collision/decomposed/palm/palmShape_IndexedFaceSet_128.stl"/>
-        <mesh name="palm_collision_129" file="collision/decomposed/palm/palmShape_IndexedFaceSet_129.stl"/>
-        <mesh name="palm_collision_130" file="collision/decomposed/palm/palmShape_IndexedFaceSet_130.stl"/>
-        <mesh name="palm_collision_131" file="collision/decomposed/palm/palmShape_IndexedFaceSet_131.stl"/>
-        <mesh name="palm_collision_132" file="collision/decomposed/palm/palmShape_IndexedFaceSet_132.stl"/>
-        <mesh name="palm_collision_133" file="collision/decomposed/palm/palmShape_IndexedFaceSet_133.stl"/>
-        <mesh name="palm_collision_134" file="collision/decomposed/palm/palmShape_IndexedFaceSet_134.stl"/>
-        <mesh name="palm_collision_135" file="collision/decomposed/palm/palmShape_IndexedFaceSet_135.stl"/>
-        <mesh name="palm_collision_136" file="collision/decomposed/palm/palmShape_IndexedFaceSet_136.stl"/>
-        <mesh name="palm_collision_137" file="collision/decomposed/palm/palmff_hinge.stl"/>
-        <mesh name="palm_collision_138" file="collision/decomposed/palm/palmlf_palm.stl"/>
-        <mesh name="palm_collision_139" file="collision/decomposed/palm/palmlf_palm_top.stl"/>
-        <mesh name="palm_collision_140" file="collision/decomposed/palm/palmmf_hinge.stl"/>
-        <mesh name="palm_collision_141" file="collision/decomposed/palm/palmrf_hinge.stl"/>
-        <mesh name="palm_collision_142" file="collision/decomposed/palm/palmrf_palm.stl"/>
-        <mesh name="palm_collision_143" file="collision/decomposed/palm/palmwrist_hinge_right.stl"/>
-        <mesh name="palm_collision_144" file="collision/decomposed/palm/palmwrist_hinge_right_small.stl"/>
+    <mesh name="palm_visual" file="visual/palm.stl" />
+    <mesh name="palm_collision_0" file="collision/decomposed/palm/palmShape_IndexedFaceSet.stl" />
+    <mesh name="palm_collision_1" file="collision/decomposed/palm/palmShape_IndexedFaceSet_001.stl" />
+    <mesh name="palm_collision_2" file="collision/decomposed/palm/palmShape_IndexedFaceSet_002.stl" />
+    <mesh name="palm_collision_3" file="collision/decomposed/palm/palmShape_IndexedFaceSet_003.stl" />
+    <mesh name="palm_collision_4" file="collision/decomposed/palm/palmShape_IndexedFaceSet_004.stl" />
+    <mesh name="palm_collision_5" file="collision/decomposed/palm/palmShape_IndexedFaceSet_005.stl" />
+    <mesh name="palm_collision_6" file="collision/decomposed/palm/palmShape_IndexedFaceSet_006.stl" />
+    <mesh name="palm_collision_7" file="collision/decomposed/palm/palmShape_IndexedFaceSet_007.stl" />
+    <mesh name="palm_collision_8" file="collision/decomposed/palm/palmShape_IndexedFaceSet_008.stl" />
+    <mesh name="palm_collision_9" file="collision/decomposed/palm/palmShape_IndexedFaceSet_009.stl" />
+    <mesh name="palm_collision_10" file="collision/decomposed/palm/palmShape_IndexedFaceSet_010.stl" />
+    <mesh name="palm_collision_11" file="collision/decomposed/palm/palmShape_IndexedFaceSet_011.stl" />
+    <mesh name="palm_collision_12" file="collision/decomposed/palm/palmShape_IndexedFaceSet_012.stl" />
+    <mesh name="palm_collision_13" file="collision/decomposed/palm/palmShape_IndexedFaceSet_013.stl" />
+    <mesh name="palm_collision_14" file="collision/decomposed/palm/palmShape_IndexedFaceSet_014.stl" />
+    <mesh name="palm_collision_15" file="collision/decomposed/palm/palmShape_IndexedFaceSet_015.stl" />
+    <mesh name="palm_collision_16" file="collision/decomposed/palm/palmShape_IndexedFaceSet_016.stl" />
+    <mesh name="palm_collision_17" file="collision/decomposed/palm/palmShape_IndexedFaceSet_017.stl" />
+    <mesh name="palm_collision_18" file="collision/decomposed/palm/palmShape_IndexedFaceSet_018.stl" />
+    <mesh name="palm_collision_19" file="collision/decomposed/palm/palmShape_IndexedFaceSet_019.stl" />
+    <mesh name="palm_collision_20" file="collision/decomposed/palm/palmShape_IndexedFaceSet_020.stl" />
+    <mesh name="palm_collision_21" file="collision/decomposed/palm/palmShape_IndexedFaceSet_021.stl" />
+    <mesh name="palm_collision_22" file="collision/decomposed/palm/palmShape_IndexedFaceSet_022.stl" />
+    <mesh name="palm_collision_23" file="collision/decomposed/palm/palmShape_IndexedFaceSet_023.stl" />
+    <mesh name="palm_collision_24" file="collision/decomposed/palm/palmShape_IndexedFaceSet_024.stl" />
+    <mesh name="palm_collision_25" file="collision/decomposed/palm/palmShape_IndexedFaceSet_025.stl" />
+    <mesh name="palm_collision_26" file="collision/decomposed/palm/palmShape_IndexedFaceSet_026.stl" />
+    <mesh name="palm_collision_27" file="collision/decomposed/palm/palmShape_IndexedFaceSet_027.stl" />
+    <mesh name="palm_collision_28" file="collision/decomposed/palm/palmShape_IndexedFaceSet_028.stl" />
+    <mesh name="palm_collision_29" file="collision/decomposed/palm/palmShape_IndexedFaceSet_029.stl" />
+    <mesh name="palm_collision_30" file="collision/decomposed/palm/palmShape_IndexedFaceSet_030.stl" />
+    <mesh name="palm_collision_31" file="collision/decomposed/palm/palmShape_IndexedFaceSet_031.stl" />
+    <mesh name="palm_collision_32" file="collision/decomposed/palm/palmShape_IndexedFaceSet_032.stl" />
+    <mesh name="palm_collision_33" file="collision/decomposed/palm/palmShape_IndexedFaceSet_033.stl" />
+    <mesh name="palm_collision_34" file="collision/decomposed/palm/palmShape_IndexedFaceSet_034.stl" />
+    <mesh name="palm_collision_35" file="collision/decomposed/palm/palmShape_IndexedFaceSet_035.stl" />
+    <mesh name="palm_collision_36" file="collision/decomposed/palm/palmShape_IndexedFaceSet_036.stl" />
+    <mesh name="palm_collision_37" file="collision/decomposed/palm/palmShape_IndexedFaceSet_037.stl" />
+    <mesh name="palm_collision_38" file="collision/decomposed/palm/palmShape_IndexedFaceSet_038.stl" />
+    <mesh name="palm_collision_39" file="collision/decomposed/palm/palmShape_IndexedFaceSet_039.stl" />
+    <mesh name="palm_collision_40" file="collision/decomposed/palm/palmShape_IndexedFaceSet_040.stl" />
+    <mesh name="palm_collision_41" file="collision/decomposed/palm/palmShape_IndexedFaceSet_041.stl" />
+    <mesh name="palm_collision_42" file="collision/decomposed/palm/palmShape_IndexedFaceSet_042.stl" />
+    <mesh name="palm_collision_43" file="collision/decomposed/palm/palmShape_IndexedFaceSet_043.stl" />
+    <mesh name="palm_collision_44" file="collision/decomposed/palm/palmShape_IndexedFaceSet_044.stl" />
+    <mesh name="palm_collision_45" file="collision/decomposed/palm/palmShape_IndexedFaceSet_045.stl" />
+    <mesh name="palm_collision_46" file="collision/decomposed/palm/palmShape_IndexedFaceSet_046.stl" />
+    <mesh name="palm_collision_47" file="collision/decomposed/palm/palmShape_IndexedFaceSet_047.stl" />
+    <mesh name="palm_collision_48" file="collision/decomposed/palm/palmShape_IndexedFaceSet_048.stl" />
+    <mesh name="palm_collision_49" file="collision/decomposed/palm/palmShape_IndexedFaceSet_049.stl" />
+    <mesh name="palm_collision_50" file="collision/decomposed/palm/palmShape_IndexedFaceSet_050.stl" />
+    <mesh name="palm_collision_51" file="collision/decomposed/palm/palmShape_IndexedFaceSet_051.stl" />
+    <mesh name="palm_collision_52" file="collision/decomposed/palm/palmShape_IndexedFaceSet_052.stl" />
+    <mesh name="palm_collision_53" file="collision/decomposed/palm/palmShape_IndexedFaceSet_053.stl" />
+    <mesh name="palm_collision_54" file="collision/decomposed/palm/palmShape_IndexedFaceSet_054.stl" />
+    <mesh name="palm_collision_55" file="collision/decomposed/palm/palmShape_IndexedFaceSet_055.stl" />
+    <mesh name="palm_collision_56" file="collision/decomposed/palm/palmShape_IndexedFaceSet_056.stl" />
+    <mesh name="palm_collision_57" file="collision/decomposed/palm/palmShape_IndexedFaceSet_057.stl" />
+    <mesh name="palm_collision_58" file="collision/decomposed/palm/palmShape_IndexedFaceSet_058.stl" />
+    <mesh name="palm_collision_59" file="collision/decomposed/palm/palmShape_IndexedFaceSet_059.stl" />
+    <mesh name="palm_collision_60" file="collision/decomposed/palm/palmShape_IndexedFaceSet_060.stl" />
+    <mesh name="palm_collision_61" file="collision/decomposed/palm/palmShape_IndexedFaceSet_061.stl" />
+    <mesh name="palm_collision_62" file="collision/decomposed/palm/palmShape_IndexedFaceSet_062.stl" />
+    <mesh name="palm_collision_63" file="collision/decomposed/palm/palmShape_IndexedFaceSet_063.stl" />
+    <mesh name="palm_collision_64" file="collision/decomposed/palm/palmShape_IndexedFaceSet_064.stl" />
+    <mesh name="palm_collision_65" file="collision/decomposed/palm/palmShape_IndexedFaceSet_065.stl" />
+    <mesh name="palm_collision_66" file="collision/decomposed/palm/palmShape_IndexedFaceSet_066.stl" />
+    <mesh name="palm_collision_67" file="collision/decomposed/palm/palmShape_IndexedFaceSet_067.stl" />
+    <mesh name="palm_collision_68" file="collision/decomposed/palm/palmShape_IndexedFaceSet_068.stl" />
+    <mesh name="palm_collision_69" file="collision/decomposed/palm/palmShape_IndexedFaceSet_069.stl" />
+    <mesh name="palm_collision_70" file="collision/decomposed/palm/palmShape_IndexedFaceSet_070.stl" />
+    <mesh name="palm_collision_71" file="collision/decomposed/palm/palmShape_IndexedFaceSet_071.stl" />
+    <mesh name="palm_collision_72" file="collision/decomposed/palm/palmShape_IndexedFaceSet_072.stl" />
+    <mesh name="palm_collision_73" file="collision/decomposed/palm/palmShape_IndexedFaceSet_073.stl" />
+    <mesh name="palm_collision_74" file="collision/decomposed/palm/palmShape_IndexedFaceSet_074.stl" />
+    <mesh name="palm_collision_75" file="collision/decomposed/palm/palmShape_IndexedFaceSet_075.stl" />
+    <mesh name="palm_collision_76" file="collision/decomposed/palm/palmShape_IndexedFaceSet_076.stl" />
+    <mesh name="palm_collision_77" file="collision/decomposed/palm/palmShape_IndexedFaceSet_077.stl" />
+    <mesh name="palm_collision_78" file="collision/decomposed/palm/palmShape_IndexedFaceSet_078.stl" />
+    <mesh name="palm_collision_79" file="collision/decomposed/palm/palmShape_IndexedFaceSet_079.stl" />
+    <mesh name="palm_collision_80" file="collision/decomposed/palm/palmShape_IndexedFaceSet_080.stl" />
+    <mesh name="palm_collision_81" file="collision/decomposed/palm/palmShape_IndexedFaceSet_081.stl" />
+    <mesh name="palm_collision_82" file="collision/decomposed/palm/palmShape_IndexedFaceSet_082.stl" />
+    <mesh name="palm_collision_83" file="collision/decomposed/palm/palmShape_IndexedFaceSet_083.stl" />
+    <mesh name="palm_collision_84" file="collision/decomposed/palm/palmShape_IndexedFaceSet_084.stl" />
+    <mesh name="palm_collision_85" file="collision/decomposed/palm/palmShape_IndexedFaceSet_085.stl" />
+    <mesh name="palm_collision_86" file="collision/decomposed/palm/palmShape_IndexedFaceSet_086.stl" />
+    <mesh name="palm_collision_87" file="collision/decomposed/palm/palmShape_IndexedFaceSet_087.stl" />
+    <mesh name="palm_collision_88" file="collision/decomposed/palm/palmShape_IndexedFaceSet_088.stl" />
+    <mesh name="palm_collision_89" file="collision/decomposed/palm/palmShape_IndexedFaceSet_089.stl" />
+    <mesh name="palm_collision_90" file="collision/decomposed/palm/palmShape_IndexedFaceSet_090.stl" />
+    <mesh name="palm_collision_91" file="collision/decomposed/palm/palmShape_IndexedFaceSet_091.stl" />
+    <mesh name="palm_collision_92" file="collision/decomposed/palm/palmShape_IndexedFaceSet_092.stl" />
+    <mesh name="palm_collision_93" file="collision/decomposed/palm/palmShape_IndexedFaceSet_093.stl" />
+    <mesh name="palm_collision_94" file="collision/decomposed/palm/palmShape_IndexedFaceSet_094.stl" />
+    <mesh name="palm_collision_95" file="collision/decomposed/palm/palmShape_IndexedFaceSet_095.stl" />
+    <mesh name="palm_collision_96" file="collision/decomposed/palm/palmShape_IndexedFaceSet_096.stl" />
+    <mesh name="palm_collision_97" file="collision/decomposed/palm/palmShape_IndexedFaceSet_097.stl" />
+    <mesh name="palm_collision_98" file="collision/decomposed/palm/palmShape_IndexedFaceSet_098.stl" />
+    <mesh name="palm_collision_99" file="collision/decomposed/palm/palmShape_IndexedFaceSet_099.stl" />
+    <mesh name="palm_collision_100" file="collision/decomposed/palm/palmShape_IndexedFaceSet_100.stl" />
+    <mesh name="palm_collision_101" file="collision/decomposed/palm/palmShape_IndexedFaceSet_101.stl" />
+    <mesh name="palm_collision_102" file="collision/decomposed/palm/palmShape_IndexedFaceSet_102.stl" />
+    <mesh name="palm_collision_103" file="collision/decomposed/palm/palmShape_IndexedFaceSet_103.stl" />
+    <mesh name="palm_collision_104" file="collision/decomposed/palm/palmShape_IndexedFaceSet_104.stl" />
+    <mesh name="palm_collision_105" file="collision/decomposed/palm/palmShape_IndexedFaceSet_105.stl" />
+    <mesh name="palm_collision_106" file="collision/decomposed/palm/palmShape_IndexedFaceSet_106.stl" />
+    <mesh name="palm_collision_107" file="collision/decomposed/palm/palmShape_IndexedFaceSet_107.stl" />
+    <mesh name="palm_collision_108" file="collision/decomposed/palm/palmShape_IndexedFaceSet_108.stl" />
+    <mesh name="palm_collision_109" file="collision/decomposed/palm/palmShape_IndexedFaceSet_109.stl" />
+    <mesh name="palm_collision_110" file="collision/decomposed/palm/palmShape_IndexedFaceSet_110.stl" />
+    <mesh name="palm_collision_111" file="collision/decomposed/palm/palmShape_IndexedFaceSet_111.stl" />
+    <mesh name="palm_collision_112" file="collision/decomposed/palm/palmShape_IndexedFaceSet_112.stl" />
+    <mesh name="palm_collision_113" file="collision/decomposed/palm/palmShape_IndexedFaceSet_113.stl" />
+    <mesh name="palm_collision_114" file="collision/decomposed/palm/palmShape_IndexedFaceSet_114.stl" />
+    <mesh name="palm_collision_115" file="collision/decomposed/palm/palmShape_IndexedFaceSet_115.stl" />
+    <mesh name="palm_collision_116" file="collision/decomposed/palm/palmShape_IndexedFaceSet_116.stl" />
+    <mesh name="palm_collision_117" file="collision/decomposed/palm/palmShape_IndexedFaceSet_117.stl" />
+    <mesh name="palm_collision_118" file="collision/decomposed/palm/palmShape_IndexedFaceSet_118.stl" />
+    <mesh name="palm_collision_119" file="collision/decomposed/palm/palmShape_IndexedFaceSet_119.stl" />
+    <mesh name="palm_collision_120" file="collision/decomposed/palm/palmShape_IndexedFaceSet_120.stl" />
+    <mesh name="palm_collision_121" file="collision/decomposed/palm/palmShape_IndexedFaceSet_121.stl" />
+    <mesh name="palm_collision_122" file="collision/decomposed/palm/palmShape_IndexedFaceSet_122.stl" />
+    <mesh name="palm_collision_123" file="collision/decomposed/palm/palmShape_IndexedFaceSet_123.stl" />
+    <mesh name="palm_collision_124" file="collision/decomposed/palm/palmShape_IndexedFaceSet_124.stl" />
+    <mesh name="palm_collision_125" file="collision/decomposed/palm/palmShape_IndexedFaceSet_125.stl" />
+    <mesh name="palm_collision_126" file="collision/decomposed/palm/palmShape_IndexedFaceSet_126.stl" />
+    <mesh name="palm_collision_127" file="collision/decomposed/palm/palmShape_IndexedFaceSet_127.stl" />
+    <mesh name="palm_collision_128" file="collision/decomposed/palm/palmShape_IndexedFaceSet_128.stl" />
+    <mesh name="palm_collision_129" file="collision/decomposed/palm/palmShape_IndexedFaceSet_129.stl" />
+    <mesh name="palm_collision_130" file="collision/decomposed/palm/palmShape_IndexedFaceSet_130.stl" />
+    <mesh name="palm_collision_131" file="collision/decomposed/palm/palmShape_IndexedFaceSet_131.stl" />
+    <mesh name="palm_collision_132" file="collision/decomposed/palm/palmShape_IndexedFaceSet_132.stl" />
+    <mesh name="palm_collision_133" file="collision/decomposed/palm/palmShape_IndexedFaceSet_133.stl" />
+    <mesh name="palm_collision_134" file="collision/decomposed/palm/palmShape_IndexedFaceSet_134.stl" />
+    <mesh name="palm_collision_135" file="collision/decomposed/palm/palmShape_IndexedFaceSet_135.stl" />
+    <mesh name="palm_collision_136" file="collision/decomposed/palm/palmShape_IndexedFaceSet_136.stl" />
+    <mesh name="palm_collision_137" file="collision/decomposed/palm/palmff_hinge.stl" />
+    <mesh name="palm_collision_138" file="collision/decomposed/palm/palmlf_palm.stl" />
+    <mesh name="palm_collision_139" file="collision/decomposed/palm/palmlf_palm_top.stl" />
+    <mesh name="palm_collision_140" file="collision/decomposed/palm/palmmf_hinge.stl" />
+    <mesh name="palm_collision_141" file="collision/decomposed/palm/palmrf_hinge.stl" />
+    <mesh name="palm_collision_142" file="collision/decomposed/palm/palmrf_palm.stl" />
+    <mesh name="palm_collision_143" file="collision/decomposed/palm/palmwrist_hinge_right.stl" />
+    <mesh name="palm_collision_144" file="collision/decomposed/palm/palmwrist_hinge_right_small.stl" />
 
-        <mesh name="wrist_visual" file="visual/wrist.stl"/>
-        <mesh name="wrist_collision_1" file="collision/decomposed/wrist/wrist_1.stl"/>
-        <mesh name="wrist_collision_2" file="collision/decomposed/wrist/wrist_2.stl"/>
-        <mesh name="wrist_collision_3" file="collision/decomposed/wrist/wrist_3.stl"/>
-        <mesh name="wrist_collision_4" file="collision/decomposed/wrist/wrist_4.stl"/>
-        <mesh name="wrist_collision_5" file="collision/decomposed/wrist/wrist_5.stl"/>
-        <mesh name="wrist_collision_6" file="collision/decomposed/wrist/wrist_6.stl"/>
-        <mesh name="wrist_collision_7" file="collision/decomposed/wrist/wrist_7.stl"/>
+    <mesh name="wrist_visual" file="visual/wrist.stl" />
+    <mesh name="wrist_collision_1" file="collision/decomposed/wrist/wrist_1.stl" />
+    <mesh name="wrist_collision_2" file="collision/decomposed/wrist/wrist_2.stl" />
+    <mesh name="wrist_collision_3" file="collision/decomposed/wrist/wrist_3.stl" />
+    <mesh name="wrist_collision_4" file="collision/decomposed/wrist/wrist_4.stl" />
+    <mesh name="wrist_collision_5" file="collision/decomposed/wrist/wrist_5.stl" />
+    <mesh name="wrist_collision_6" file="collision/decomposed/wrist/wrist_6.stl" />
+    <mesh name="wrist_collision_7" file="collision/decomposed/wrist/wrist_7.stl" />
 
-        <mesh name="lfmetacarpal_visual" file="visual/lfmetacarpal.stl"/>
-        <mesh name="lfmetacarpal_collision_0" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet.stl"/>
-        <mesh name="lfmetacarpal_collision_1" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_001.stl"/>
-        <mesh name="lfmetacarpal_collision_2" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_002.stl"/>
-        <mesh name="lfmetacarpal_collision_3" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_003.stl"/>
-        <mesh name="lfmetacarpal_collision_4" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_004.stl"/>
-        <mesh name="lfmetacarpal_collision_5" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_005.stl"/>
-        <mesh name="lfmetacarpal_collision_6" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_006.stl"/>
-        <mesh name="lfmetacarpal_collision_7" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_007.stl"/>
-        <mesh name="lfmetacarpal_collision_8" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_008.stl"/>
-        <mesh name="lfmetacarpal_collision_9" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_009.stl"/>
-        <mesh name="lfmetacarpal_collision_10" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_010.stl"/>
-        <mesh name="lfmetacarpal_collision_11" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_011.stl"/>
-        <mesh name="lfmetacarpal_collision_12" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_012.stl"/>
-        <mesh name="lfmetacarpal_collision_13" file="collision/decomposed/lfmetacarpal/lfmetacarpalmetacarpal_001.stl"/>
-        <mesh name="lfmetacarpal_collision_14" file="collision/decomposed/lfmetacarpal/lfmetacarpalmetacarpal_002.stl"/>
-        <mesh name="lfmetacarpal_collision_15" file="collision/decomposed/lfmetacarpal/lfmetacarpalmetacarpal_003.stl"/>
-    </asset>
+    <mesh name="lfmetacarpal_visual" file="visual/lfmetacarpal.stl" />
+    <mesh name="lfmetacarpal_collision_0" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet.stl" />
+    <mesh name="lfmetacarpal_collision_1" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_001.stl" />
+    <mesh name="lfmetacarpal_collision_2" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_002.stl" />
+    <mesh name="lfmetacarpal_collision_3" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_003.stl" />
+    <mesh name="lfmetacarpal_collision_4" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_004.stl" />
+    <mesh name="lfmetacarpal_collision_5" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_005.stl" />
+    <mesh name="lfmetacarpal_collision_6" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_006.stl" />
+    <mesh name="lfmetacarpal_collision_7" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_007.stl" />
+    <mesh name="lfmetacarpal_collision_8" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_008.stl" />
+    <mesh name="lfmetacarpal_collision_9" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_009.stl" />
+    <mesh name="lfmetacarpal_collision_10" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_010.stl" />
+    <mesh name="lfmetacarpal_collision_11" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_011.stl" />
+    <mesh name="lfmetacarpal_collision_12" file="collision/decomposed/lfmetacarpal/lfmetacarpalShape_IndexedFaceSet_012.stl" />
+    <mesh name="lfmetacarpal_collision_13" file="collision/decomposed/lfmetacarpal/lfmetacarpalmetacarpal_001.stl" />
+    <mesh name="lfmetacarpal_collision_14" file="collision/decomposed/lfmetacarpal/lfmetacarpalmetacarpal_002.stl" />
+    <mesh name="lfmetacarpal_collision_15" file="collision/decomposed/lfmetacarpal/lfmetacarpalmetacarpal_003.stl" />
+  </asset>
 
-    <default>
-        <mesh scale="0.001 0.001 0.001"/>
-        <joint limited="true" damping="0.1" armature="0.005" margin="0.0" frictionloss="0.1"/>
-        <general ctrllimited="true" ctrlrange="-1 1" /> -->
-
-        <default class="visual">
-            <geom contype="0" conaffinity="0" group="0"/>
-        </default>
-        <default class="collision">
-            <geom group="3"/>
-        </default>
-
-        <default class="finger">
-            <joint axis="1 0 0" range="0.000000 1.570796"/>
-            <default class="FJ3">
-                <joint range="-0.349066 0.349066" />
-            </default>
-            <default class="FJ2">
-            </default>
-            <default class="FJ1">
-            </default>
-            <default class="FJ0">
-            </default>
-        </default>
-
-        <default class="thumb">
-            <joint frictionloss="0.001" damping="0.2"/>
-            <default class="THJ4"/>
-            <default class="THJ3"/>
-            <default class="THJ2"/>
-            <default class="THJ1"/>
-            <default class="THJ0"/>
-        </default>
-
-        <default class="free">
-            <joint type="free" damping="0" armature="0" limited="false"/>
-        </default>
-
-        <default class="actuator">
-            <position ctrllimited="true" forcelimited="true" />
-        </default>
+  <default>
+    <mesh scale="0.001 0.001 0.001" />
+    <joint limited="true" damping="0.1" armature="0.005" margin="0.0" frictionloss="0.1" />
+    <general ctrllimited="true" ctrlrange="-1 1" />
+    -->
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="0" />
+    </default>
+    <default class="collision">
+      <geom group="3" />
     </default>
 
-    <include file="shadow_hand_position_actuators.xml" />
+    <default class="finger">
+      <joint axis="1 0 0" range="0.000000 1.570796" />
+      <default class="FJ3">
+        <joint range="-0.349066 0.349066" />
+      </default>
+      <default class="FJ2"></default>
+      <default class="FJ1"></default>
+      <default class="FJ0"></default>
+    </default>
 
-    <worldbody>
-        <body name="forearm" pos="0 0.01 0">
-            <inertial pos="0 0 0.09" mass="3" diaginertia="0.0138 0.0138 0.00744" />
-            <geom name="forearm" type="mesh" material="plastic" mesh="forearm_visual" class="visual"/>
-            <geom type="mesh" material="plastic" mesh="forearm_collision" class="collision" />
-            <geom type="mesh" material="plastic" mesh="forearm_collision_wrist" class="collision" />
+    <default class="thumb">
+      <joint frictionloss="0.001" damping="0.2" />
+      <default class="THJ4" />
+      <default class="THJ3" />
+      <default class="THJ2" />
+      <default class="THJ1" />
+      <default class="THJ0" />
+    </default>
 
-            <!-- What the real-world geometry looks like for the forearm. -->
-            <!-- <geom name="forearm" type="mesh" material="plastic" mesh="forearm_plus_visual" class="visual" /> -->
-            <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_1" class="collision" /> -->
-            <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_2" class="collision" /> -->
-            <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_3" class="collision" /> -->
-            <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_4" class="collision" /> -->
-            <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_5" class="collision" /> -->
+    <default class="free">
+      <joint type="free" damping="0" armature="0" limited="false" />
+    </default>
 
-            <body name="wrist" pos="0 -0.01 0.213">
-                <inertial pos="0 0 0.029" quat="0.5 0.5 0.5 0.5" mass="0.1" diaginertia="6.4e-05 4.38e-05 3.5e-05" />
-                <!-- <joint name="WRJ1" axis="0 1 0" range="-0.523599 0.174533" damping="1.0" frictionloss="0.1"/> -->
-                <joint name="WRJ1" axis="0 1 0" range="-0.488692 0.139626" damping="1.0" frictionloss="0.1"/>
-                <!-- <site name="WRJ1_site" size="1e-3" /> -->
-                <geom name="wrist" type="mesh" material="metal" mesh="wrist_visual" class="visual" />
-                <geom type="mesh" material="metal" mesh="wrist_collision_1" class="collision" />
-                <geom type="mesh" material="metal" mesh="wrist_collision_2" class="collision" />
-                <geom type="mesh" material="metal" mesh="wrist_collision_3" class="collision" />
-                <geom type="mesh" material="metal" mesh="wrist_collision_4" class="collision" />
-                <geom type="mesh" material="metal" mesh="wrist_collision_5" class="collision" />
-                <geom type="mesh" material="metal" mesh="wrist_collision_6" class="collision" />
-                <geom type="mesh" material="metal" mesh="wrist_collision_7" class="collision" />
-                <body name="palm" pos="0 0 0.034">
-                    <!-- <site name="palm_site" size="0.001 0.001 0.001" pos="0 0 0.0475" type="sphere" rgba="1 0 0 1"/> -->
-                    <inertial pos="0 0 0.035" quat="0.707107 0 0 0.707107" mass="0.3" diaginertia="0.0005287 0.0003581 0.000191" />
-                    <!-- <joint name="WRJ0" axis="1 0 0" range="-0.698132 0.488692" damping="1.0" frictionloss="0.1"/> -->
-                    <joint name="WRJ0" axis="1 0 0" range="-0.698132 0.488692" damping="1.0" frictionloss="0.1"/>
-                    <!-- <site name="WRJ0_site" size="1e-3" /> -->
-                    <geom name="palm" type="mesh" material="plastic" mesh="palm_visual" class="visual" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_0" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_1" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_2" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_3" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_4" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_5" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_6" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_7" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_8" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_9" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_10" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_11" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_12" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_13" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_14" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_15" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_16" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_17" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_18" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_19" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_20" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_21" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_22" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_23" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_24" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_25" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_26" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_27" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_28" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_29" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_30" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_31" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_32" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_33" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_34" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_35" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_36" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_37" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_38" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_39" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_40" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_41" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_42" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_43" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_44" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_45" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_46" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_47" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_48" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_49" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_50" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_51" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_52" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_53" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_54" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_55" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_56" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_57" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_58" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_59" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_60" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_61" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_62" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_63" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_64" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_65" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_66" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_67" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_68" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_69" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_70" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_71" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_72" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_73" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_74" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_75" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_76" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_77" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_78" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_79" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_80" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_81" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_82" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_83" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_84" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_85" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_86" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_87" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_88" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_89" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_90" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_91" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_92" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_93" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_94" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_95" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_96" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_97" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_98" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_99" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_100" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_101" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_102" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_103" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_104" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_105" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_106" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_107" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_108" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_109" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_110" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_111" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_112" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_113" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_114" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_115" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_116" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_117" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_118" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_119" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_120" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_121" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_122" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_123" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_124" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_125" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_126" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_127" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_128" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_129" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_130" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_131" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_132" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_133" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_134" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_135" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_136" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_137" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_138" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_139" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_140" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_141" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_142" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_143" class="collision" />
-                    <geom type="mesh" material="plastic" mesh="palm_collision_144" class="collision" />
-                    <!-- <body name="manipulator" pos="0 0 0.05">
+    <default class="actuator">
+      <position ctrllimited="true" forcelimited="true" />
+    </default>
+  </default>
+
+  <include file="shadow_hand_position_actuators.xml" />
+
+  <worldbody>
+    <body name="forearm" pos="0 0.01 0">
+      <inertial pos="0 0 0.09" mass="3" diaginertia="0.0138 0.0138 0.00744" />
+      <geom name="forearm" type="mesh" material="plastic" mesh="forearm_visual" class="visual" />
+      <geom type="mesh" material="plastic" mesh="forearm_collision" class="collision" />
+      <geom type="mesh" material="plastic" mesh="forearm_collision_wrist" class="collision" />
+
+      <!-- What the real-world geometry looks like for the forearm. -->
+      <!-- <geom name="forearm" type="mesh" material="plastic" mesh="forearm_plus_visual" class="visual" /> -->
+      <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_1" class="collision" /> -->
+      <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_2" class="collision" /> -->
+      <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_3" class="collision" /> -->
+      <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_4" class="collision" /> -->
+      <!-- <geom type="mesh" material="plastic" mesh="forearm_plus_collision_5" class="collision" /> -->
+
+      <body name="wrist" pos="0 -0.01 0.213">
+        <inertial pos="0 0 0.029" quat="0.5 0.5 0.5 0.5" mass="0.1" diaginertia="6.4e-05 4.38e-05 3.5e-05" />
+        <!-- <joint name="WRJ1" axis="0 1 0" range="-0.523599 0.174533" damping="1.0" frictionloss="0.1"/> -->
+        <joint name="WRJ1" axis="0 1 0" range="-0.488692 0.139626" damping="1.0" frictionloss="0.1" />
+        <!-- <site name="WRJ1_site" size="1e-3" /> -->
+        <geom name="wrist" type="mesh" material="metal" mesh="wrist_visual" class="visual" />
+        <geom type="mesh" material="metal" mesh="wrist_collision_1" class="collision" />
+        <geom type="mesh" material="metal" mesh="wrist_collision_2" class="collision" />
+        <geom type="mesh" material="metal" mesh="wrist_collision_3" class="collision" />
+        <geom type="mesh" material="metal" mesh="wrist_collision_4" class="collision" />
+        <geom type="mesh" material="metal" mesh="wrist_collision_5" class="collision" />
+        <geom type="mesh" material="metal" mesh="wrist_collision_6" class="collision" />
+        <geom type="mesh" material="metal" mesh="wrist_collision_7" class="collision" />
+        <body name="palm" pos="0 0 0.034">
+          <!-- <site name="palm_site" size="0.001 0.001 0.001" pos="0 0 0.0475" type="sphere" rgba="1 0 0 1"/> -->
+          <inertial pos="0 0 0.035" quat="0.707107 0 0 0.707107" mass="0.3" diaginertia="0.0005287 0.0003581 0.000191" />
+          <!-- <joint name="WRJ0" axis="1 0 0" range="-0.698132 0.488692" damping="1.0" frictionloss="0.1"/> -->
+          <joint name="WRJ0" axis="1 0 0" range="-0.698132 0.488692" damping="1.0" frictionloss="0.1" />
+          <!-- <site name="WRJ0_site" size="1e-3" /> -->
+          <geom name="palm" type="mesh" material="plastic" mesh="palm_visual" class="visual" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_0" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_1" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_2" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_3" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_4" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_5" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_6" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_7" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_8" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_9" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_10" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_11" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_12" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_13" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_14" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_15" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_16" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_17" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_18" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_19" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_20" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_21" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_22" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_23" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_24" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_25" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_26" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_27" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_28" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_29" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_30" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_31" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_32" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_33" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_34" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_35" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_36" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_37" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_38" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_39" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_40" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_41" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_42" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_43" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_44" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_45" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_46" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_47" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_48" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_49" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_50" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_51" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_52" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_53" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_54" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_55" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_56" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_57" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_58" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_59" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_60" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_61" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_62" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_63" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_64" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_65" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_66" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_67" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_68" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_69" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_70" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_71" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_72" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_73" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_74" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_75" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_76" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_77" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_78" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_79" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_80" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_81" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_82" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_83" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_84" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_85" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_86" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_87" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_88" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_89" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_90" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_91" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_92" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_93" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_94" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_95" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_96" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_97" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_98" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_99" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_100" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_101" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_102" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_103" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_104" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_105" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_106" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_107" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_108" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_109" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_110" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_111" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_112" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_113" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_114" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_115" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_116" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_117" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_118" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_119" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_120" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_121" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_122" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_123" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_124" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_125" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_126" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_127" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_128" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_129" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_130" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_131" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_132" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_133" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_134" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_135" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_136" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_137" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_138" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_139" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_140" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_141" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_142" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_143" class="collision" />
+          <geom type="mesh" material="plastic" mesh="palm_collision_144" class="collision" />
+          <!-- <body name="manipulator" pos="0 0 0.05">
                         <inertial pos="0 0 0.05" mass="0" diaginertia="0 0 0" />
                     </body> -->
-                    <!-- <body name="imu" pos="0.01785 0.00765 0.049125" quat="2.31079e-07 -2.31079e-07 0.707107 0.707107">
+          <!-- <body name="imu" pos="0.01785 0.00765 0.049125" quat="2.31079e-07 -2.31079e-07 0.707107 0.707107">
                         <inertial pos="0.01785 0.00765 0.049125" quat="2.31079e-07 -2.31079e-07 0.707107 0.707107" mass="0" diaginertia="0 0 0" />
                     </body> -->
-                    <body name="ffknuckle" pos="0.033 0 0.095">
-                        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.008" diaginertia="3.2e-07 2.6e-07 2.6e-07" />
-                        <joint name="FFJ3" class="FJ3" axis="0 -1 0"/>
-                        <!-- <site name="FFJ3_site" size="1e-3" /> -->
-                        <geom name="ffknuckle" type="mesh" material="metal" mesh="knuckle_visual" class="visual" />
-                        <geom type="mesh" material="metal" mesh="knuckle_collision" class="collision" />
-                        <body name="ffproximal">
-                            <inertial pos="0 0 0.0225" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1e-05 9.8e-06 1.8e-06"/>
-                            <joint name="FFJ2" class="FJ2"/>
-                            <!-- <site name="FFJ2_site" size="1e-3" /> -->
-                            <geom name="ffproximal" type="mesh" material="plastic" mesh="F3_visual" class="visual" />
-                            <geom type="mesh" material="plastic" mesh="F3_collision_proximal" class="collision" />
-                            <geom type="mesh" material="plastic" mesh="F3_collision_distal" class="collision" />
-                            <body name="ffmiddle" pos="0 0 0.045">
-                                <inertial pos="0 0 0.0125" quat="0.707107 0 0 0.707107" mass="0.017" diaginertia="2.7e-06 2.6e-06 8.7e-07"/>
-                                <joint name="FFJ1" class="FJ1"/>
-                                <!-- <site name="FFJ1_site" size="1e-3" /> -->
-                                <geom name="ffmiddle" type="mesh" material="plastic" mesh="F2_visual" class="visual" />
-                                <geom type="mesh" material="plastic" mesh="F2_collision_proximal" class="collision" />
-                                <geom type="mesh" material="plastic" mesh="F2_collision_middle" class="collision" />
-                                <geom type="mesh" material="plastic" mesh="F2_collision_distal" class="collision" />
-                                <body name="ffdistal" pos="0 0 0.025">
-                                    <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1.1e-06 9.4e-07 5.3e-07"/>
-                                    <joint name="FFJ0" class="FJ0"/>
-                                    <!-- <site name="FFJ0_site" size="1e-3" /> -->
-                                    <geom name="ffdistal" type="mesh" material="plastic" mesh="F1_visual" class="visual" />
-                                    <geom type="mesh" material="plastic" mesh="F1_collision" class="collision" />
-                                    <body name="fftip" pos="0 0 0.026">
-                                        <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0"/>
-                                        <!-- <site name="fftip_site" pos="0 -0.01 0"/> -->
-                                    </body>
-                                </body>
-                            </body>
-                        </body>
-                    </body>
-                    <body name="mfknuckle" pos="0.011 0 0.099">
-                        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.008" diaginertia="3.2e-07 2.6e-07 2.6e-07" />
-                        <joint name="MFJ3" class="FJ3" axis="0 -1 0"/>
-                        <!-- <site name="MFJ3_site" size="1e-3" /> -->
-                        <geom name="mfknuckle" type="mesh" material="metal" mesh="knuckle_visual" class="visual" />
-                        <geom type="mesh" material="metal" mesh="knuckle_collision" class="collision" />
-                        <body name="mfproximal">
-                            <joint name="MFJ2" class="FJ2"/>
-                            <!-- <site name="MFJ2_site" size="1e-3" /> -->
-                            <inertial pos="0 0 0.0225" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1e-05 9.8e-06 1.8e-06"/>
-                            <geom name="mfproximal" type="mesh" material="plastic" mesh="F3_visual" class="visual" />
-                            <geom type="mesh" material="plastic" mesh="F3_collision_proximal" class="collision" />
-                            <geom type="mesh" material="plastic" mesh="F3_collision_distal" class="collision" />
-                            <body name="mfmiddle" pos="0 0 0.045">
-                                <inertial pos="0 0 0.0125" quat="0.707107 0 0 0.707107" mass="0.017" diaginertia="2.7e-06 2.6e-06 8.7e-07"/>
-                                <joint name="MFJ1" class="FJ1"/>
-                                <!-- <site name="MFJ1_site" size="1e-3" /> -->
-                                <geom name="mfmiddle" type="mesh" material="plastic" mesh="F2_visual" class="visual" />
-                                <geom type="mesh" material="plastic" mesh="F2_collision_proximal" class="collision" />
-                                <geom type="mesh" material="plastic" mesh="F2_collision_middle" class="collision" />
-                                <geom type="mesh" material="plastic" mesh="F2_collision_distal" class="collision" />
-                                <body name="mfdistal" pos="0 0 0.025">
-                                    <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1.1e-06 9.4e-07 5.3e-07"/>
-                                    <joint name="MFJ0" class="FJ0"/>
-                                    <!-- <site name="MFJ0_site" size="1e-3" /> -->
-                                    <geom name="mfdistal" type="mesh" material="plastic" mesh="F1_visual" class="visual" />
-                                    <geom type="mesh" material="plastic" mesh="F1_collision" class="collision" />
-                                    <body name="mftip" pos="0 0 0.026">
-                                        <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0"/>
-                                        <!-- <site name="mftip_site" pos="0 -0.01 0"/> -->
-                                    </body>
-                                </body>
-                            </body>
-                        </body>
-                    </body>
-                    <body name="rfknuckle" pos="-0.011 0 0.095">
-                        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.008" diaginertia="3.2e-07 2.6e-07 2.6e-07" />
-                        <joint name="RFJ3" class="FJ3" axis="0 1 0"/>
-                        <!-- <site name="RFJ3_site" size="1e-3" /> -->
-                        <geom name="rfknuckle" type="mesh" material="metal" mesh="knuckle_visual" class="visual" />
-                        <geom type="mesh" material="metal" mesh="knuckle_collision" class="collision" />
-                        <body name="rfproximal">
-                            <inertial pos="0 0 0.0225" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1e-05 9.8e-06 1.8e-06"/>
-                            <joint name="RFJ2" class="FJ2"/>
-                            <!-- <site name="RFJ2_site" size="1e-3" /> -->
-                            <geom name="rfproximal" type="mesh" material="plastic" mesh="F3_visual" class="visual" />
-                            <geom type="mesh" material="plastic" mesh="F3_collision_proximal" class="collision" />
-                            <geom type="mesh" material="plastic" mesh="F3_collision_distal" class="collision" />
-                            <body name="rfmiddle" pos="0 0 0.045">
-                                <inertial pos="0 0 0.0125" quat="0.707107 0 0 0.707107" mass="0.017" diaginertia="2.7e-06 2.6e-06 8.7e-07"/>
-                                <joint name="RFJ1" class="FJ1"/>
-                                <!-- <site name="RFJ1_site" size="1e-3" /> -->
-                                <geom name="rfmiddle" type="mesh" material="plastic" mesh="F2_visual" class="visual" />
-                                <geom type="mesh" material="plastic" mesh="F2_collision_proximal" class="collision" />
-                                <geom type="mesh" material="plastic" mesh="F2_collision_middle" class="collision" />
-                                <geom type="mesh" material="plastic" mesh="F2_collision_distal" class="collision" />
-                                <body name="rfdistal" pos="0 0 0.025">
-                                    <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1.1e-06 9.4e-07 5.3e-07"/>
-                                    <joint name="RFJ0" class="FJ0"/>
-                                    <!-- <site name="RFJ0_site" size="1e-3" /> -->
-                                    <geom name="rfdistal" type="mesh" material="plastic" mesh="F1_visual" class="visual" />
-                                    <geom type="mesh" material="plastic" mesh="F1_collision" class="collision" />
-                                    <body name="rftip" pos="0 0 0.026">
-                                        <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0"/>
-                                        <!-- <site name="rftip_site" pos="0 -0.01 0"/> -->
-                                    </body>
-                                </body>
-                            </body>
-                        </body>
-                    </body>
-                    <body name="lfmetacarpal" pos="-0.033 0 0.02071">
-                        <inertial pos="0 0 0.04" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1.638e-05 1.45e-05 4.272e-06" />
-                        <!-- <joint name="LFJ4" axis="0.573576 0 0.819152" range="0 0.785398"/> -->
-                        <joint name="LFJ4" axis="0.573576 0 0.819152" range="0.000000 0.785398"/>
-                        <!-- <site name="LFJ4_site" size="1e-3" /> -->
-                        <geom name="lfmetacarpal" type="mesh" material="plastic" mesh="lfmetacarpal_visual" class="visual" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_0" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_1" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_2" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_3" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_4" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_5" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_6" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_7" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_8" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_9" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_10" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_11" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_12" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_13" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_14" class="collision" />
-                        <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_15" class="collision" />
-                        <body name="lfknuckle" pos="0 0 0.06579">
-                            <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.008" diaginertia="3.2e-07 2.6e-07 2.6e-07" />
-                            <joint name="LFJ3" class="FJ3" axis="0 1 0"/>
-                            <!-- <site name="LFJ3_site" size="1e-3" /> -->
-                            <geom name="lfknuckle" type="mesh" material="metal" mesh="knuckle_visual" class="visual" />
-                            <geom type="mesh" material="metal" mesh="knuckle_collision" class="collision" />
-                            <body name="lfproximal">
-                                <inertial pos="0 0 0.0225" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1e-05 9.8e-06 1.8e-06"/>
-                                <joint name="LFJ2" class="FJ2"/>
-                                <!-- <site name="LFJ2_site" size="1e-3" /> -->
-                                <geom name="lfproximal" type="mesh" material="plastic" mesh="F3_visual" class="visual" />
-                                <geom type="mesh" material="plastic" mesh="F3_collision_proximal" class="collision" />
-                                <geom type="mesh" material="plastic" mesh="F3_collision_distal" class="collision" />
-                                <body name="lfmiddle" pos="0 0 0.045">
-                                    <inertial pos="0 0 0.0125" quat="0.707107 0 0 0.707107" mass="0.017" diaginertia="2.7e-06 2.6e-06 8.7e-07"/>
-                                    <joint name="LFJ1" class="FJ1"/>
-                                    <!-- <site name="LFJ1_site" size="1e-3" /> -->
-                                    <geom name="lfmiddle" type="mesh" material="plastic" mesh="F2_visual" class="visual" />
-                                    <geom type="mesh" material="plastic" mesh="F2_collision_proximal" class="collision" />
-                                    <geom type="mesh" material="plastic" mesh="F2_collision_middle" class="collision" />
-                                    <geom type="mesh" material="plastic" mesh="F2_collision_distal" class="collision" />
-                                    <body name="lfdistal" pos="0 0 0.025">
-                                        <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1.1e-06 9.4e-07 5.3e-07"/>
-                                        <joint name="LFJ0" class="FJ0"/>
-                                        <!-- <site name="LFJ0_site" size="1e-3" /> -->
-                                        <geom name="lfdistal" type="mesh" material="plastic" mesh="F1_visual" class="visual" />
-                                        <geom type="mesh" material="plastic" mesh="F1_collision" class="collision" />
-                                        <body name="lftip" pos="0 0 0.026">
-                                            <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0"/>
-                                            <!-- <site name="lftip_site" pos="0 -0.01 0"/> -->
-                                        </body>
-                                    </body>
-                                </body>
-                            </body>
-                        </body>
-                    </body>
-                    <body name="thbase" pos="0.034 -0.0085 0.029" quat="0.92388 0 0.382683 0">
-                        <inertial pos="0 0 0" mass="0.01" diaginertia="1.6e-07 1.6e-07 1.6e-07" />
-                        <!-- <joint name="THJ4" axis="0 0 -1" range="-1.0472 1.0472" class="THJ4"/> -->
-                        <joint name="THJ4" axis="0 0 -1" range="-1.047198 1.047198" class="THJ4"/>
-                        <!-- <site name="THJ4_site" size="1e-3" /> -->
-                        <body name="thproximal">
-                            <inertial pos="0 0 0.019" mass="0.04" diaginertia="1.36e-05 1.36e-05 3.13e-06" />
-                            <!-- <joint name="THJ3" axis="1 0 0" range="0 1.22173" class="THJ3"/> -->
-                            <joint name="THJ3" axis="1 0 0" range="0.000000 1.221730" class="THJ3"/>
-                            <!-- <site name="THJ3_site" size="1e-3" /> -->
-                            <geom name="thproximal" type="mesh" material="plastic" mesh="TH3_visual" class="visual" />
-                            <geom type="mesh" material="plastic" mesh="TH3_collision_proximal" class="collision" />
-                            <geom type="mesh" material="plastic" mesh="TH3_collision_distal" class="collision" />
-                            <body name="thhub" pos="0 0 0.038">
-                                <inertial pos="0 0 0" mass="0.005" diaginertia="1.0e-06 1.0e-06 3.0e-07" />
-                                <!-- <joint name="THJ2" axis="1 0 0" range="-0.20944 0.20944" class="THJ2"/> -->
-                                <joint name="THJ2" axis="1 0 0" range="-0.209440 0.209440" class="THJ2"/>
-                                <!-- <site name="THJ2_site" size="1e-3" /> -->
-                                <body name="thmiddle">
-                                    <inertial pos="0 0 0.016" mass="0.02" diaginertia="5.1e-06 5.1e-06 1.21e-06" />
-                                    <!-- <joint name="THJ1" axis="0 -1 0" range="-0.698132 0.698132" class="THJ1"/> -->
-                                    <joint name="THJ1" axis="0 -1 0" range="-0.523599 0.523599" class="THJ1"/>
-                                    <!-- <site name="THJ1_site" size="1e-3" /> -->
-                                    <geom name="thmiddle" type="mesh" material="plastic" mesh="TH2_visual" class="visual" />
-                                    <geom type="mesh" material="plastic" mesh="TH2_collision_proximal" class="collision" />
-                                    <geom type="mesh" material="plastic" mesh="TH2_collision_middle" class="collision" />
-                                    <geom type="mesh" material="plastic" mesh="TH2_collision_distal" class="collision" />
-                                    <body name="thdistal" pos="0 0 0.032" quat="0.707107 0 0 -0.707107">
-                                        <inertial pos="0 0 0.01375" quat="0.707107 0 0 0.707107" mass="0.016" diaginertia="2.2e-06 2.1e-06 1e-06" />
-                                        <!-- <joint name="THJ0" axis="1 0 0" range="0 1.5708" class="THJ0"/> -->
-                                        <joint name="THJ0" axis="1 0 0" range="0.000000 1.570796" class="THJ0"/>
-                                        <!-- <site name="THJ0_site" size="1e-3" /> -->
-                                        <geom name="thdistal"  type="mesh" material="plastic" mesh="TH1_visual" class="visual"/>
-                                        <geom type="mesh" material="plastic" mesh="TH1_collision" class="collision"/>
-                                        <body name="thtip" pos="0 0 0.0275">
-                                            <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0" />
-                                            <!-- <site name="thtip_site" pos="0 -0.01 0"/> -->
-                                        </body>
-                                    </body>
-                                </body>
-                            </body>
-                        </body>
-                    </body>
+          <body name="ffknuckle" pos="0.033 0 0.095">
+            <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.008" diaginertia="3.2e-07 2.6e-07 2.6e-07" />
+            <joint name="FFJ3" class="FJ3" axis="0 -1 0" />
+            <!-- <site name="FFJ3_site" size="1e-3" /> -->
+            <geom name="ffknuckle" type="mesh" material="metal" mesh="knuckle_visual" class="visual" />
+            <geom type="mesh" material="metal" mesh="knuckle_collision" class="collision" />
+            <body name="ffproximal">
+              <inertial pos="0 0 0.0225" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1e-05 9.8e-06 1.8e-06" />
+              <joint name="FFJ2" class="FJ2" />
+              <!-- <site name="FFJ2_site" size="1e-3" /> -->
+              <geom name="ffproximal" type="mesh" material="plastic" mesh="F3_visual" class="visual" />
+              <geom type="mesh" material="plastic" mesh="F3_collision_proximal" class="collision" />
+              <geom type="mesh" material="plastic" mesh="F3_collision_distal" class="collision" />
+              <body name="ffmiddle" pos="0 0 0.045">
+                <inertial pos="0 0 0.0125" quat="0.707107 0 0 0.707107" mass="0.017" diaginertia="2.7e-06 2.6e-06 8.7e-07" />
+                <joint name="FFJ1" class="FJ1" />
+                <!-- <site name="FFJ1_site" size="1e-3" /> -->
+                <geom name="ffmiddle" type="mesh" material="plastic" mesh="F2_visual" class="visual" />
+                <geom type="mesh" material="plastic" mesh="F2_collision_proximal" class="collision" />
+                <geom type="mesh" material="plastic" mesh="F2_collision_middle" class="collision" />
+                <geom type="mesh" material="plastic" mesh="F2_collision_distal" class="collision" />
+                <body name="ffdistal" pos="0 0 0.025">
+                  <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1.1e-06 9.4e-07 5.3e-07" />
+                  <joint name="FFJ0" class="FJ0" />
+                  <!-- <site name="FFJ0_site" size="1e-3" /> -->
+                  <geom name="ffdistal" type="mesh" material="plastic" mesh="F1_visual" class="visual" />
+                  <geom type="mesh" material="plastic" mesh="F1_collision" class="collision" />
+                  <body name="fftip" pos="0 0 0.026">
+                    <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0" />
+                    <!-- <site name="fftip_site" pos="0 -0.01 0"/> -->
+                  </body>
                 </body>
+              </body>
             </body>
+          </body>
+          <body name="mfknuckle" pos="0.011 0 0.099">
+            <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.008" diaginertia="3.2e-07 2.6e-07 2.6e-07" />
+            <joint name="MFJ3" class="FJ3" axis="0 -1 0" />
+            <!-- <site name="MFJ3_site" size="1e-3" /> -->
+            <geom name="mfknuckle" type="mesh" material="metal" mesh="knuckle_visual" class="visual" />
+            <geom type="mesh" material="metal" mesh="knuckle_collision" class="collision" />
+            <body name="mfproximal">
+              <joint name="MFJ2" class="FJ2" />
+              <!-- <site name="MFJ2_site" size="1e-3" /> -->
+              <inertial pos="0 0 0.0225" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1e-05 9.8e-06 1.8e-06" />
+              <geom name="mfproximal" type="mesh" material="plastic" mesh="F3_visual" class="visual" />
+              <geom type="mesh" material="plastic" mesh="F3_collision_proximal" class="collision" />
+              <geom type="mesh" material="plastic" mesh="F3_collision_distal" class="collision" />
+              <body name="mfmiddle" pos="0 0 0.045">
+                <inertial pos="0 0 0.0125" quat="0.707107 0 0 0.707107" mass="0.017" diaginertia="2.7e-06 2.6e-06 8.7e-07" />
+                <joint name="MFJ1" class="FJ1" />
+                <!-- <site name="MFJ1_site" size="1e-3" /> -->
+                <geom name="mfmiddle" type="mesh" material="plastic" mesh="F2_visual" class="visual" />
+                <geom type="mesh" material="plastic" mesh="F2_collision_proximal" class="collision" />
+                <geom type="mesh" material="plastic" mesh="F2_collision_middle" class="collision" />
+                <geom type="mesh" material="plastic" mesh="F2_collision_distal" class="collision" />
+                <body name="mfdistal" pos="0 0 0.025">
+                  <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1.1e-06 9.4e-07 5.3e-07" />
+                  <joint name="MFJ0" class="FJ0" />
+                  <!-- <site name="MFJ0_site" size="1e-3" /> -->
+                  <geom name="mfdistal" type="mesh" material="plastic" mesh="F1_visual" class="visual" />
+                  <geom type="mesh" material="plastic" mesh="F1_collision" class="collision" />
+                  <body name="mftip" pos="0 0 0.026">
+                    <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0" />
+                    <!-- <site name="mftip_site" pos="0 -0.01 0"/> -->
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+          <body name="rfknuckle" pos="-0.011 0 0.095">
+            <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.008" diaginertia="3.2e-07 2.6e-07 2.6e-07" />
+            <joint name="RFJ3" class="FJ3" axis="0 1 0" />
+            <!-- <site name="RFJ3_site" size="1e-3" /> -->
+            <geom name="rfknuckle" type="mesh" material="metal" mesh="knuckle_visual" class="visual" />
+            <geom type="mesh" material="metal" mesh="knuckle_collision" class="collision" />
+            <body name="rfproximal">
+              <inertial pos="0 0 0.0225" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1e-05 9.8e-06 1.8e-06" />
+              <joint name="RFJ2" class="FJ2" />
+              <!-- <site name="RFJ2_site" size="1e-3" /> -->
+              <geom name="rfproximal" type="mesh" material="plastic" mesh="F3_visual" class="visual" />
+              <geom type="mesh" material="plastic" mesh="F3_collision_proximal" class="collision" />
+              <geom type="mesh" material="plastic" mesh="F3_collision_distal" class="collision" />
+              <body name="rfmiddle" pos="0 0 0.045">
+                <inertial pos="0 0 0.0125" quat="0.707107 0 0 0.707107" mass="0.017" diaginertia="2.7e-06 2.6e-06 8.7e-07" />
+                <joint name="RFJ1" class="FJ1" />
+                <!-- <site name="RFJ1_site" size="1e-3" /> -->
+                <geom name="rfmiddle" type="mesh" material="plastic" mesh="F2_visual" class="visual" />
+                <geom type="mesh" material="plastic" mesh="F2_collision_proximal" class="collision" />
+                <geom type="mesh" material="plastic" mesh="F2_collision_middle" class="collision" />
+                <geom type="mesh" material="plastic" mesh="F2_collision_distal" class="collision" />
+                <body name="rfdistal" pos="0 0 0.025">
+                  <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1.1e-06 9.4e-07 5.3e-07" />
+                  <joint name="RFJ0" class="FJ0" />
+                  <!-- <site name="RFJ0_site" size="1e-3" /> -->
+                  <geom name="rfdistal" type="mesh" material="plastic" mesh="F1_visual" class="visual" />
+                  <geom type="mesh" material="plastic" mesh="F1_collision" class="collision" />
+                  <body name="rftip" pos="0 0 0.026">
+                    <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0" />
+                    <!-- <site name="rftip_site" pos="0 -0.01 0"/> -->
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+          <body name="lfmetacarpal" pos="-0.033 0 0.02071">
+            <inertial pos="0 0 0.04" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1.638e-05 1.45e-05 4.272e-06" />
+            <!-- <joint name="LFJ4" axis="0.573576 0 0.819152" range="0 0.785398"/> -->
+            <joint name="LFJ4" axis="0.573576 0 0.819152" range="0.000000 0.785398" />
+            <!-- <site name="LFJ4_site" size="1e-3" /> -->
+            <geom name="lfmetacarpal" type="mesh" material="plastic" mesh="lfmetacarpal_visual" class="visual" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_0" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_1" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_2" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_3" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_4" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_5" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_6" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_7" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_8" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_9" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_10" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_11" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_12" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_13" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_14" class="collision" />
+            <geom type="mesh" material="plastic" mesh="lfmetacarpal_collision_15" class="collision" />
+            <body name="lfknuckle" pos="0 0 0.06579">
+              <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.008" diaginertia="3.2e-07 2.6e-07 2.6e-07" />
+              <joint name="LFJ3" class="FJ3" axis="0 1 0" />
+              <!-- <site name="LFJ3_site" size="1e-3" /> -->
+              <geom name="lfknuckle" type="mesh" material="metal" mesh="knuckle_visual" class="visual" />
+              <geom type="mesh" material="metal" mesh="knuckle_collision" class="collision" />
+              <body name="lfproximal">
+                <inertial pos="0 0 0.0225" quat="0.707107 0 0 0.707107" mass="0.03" diaginertia="1e-05 9.8e-06 1.8e-06" />
+                <joint name="LFJ2" class="FJ2" />
+                <!-- <site name="LFJ2_site" size="1e-3" /> -->
+                <geom name="lfproximal" type="mesh" material="plastic" mesh="F3_visual" class="visual" />
+                <geom type="mesh" material="plastic" mesh="F3_collision_proximal" class="collision" />
+                <geom type="mesh" material="plastic" mesh="F3_collision_distal" class="collision" />
+                <body name="lfmiddle" pos="0 0 0.045">
+                  <inertial pos="0 0 0.0125" quat="0.707107 0 0 0.707107" mass="0.017" diaginertia="2.7e-06 2.6e-06 8.7e-07" />
+                  <joint name="LFJ1" class="FJ1" />
+                  <!-- <site name="LFJ1_site" size="1e-3" /> -->
+                  <geom name="lfmiddle" type="mesh" material="plastic" mesh="F2_visual" class="visual" />
+                  <geom type="mesh" material="plastic" mesh="F2_collision_proximal" class="collision" />
+                  <geom type="mesh" material="plastic" mesh="F2_collision_middle" class="collision" />
+                  <geom type="mesh" material="plastic" mesh="F2_collision_distal" class="collision" />
+                  <body name="lfdistal" pos="0 0 0.025">
+                    <inertial pos="0 0 0.012" quat="0.707107 0 0 0.707107" mass="0.012" diaginertia="1.1e-06 9.4e-07 5.3e-07" />
+                    <joint name="LFJ0" class="FJ0" />
+                    <!-- <site name="LFJ0_site" size="1e-3" /> -->
+                    <geom name="lfdistal" type="mesh" material="plastic" mesh="F1_visual" class="visual" />
+                    <geom type="mesh" material="plastic" mesh="F1_collision" class="collision" />
+                    <body name="lftip" pos="0 0 0.026">
+                      <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0" />
+                      <!-- <site name="lftip_site" pos="0 -0.01 0"/> -->
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+          <body name="thbase" pos="0.034 -0.0085 0.029" quat="0.92388 0 0.382683 0">
+            <inertial pos="0 0 0" mass="0.01" diaginertia="1.6e-07 1.6e-07 1.6e-07" />
+            <!-- <joint name="THJ4" axis="0 0 -1" range="-1.0472 1.0472" class="THJ4"/> -->
+            <joint name="THJ4" axis="0 0 -1" range="-1.047198 1.047198" class="THJ4" />
+            <!-- <site name="THJ4_site" size="1e-3" /> -->
+            <body name="thproximal">
+              <inertial pos="0 0 0.019" mass="0.04" diaginertia="1.36e-05 1.36e-05 3.13e-06" />
+              <!-- <joint name="THJ3" axis="1 0 0" range="0 1.22173" class="THJ3"/> -->
+              <joint name="THJ3" axis="1 0 0" range="0.000000 1.221730" class="THJ3" />
+              <!-- <site name="THJ3_site" size="1e-3" /> -->
+              <geom name="thproximal" type="mesh" material="plastic" mesh="TH3_visual" class="visual" />
+              <geom type="mesh" material="plastic" mesh="TH3_collision_proximal" class="collision" />
+              <geom type="mesh" material="plastic" mesh="TH3_collision_distal" class="collision" />
+              <body name="thhub" pos="0 0 0.038">
+                <inertial pos="0 0 0" mass="0.005" diaginertia="1.0e-06 1.0e-06 3.0e-07" />
+                <!-- <joint name="THJ2" axis="1 0 0" range="-0.20944 0.20944" class="THJ2"/> -->
+                <joint name="THJ2" axis="1 0 0" range="-0.209440 0.209440" class="THJ2" />
+                <!-- <site name="THJ2_site" size="1e-3" /> -->
+                <body name="thmiddle">
+                  <inertial pos="0 0 0.016" mass="0.02" diaginertia="5.1e-06 5.1e-06 1.21e-06" />
+                  <!-- <joint name="THJ1" axis="0 -1 0" range="-0.698132 0.698132" class="THJ1"/> -->
+                  <joint name="THJ1" axis="0 -1 0" range="-0.523599 0.523599" class="THJ1" />
+                  <!-- <site name="THJ1_site" size="1e-3" /> -->
+                  <geom name="thmiddle" type="mesh" material="plastic" mesh="TH2_visual" class="visual" />
+                  <geom type="mesh" material="plastic" mesh="TH2_collision_proximal" class="collision" />
+                  <geom type="mesh" material="plastic" mesh="TH2_collision_middle" class="collision" />
+                  <geom type="mesh" material="plastic" mesh="TH2_collision_distal" class="collision" />
+                  <body name="thdistal" pos="0 0 0.032" quat="0.707107 0 0 -0.707107">
+                    <inertial pos="0 0 0.01375" quat="0.707107 0 0 0.707107" mass="0.016" diaginertia="2.2e-06 2.1e-06 1e-06" />
+                    <!-- <joint name="THJ0" axis="1 0 0" range="0 1.5708" class="THJ0"/> -->
+                    <joint name="THJ0" axis="1 0 0" range="0.000000 1.570796" class="THJ0" />
+                    <!-- <site name="THJ0_site" size="1e-3" /> -->
+                    <geom name="thdistal" type="mesh" material="plastic" mesh="TH1_visual" class="visual" />
+                    <geom type="mesh" material="plastic" mesh="TH1_collision" class="collision" />
+                    <body name="thtip" pos="0 0 0.0275">
+                      <inertial pos="0 0 0" mass="0.001" diaginertia="0 0 0" />
+                      <!-- <site name="thtip_site" pos="0 -0.01 0"/> -->
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
         </body>
-    </worldbody>
+      </body>
+    </body>
+  </worldbody>
 
-    <contact>
-        <exclude body1="forearm" body2="wrist" />
-        <exclude body1="wrist" body2="palm" />
-        <exclude body1="palm" body2="ffknuckle" />
-        <exclude body1="palm" body2="ffproximal" />
-        <exclude body1="ffknuckle" body2="ffproximal" />
-        <exclude body1="ffproximal" body2="ffmiddle" />
-        <exclude body1="ffmiddle" body2="ffdistal" />
-        <exclude body1="palm" body2="mfknuckle" />
-        <exclude body1="palm" body2="mfproximal" />
-        <exclude body1="mfknuckle" body2="mfproximal" />
-        <exclude body1="mfproximal" body2="mfmiddle" />
-        <exclude body1="mfmiddle" body2="mfdistal" />
-        <exclude body1="palm" body2="rfknuckle" />
-        <exclude body1="palm" body2="rfproximal" />
-        <exclude body1="rfknuckle" body2="rfproximal" />
-        <exclude body1="rfproximal" body2="rfmiddle" />
-        <exclude body1="rfmiddle" body2="rfdistal" />
-        <exclude body1="palm" body2="lfmetacarpal" />
-        <exclude body1="lfmetacarpal" body2="lfknuckle" />
-        <exclude body1="lfmetacarpal" body2="lfproximal" />
-        <exclude body1="lfknuckle" body2="lfproximal" />
-        <exclude body1="lfproximal" body2="lfmiddle" />
-        <exclude body1="lfmiddle" body2="lfdistal" />
-        <exclude body1="palm" body2="thproximal" />
-        <exclude body1="thproximal" body2="thmiddle" />
-        <exclude body1="thmiddle" body2="thdistal" />
-    </contact>
+  <contact>
+    <exclude body1="forearm" body2="wrist" />
+    <exclude body1="wrist" body2="palm" />
+    <exclude body1="palm" body2="ffknuckle" />
+    <exclude body1="palm" body2="ffproximal" />
+    <exclude body1="ffknuckle" body2="ffproximal" />
+    <exclude body1="ffproximal" body2="ffmiddle" />
+    <exclude body1="ffmiddle" body2="ffdistal" />
+    <exclude body1="palm" body2="mfknuckle" />
+    <exclude body1="palm" body2="mfproximal" />
+    <exclude body1="mfknuckle" body2="mfproximal" />
+    <exclude body1="mfproximal" body2="mfmiddle" />
+    <exclude body1="mfmiddle" body2="mfdistal" />
+    <exclude body1="palm" body2="rfknuckle" />
+    <exclude body1="palm" body2="rfproximal" />
+    <exclude body1="rfknuckle" body2="rfproximal" />
+    <exclude body1="rfproximal" body2="rfmiddle" />
+    <exclude body1="rfmiddle" body2="rfdistal" />
+    <exclude body1="palm" body2="lfmetacarpal" />
+    <exclude body1="lfmetacarpal" body2="lfknuckle" />
+    <exclude body1="lfmetacarpal" body2="lfproximal" />
+    <exclude body1="lfknuckle" body2="lfproximal" />
+    <exclude body1="lfproximal" body2="lfmiddle" />
+    <exclude body1="lfmiddle" body2="lfdistal" />
+    <exclude body1="palm" body2="thproximal" />
+    <exclude body1="thproximal" body2="thmiddle" />
+    <exclude body1="thmiddle" body2="thdistal" />
+  </contact>
 </mujoco>

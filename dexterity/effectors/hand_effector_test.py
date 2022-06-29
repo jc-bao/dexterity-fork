@@ -9,16 +9,16 @@ from dexterity.models.hands import shadow_hand_e
 
 
 class HandEffectorTest(absltest.TestCase):
-    def test_set_control(self) -> None:
-        hand = shadow_hand_e.ShadowHandSeriesE()
-        effector = hand_effector.HandEffector(hand=hand, hand_name=hand.name)
-        physics = mjcf.Physics.from_mjcf_model(hand.mjcf_model)
-        action_spec = effector.action_spec(physics)
-        rand_ctrl = np.random.uniform(action_spec.minimum, action_spec.maximum)
-        rand_ctrl = rand_ctrl.astype(action_spec.dtype)
-        effector.set_control(physics, rand_ctrl)
-        np.testing.assert_allclose(physics.bind(hand.actuators).ctrl, rand_ctrl)
+  def test_set_control(self) -> None:
+    hand = shadow_hand_e.ShadowHandSeriesE()
+    effector = hand_effector.HandEffector(hand=hand, hand_name=hand.name)
+    physics = mjcf.Physics.from_mjcf_model(hand.mjcf_model)
+    action_spec = effector.action_spec(physics)
+    rand_ctrl = np.random.uniform(action_spec.minimum, action_spec.maximum)
+    rand_ctrl = rand_ctrl.astype(action_spec.dtype)
+    effector.set_control(physics, rand_ctrl)
+    np.testing.assert_allclose(physics.bind(hand.actuators).ctrl, rand_ctrl)
 
 
 if __name__ == "__main__":
-    absltest.main()
+  absltest.main()

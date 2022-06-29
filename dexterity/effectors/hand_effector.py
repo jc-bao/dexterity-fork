@@ -8,30 +8,30 @@ from dexterity.models.hands import dexterous_hand
 
 
 class HandEffector(effector.Effector):
-    def __init__(
-        self,
-        hand: dexterous_hand.DexterousHand,
-        hand_name: str,
-    ) -> None:
-        self._hand = hand
-        self._effector_prefix = f"{hand_name}_joint"
+  def __init__(
+      self,
+      hand: dexterous_hand.DexterousHand,
+      hand_name: str,
+  ) -> None:
+    self._hand = hand
+    self._effector_prefix = f"{hand_name}_joint"
 
-        self._mujoco_effector = mujoco_actuation.MujocoEffector(
-            actuators=self._hand.actuators, prefix=self._effector_prefix
-        )
+    self._mujoco_effector = mujoco_actuation.MujocoEffector(
+      actuators=self._hand.actuators, prefix=self._effector_prefix
+    )
 
-    def after_compile(self, mjcf_model: mjcf.RootElement) -> None:
-        del mjcf_model  # Unused.
+  def after_compile(self, mjcf_model: mjcf.RootElement) -> None:
+    del mjcf_model  # Unused.
 
-    def initialize_episode(self, physics, random_state) -> None:
-        del physics, random_state  # Unused.
+  def initialize_episode(self, physics, random_state) -> None:
+    del physics, random_state  # Unused.
 
-    def action_spec(self, physics: mjcf.Physics) -> specs.BoundedArray:
-        return self._mujoco_effector.action_spec(physics)
+  def action_spec(self, physics: mjcf.Physics) -> specs.BoundedArray:
+    return self._mujoco_effector.action_spec(physics)
 
-    def set_control(self, physics: mjcf.Physics, command: np.ndarray) -> None:
-        self._mujoco_effector.set_control(physics, command)
+  def set_control(self, physics: mjcf.Physics, command: np.ndarray) -> None:
+    self._mujoco_effector.set_control(physics, command)
 
-    @property
-    def prefix(self) -> str:
-        return self._mujoco_effector.prefix
+  @property
+  def prefix(self) -> str:
+    return self._mujoco_effector.prefix

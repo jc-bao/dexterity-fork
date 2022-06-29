@@ -14,8 +14,8 @@ _MIN_SITE_DIMENSION = 1e-6
 
 @dataclasses.dataclass(frozen=True)
 class BoundingBox:
-    lower: Tuple[float, ...]
-    upper: Tuple[float, ...]
+  lower: Tuple[float, ...]
+  upper: Tuple[float, ...]
 
 
 def add_bbox_site(
@@ -25,22 +25,22 @@ def add_bbox_site(
     visible: bool = False,
     **kwargs,
 ) -> hints.MjcfElement:
-    """Adds a site for visualizing a bounding box to an MJCF model."""
-    assert len(lower) == len(upper) == 3
-    lower_arr = np.array(lower)
-    upper_arr = np.array(upper)
-    assert np.all(lower_arr <= upper_arr)
-    pos = (upper_arr + lower_arr) / 2.0
-    size = np.maximum((upper_arr - lower_arr) / 2.0, _MIN_SITE_DIMENSION)
-    group = None if visible else constants.TASK_SITE_GROUP
-    return body.add(
-        "site",
-        type="box",
-        pos=pos,
-        size=size,
-        group=group,
-        **kwargs,
-    )
+  """Adds a site for visualizing a bounding box to an MJCF model."""
+  assert len(lower) == len(upper) == 3
+  lower_arr = np.array(lower)
+  upper_arr = np.array(upper)
+  assert np.all(lower_arr <= upper_arr)
+  pos = (upper_arr + lower_arr) / 2.0
+  size = np.maximum((upper_arr - lower_arr) / 2.0, _MIN_SITE_DIMENSION)
+  group = None if visible else constants.TASK_SITE_GROUP
+  return body.add(
+    "site",
+    type="box",
+    pos=pos,
+    size=size,
+    group=group,
+    **kwargs,
+  )
 
 
 def add_target_site(
@@ -49,13 +49,13 @@ def add_target_site(
     visible: bool = False,
     **kwargs,
 ) -> hints.MjcfElement:
-    """Adds a site for visualizing a target location to an MJCF model."""
-    assert radius > 0.0
-    group = None if visible else constants.TASK_SITE_GROUP
-    return body.add(
-        "site",
-        type="sphere",
-        size=[radius],
-        group=group,
-        **kwargs,
-    )
+  """Adds a site for visualizing a target location to an MJCF model."""
+  assert radius > 0.0
+  group = None if visible else constants.TASK_SITE_GROUP
+  return body.add(
+    "site",
+    type="sphere",
+    size=[radius],
+    group=group,
+    **kwargs,
+  )

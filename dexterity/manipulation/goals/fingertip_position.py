@@ -12,128 +12,129 @@ from dexterity.utils import mujoco_collisions
 from dexterity.utils import mujoco_utils
 
 _REJECTION_SAMPLING_FAILED = (
-    "Failed to find a collision-free initial configuration for the fingertips after "
-    "{max_rejection_samples} randomly sampled joint configurations."
+  "Failed to find a collision-free initial configuration for the fingertips after "
+  "{max_rejection_samples} randomly sampled joint configurations."
 )
 
 
 class FingertipCartesianPosition(goal.GoalGenerator):
-    def __init__(
-        self,
-        hand: dexterous_hand.DexterousHand,
-        max_rejection_samples: int = 100,
-        scale: float = 0.1,
-        name: str = "fingertip_position_goal_generator",
-    ) -> None:
-        super().__init__()
+  def __init__(
+      self,
+      hand: dexterous_hand.DexterousHand,
+      max_rejection_samples: int = 100,
+      scale: float = 0.1,
+      name: str = "fingertip_position_goal_generator",
+  ) -> None:
+    super().__init__()
 
-        self._hand = hand
-        self._max_rejection_samples = max_rejection_samples
-        self._scale = scale
-        self._name = name
+    self._hand = hand
+    self._max_rejection_samples = max_rejection_samples
+    self._scale = scale
+    self._name = name
 
-        self._qpos: Optional[np.ndarray] = None
-        self._reference_qpos: Optional[np.ndarray] = None
-        self._goal_spec = None
+    self._qpos: Optional[np.ndarray] = None
+    self._reference_qpos: Optional[np.ndarray] = None
+    self._goal_spec = None
 
-    def goal_spec(self) -> specs.Array:
-        if self._goal_spec is None:
-            self._goal_spec = specs.Array(
-                shape=(15,), dtype=np.float64, name=self._name
-            )
-        return self._goal_spec
+  def goal_spec(self) -> specs.Array:
+    if self._goal_spec is None:
+      self._goal_spec = specs.Array(
+        shape=(15,), dtype=np.float64, name=self._name
+      )
+    return self._goal_spec
 
-    def _has_self_collisions(self, physics: mjcf.Physics) -> bool:
-        """Returns True if the hand is in a self-collision state."""
-        return mujoco_collisions.has_self_collision(physics, self._hand.name)
+  def _has_self_collisions(self, physics: mjcf.Physics) -> bool:
+    """Returns True if the hand is in a self-collision state."""
+    return mujoco_collisions.has_self_collision(physics, self._hand.name)
 
-    def initialize_episode(
-        self, physics: mjcf.Physics, random_state: np.random.RandomState
-    ) -> None:
-        del random_state  # Unused.
+  def initialize_episode(
+      self, physics: mjcf.Physics, random_state: np.random.RandomState
+  ) -> None:
+    del random_state  # Unused.
 
-        # Apply gravity compensation.
-        mujoco_utils.compensate_gravity(physics, self._hand.mjcf_model.find_all("body"))
+    # Apply gravity compensation.
+    mujoco_utils.compensate_gravity(
+      physics, self._hand.mjcf_model.find_all("body"))
 
-    def current_state(self, physics: mjcf.Physics) -> np.ndarray:
-        return np.array(physics.bind(self._hand.fingertip_sites).xpos).ravel()
+  def current_state(self, physics: mjcf.Physics) -> np.ndarray:
+    return np.array(physics.bind(self._hand.fingertip_sites).xpos).ravel()
 
-    def next_goal(
-        self, physics: mjcf.Physics, random_state: np.random.RandomState
-    ) -> np.ndarray:
-        joint_binding = physics.bind(self._hand.joints)
-        actuator_binding = physics.bind(self._hand.actuators)
+  def next_goal(
+      self, physics: mjcf.Physics, random_state: np.random.RandomState
+  ) -> np.ndarray:
+    joint_binding = physics.bind(self._hand.joints)
+    actuator_binding = physics.bind(self._hand.actuators)
 
-        # Get joint limits and range.
-        joint_limits = joint_binding.range
-        joint_range = joint_limits[:, 1] - joint_limits[:, 0]
+    # Get joint limits and range.
+    joint_limits = joint_binding.range
+    joint_range = joint_limits[:, 1] - joint_limits[:, 0]
 
-        # Use the midrange of the joint angles as the reference configuration.
-        if self._reference_qpos is None:
-            self._reference_qpos = joint_limits.mean(axis=1)
+    # Use the midrange of the joint angles as the reference configuration.
+    if self._reference_qpos is None:
+      self._reference_qpos = joint_limits.mean(axis=1)
 
-        initial_qpos = joint_binding.qpos.copy()
-        initial_ctrl = actuator_binding.ctrl.copy()
-        fingertip_pos: Optional[np.ndarray] = None
+    initial_qpos = joint_binding.qpos.copy()
+    initial_ctrl = actuator_binding.ctrl.copy()
+    fingertip_pos: Optional[np.ndarray] = None
 
-        for _ in range(self._max_rejection_samples):
-            # Sample around the reference configuration in joint space.
-            qpos_desired = random_state.normal(
-                loc=self._reference_qpos, scale=self._scale * joint_range
-            )
-            np.clip(
-                qpos_desired, joint_limits[:, 0], joint_limits[:, 1], out=qpos_desired
-            )
+    for _ in range(self._max_rejection_samples):
+      # Sample around the reference configuration in joint space.
+      qpos_desired = random_state.normal(
+        loc=self._reference_qpos, scale=self._scale * joint_range
+      )
+      np.clip(
+        qpos_desired, joint_limits[:, 0], joint_limits[:, 1], out=qpos_desired
+      )
 
-            self._hand.set_joint_angles(physics, qpos_desired)
-            physics.forward()
+      self._hand.set_joint_angles(physics, qpos_desired)
+      physics.forward()
 
-            # Take a few steps to avoid goals that are impossible due to contact.
-            original_time = physics.data.time
-            ctrl_desired = self._hand.joint_positions_to_control(qpos_desired)
-            actuator_binding.ctrl[:] = ctrl_desired
-            with utils.JointStaticIsolator(physics, self._hand.joints):
-                for _ in range(2):
-                    physics.step()
+      # Take a few steps to avoid goals that are impossible due to contact.
+      original_time = physics.data.time
+      ctrl_desired = self._hand.joint_positions_to_control(qpos_desired)
+      actuator_binding.ctrl[:] = ctrl_desired
+      with utils.JointStaticIsolator(physics, self._hand.joints):
+        for _ in range(2):
+          physics.step()
 
-            if not self._has_self_collisions(physics):
-                qpos_desired = joint_binding.qpos.copy()
-                fingertip_pos = physics.bind(self._hand.fingertip_sites).xpos.copy()
-                self._qpos = qpos_desired
-                break
+      if not self._has_self_collisions(physics):
+        qpos_desired = joint_binding.qpos.copy()
+        fingertip_pos = physics.bind(self._hand.fingertip_sites).xpos.copy()
+        self._qpos = qpos_desired
+        break
 
-            physics.data.time = original_time
+      physics.data.time = original_time
 
-        # Restore the initial joint configuration and ctrl.
-        actuator_binding.ctrl[:] = initial_ctrl
-        self._hand.set_joint_angles(physics, initial_qpos)
-        physics.forward()
+    # Restore the initial joint configuration and ctrl.
+    actuator_binding.ctrl[:] = initial_ctrl
+    self._hand.set_joint_angles(physics, initial_qpos)
+    physics.forward()
 
-        if fingertip_pos is None:
-            raise exception.GoalInitializationError(
-                _REJECTION_SAMPLING_FAILED.format(
-                    max_rejection_samples=self._max_rejection_samples
-                )
-            )
-        else:
-            return fingertip_pos.ravel()
+    if fingertip_pos is None:
+      raise exception.GoalInitializationError(
+        _REJECTION_SAMPLING_FAILED.format(
+          max_rejection_samples=self._max_rejection_samples
+        )
+      )
+    else:
+      return fingertip_pos.ravel()
 
-    def relative_goal(
-        self, goal_state: np.ndarray, current_state: np.ndarray
-    ) -> np.ndarray:
-        return goal_state - current_state
+  def relative_goal(
+      self, goal_state: np.ndarray, current_state: np.ndarray
+  ) -> np.ndarray:
+    return goal_state - current_state
 
-    def goal_distance(
-        self, goal_state: np.ndarray, current_state: np.ndarray
-    ) -> np.ndarray:
-        relative_goal = self.relative_goal(goal_state, current_state).reshape(-1, 3)
-        return np.linalg.norm(relative_goal, axis=1)
+  def goal_distance(
+      self, goal_state: np.ndarray, current_state: np.ndarray
+  ) -> np.ndarray:
+    relative_goal = self.relative_goal(goal_state, current_state).reshape(-1, 3)
+    return np.linalg.norm(relative_goal, axis=1)
 
-    @property
-    def name(self) -> str:
-        return self._name
+  @property
+  def name(self) -> str:
+    return self._name
 
-    @property
-    def qpos(self) -> Optional[np.ndarray]:
-        """The joint configuration used to place the target sites."""
-        return self._qpos
+  @property
+  def qpos(self) -> Optional[np.ndarray]:
+    """The joint configuration used to place the target sites."""
+    return self._qpos

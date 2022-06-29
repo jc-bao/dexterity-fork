@@ -4,8 +4,8 @@ from dexterity.models.hands.mpl_hand import MPLHand
 from dexterity.models.hands.shadow_hand_e import ShadowHandSeriesE
 
 __all__ = [
-    "DexterousHand",
-    "AdroitHand",
-    "ShadowHandSeriesE",
-    "MPLHand",
+  "DexterousHand",
+  "AdroitHand",
+  "ShadowHandSeriesE",
+  "MPLHand",
 ]

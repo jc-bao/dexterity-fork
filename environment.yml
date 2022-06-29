@@ -18,8 +18,8 @@ dependencies:
   - mypy
   - jupyter
   - pip:
-    - ipdb
-    - mujoco
-    - dm_control >= 1.0.1
-    - dm_robotics-geometry
-    - dm_robotics-transformations
+      - ipdb
+      - mujoco
+      - dm_control >= 1.0.1
+      - dm_robotics-geometry
+      - dm_robotics-transformations

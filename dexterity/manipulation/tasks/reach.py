@@ -25,12 +25,12 @@ from dexterity.models.hands import dexterous_hand
 _SITE_SIZE = 1e-2
 _SITE_ALPHA = 0.1
 _SITE_COLORS = (
-    (1.0, 0.0, 0.0),  # Red.
-    (0.0, 1.0, 0.0),  # Green.
-    (0.0, 0.0, 1.0),  # Blue.
-    (0.0, 1.0, 1.0),  # Cyan.
-    (1.0, 0.0, 1.0),  # Magenta.
-    (1.0, 1.0, 0.0),  # Yellow.
+  (1.0, 0.0, 0.0),  # Red.
+  (0.0, 1.0, 0.0),  # Green.
+  (0.0, 0.0, 1.0),  # Blue.
+  (0.0, 1.0, 1.0),  # Cyan.
+  (1.0, 0.0, 1.0),  # Magenta.
+  (1.0, 1.0, 0.0),  # Yellow.
 )
 _TARGET_SIZE = 5e-3
 _TARGET_ALPHA = 1.0
@@ -69,155 +69,155 @@ SUITE = containers.TaggedTasks()
 
 
 class Reach(task.GoalTask):
-    """Move the fingers to desired goal positions."""
+  """Move the fingers to desired goal positions."""
 
-    def __init__(
-        self,
-        arena: arenas.Standard,
-        hand: dexterous_hand.DexterousHand,
-        hand_effector: effector.Effector,
-        goal_generator: goal.GoalGenerator,
-        use_dense_reward: bool,
-        visualize_reward: bool,
-        success_threshold: float = _DISTANCE_TO_TARGET_THRESHOLD,
-        successes_needed: int = _SUCCESSED_NEEDED,
-        steps_before_changing_goal: int = _STEPS_BEFORE_MOVING_TARGET,
-        max_time_per_goal: Optional[float] = _MAX_TIME_SINGLE_SOLVE,
-        control_timestep: float = _CONTROL_TIMESTEP,
-        physics_timestep: float = _PHYSICS_TIMESTEP,
-    ) -> None:
-        """Construct a new `Reach` task."""
+  def __init__(
+      self,
+      arena: arenas.Standard,
+      hand: dexterous_hand.DexterousHand,
+      hand_effector: effector.Effector,
+      goal_generator: goal.GoalGenerator,
+      use_dense_reward: bool,
+      visualize_reward: bool,
+      success_threshold: float = _DISTANCE_TO_TARGET_THRESHOLD,
+      successes_needed: int = _SUCCESSED_NEEDED,
+      steps_before_changing_goal: int = _STEPS_BEFORE_MOVING_TARGET,
+      max_time_per_goal: Optional[float] = _MAX_TIME_SINGLE_SOLVE,
+      control_timestep: float = _CONTROL_TIMESTEP,
+      physics_timestep: float = _PHYSICS_TIMESTEP,
+  ) -> None:
+    """Construct a new `Reach` task."""
 
-        super().__init__(
-            arena=arena,
-            hands=[hand],
-            hand_effectors=[hand_effector],
-            goal_generator=goal_generator,
-            success_threshold=success_threshold,
-            successes_needed=successes_needed,
-            steps_before_changing_goal=steps_before_changing_goal,
-            max_time_per_goal=max_time_per_goal,
+    super().__init__(
+      arena=arena,
+      hands=[hand],
+      hand_effectors=[hand_effector],
+      goal_generator=goal_generator,
+      success_threshold=success_threshold,
+      successes_needed=successes_needed,
+      steps_before_changing_goal=steps_before_changing_goal,
+      max_time_per_goal=max_time_per_goal,
+    )
+
+    self._use_dense_reward = use_dense_reward
+    self._visualize_reward = visualize_reward
+
+    # Attach the hand to the arena.
+    arena.attach_offset(
+      hand,
+      position=hand.palm_upright_pose.xpos,
+      quaternion=hand.palm_upright_pose.xquat,
+    )
+
+    # Make the hand fingertip sites visible and recolor them.
+    for i, site in enumerate(hand.fingertip_sites):
+      site.group = None  # Make the sites visible by default.
+      site.size = (_SITE_SIZE,) * 3  # Increase their size.
+      site.rgba = _SITE_COLORS[i] + (_SITE_ALPHA,)  # Change their color.
+
+    # Create fingertip targets and attach them to the arena.
+    self._targets = []
+    for i, site in enumerate(hand.fingertip_sites):
+      target = TargetSphere(
+        radius=_TARGET_SIZE,
+        rgba=_SITE_COLORS[i] + (_TARGET_ALPHA,),
+        name=f"target_{site.name}",
+      )
+      arena.attach(target)
+      self._targets.append(target)
+
+    # Disable collisions for the ground plane. It's only here for visualization
+    # purposes.
+    arena.ground.contype = 0
+    arena.ground.conaffinity = 0
+
+    # Add a closeup camera, used for rendering.
+    arena.mjcf_model.worldbody.add(
+      "camera", **dataclasses.asdict(cameras.FRONT_CLOSE)
+    )
+
+    self.set_timesteps(control_timestep, physics_timestep)
+
+  @property
+  def hand(self) -> dexterous_hand.DexterousHand:
+    return self.hands[0]
+
+  @property
+  def hand_effector(self) -> effector.Effector:
+    return self.hand_effectors[0]
+
+  def initialize_episode(
+      self, physics: mjcf.Physics, random_state: np.random.RandomState
+  ) -> None:
+    super().initialize_episode(physics, random_state)
+
+    # Randomly initialize the joints of the hand.
+    qpos = self.hand.sample_collision_free_joint_angles(
+      physics, random_state, _INIT_JOINT_RANGE_FRACTION
+    )
+    self.hand.set_joint_angles(physics, qpos)
+
+    positions = self._goal.reshape(5, 3)
+    for i, target in enumerate(self._targets):
+      physics.bind(target.site).pos = positions[i]
+
+    # Save initial finger colors.
+    if self._visualize_reward:
+      self._init_finger_colors = {}
+      for i, geoms in enumerate(consts.FINGER_GEOM_MAPPING.values()):
+        elems = [
+          elem
+          for elem in self.hand.mjcf_model.find_all("geom")
+          if elem.name in geoms
+        ]
+        self._init_finger_colors[i] = (elems, physics.bind(elems).rgba)
+
+  def before_step(
+      self,
+      physics: mjcf.Physics,
+      action: np.ndarray,
+      random_state: np.random.RandomState,
+  ) -> None:
+    super().before_step(physics, action, random_state)
+
+    if self._goal_changed:
+      positions = self._goal.reshape(5, 3)
+      for i, target in enumerate(self._targets):
+        physics.bind(target.site).pos = positions[i]
+
+  def after_step(
+      self, physics: mjcf.Physics, random_state: np.random.RandomState
+  ) -> None:
+    super().after_step(physics, random_state)
+
+    if self._visualize_reward:
+      self._maybe_color_fingers(physics)
+
+  def get_reward(self, physics: mjcf.Physics) -> float:
+    del physics  # Unused.
+    if self._use_dense_reward:
+      # Dense reward.
+      return np.mean(
+        np.where(
+          self._goal_distance <= _DISTANCE_TO_TARGET_THRESHOLD,
+          0.0,
+          [-rewards.tanh_squared(d, margin=0.1) for d in self._goal_distance],
         )
+      )
+    # Sparse reward.
+    return np.mean(
+      np.where(self._goal_distance <= _DISTANCE_TO_TARGET_THRESHOLD, 0.0, -1.0)
+    )
 
-        self._use_dense_reward = use_dense_reward
-        self._visualize_reward = visualize_reward
+  # Helper methods.
 
-        # Attach the hand to the arena.
-        arena.attach_offset(
-            hand,
-            position=hand.palm_upright_pose.xpos,
-            quaternion=hand.palm_upright_pose.xquat,
-        )
-
-        # Make the hand fingertip sites visible and recolor them.
-        for i, site in enumerate(hand.fingertip_sites):
-            site.group = None  # Make the sites visible by default.
-            site.size = (_SITE_SIZE,) * 3  # Increase their size.
-            site.rgba = _SITE_COLORS[i] + (_SITE_ALPHA,)  # Change their color.
-
-        # Create fingertip targets and attach them to the arena.
-        self._targets = []
-        for i, site in enumerate(hand.fingertip_sites):
-            target = TargetSphere(
-                radius=_TARGET_SIZE,
-                rgba=_SITE_COLORS[i] + (_TARGET_ALPHA,),
-                name=f"target_{site.name}",
-            )
-            arena.attach(target)
-            self._targets.append(target)
-
-        # Disable collisions for the ground plane. It's only here for visualization
-        # purposes.
-        arena.ground.contype = 0
-        arena.ground.conaffinity = 0
-
-        # Add a closeup camera, used for rendering.
-        arena.mjcf_model.worldbody.add(
-            "camera", **dataclasses.asdict(cameras.FRONT_CLOSE)
-        )
-
-        self.set_timesteps(control_timestep, physics_timestep)
-
-    @property
-    def hand(self) -> dexterous_hand.DexterousHand:
-        return self.hands[0]
-
-    @property
-    def hand_effector(self) -> effector.Effector:
-        return self.hand_effectors[0]
-
-    def initialize_episode(
-        self, physics: mjcf.Physics, random_state: np.random.RandomState
-    ) -> None:
-        super().initialize_episode(physics, random_state)
-
-        # Randomly initialize the joints of the hand.
-        qpos = self.hand.sample_collision_free_joint_angles(
-            physics, random_state, _INIT_JOINT_RANGE_FRACTION
-        )
-        self.hand.set_joint_angles(physics, qpos)
-
-        positions = self._goal.reshape(5, 3)
-        for i, target in enumerate(self._targets):
-            physics.bind(target.site).pos = positions[i]
-
-        # Save initial finger colors.
-        if self._visualize_reward:
-            self._init_finger_colors = {}
-            for i, geoms in enumerate(consts.FINGER_GEOM_MAPPING.values()):
-                elems = [
-                    elem
-                    for elem in self.hand.mjcf_model.find_all("geom")
-                    if elem.name in geoms
-                ]
-                self._init_finger_colors[i] = (elems, physics.bind(elems).rgba)
-
-    def before_step(
-        self,
-        physics: mjcf.Physics,
-        action: np.ndarray,
-        random_state: np.random.RandomState,
-    ) -> None:
-        super().before_step(physics, action, random_state)
-
-        if self._goal_changed:
-            positions = self._goal.reshape(5, 3)
-            for i, target in enumerate(self._targets):
-                physics.bind(target.site).pos = positions[i]
-
-    def after_step(
-        self, physics: mjcf.Physics, random_state: np.random.RandomState
-    ) -> None:
-        super().after_step(physics, random_state)
-
-        if self._visualize_reward:
-            self._maybe_color_fingers(physics)
-
-    def get_reward(self, physics: mjcf.Physics) -> float:
-        del physics  # Unused.
-        if self._use_dense_reward:
-            # Dense reward.
-            return np.mean(
-                np.where(
-                    self._goal_distance <= _DISTANCE_TO_TARGET_THRESHOLD,
-                    0.0,
-                    [-rewards.tanh_squared(d, margin=0.1) for d in self._goal_distance],
-                )
-            )
-        # Sparse reward.
-        return np.mean(
-            np.where(self._goal_distance <= _DISTANCE_TO_TARGET_THRESHOLD, 0.0, -1.0)
-        )
-
-    # Helper methods.
-
-    def _maybe_color_fingers(self, physics: mjcf.Physics) -> None:
-        for i, distance in enumerate(self._goal_distance):
-            elems, rgba = self._init_finger_colors[i]
-            if distance <= self._success_threshold:
-                physics.bind(elems).rgba = _THRESHOLD_COLOR + (1.0,)
-            else:
-                physics.bind(elems).rgba = rgba
+  def _maybe_color_fingers(self, physics: mjcf.Physics) -> None:
+    for i, distance in enumerate(self._goal_distance):
+      elems, rgba = self._init_finger_colors[i]
+      if distance <= self._success_threshold:
+        physics.bind(elems).rgba = _THRESHOLD_COLOR + (1.0,)
+      else:
+        physics.bind(elems).rgba = rgba
 
 
 def reach_task(
@@ -225,45 +225,45 @@ def reach_task(
     use_dense_reward: bool,
     visualize_reward: bool = True,
 ) -> task.GoalTask:
-    """Configure and instantiate a `Reach` task."""
-    arena = arenas.Standard()
+  """Configure and instantiate a `Reach` task."""
+  arena = arenas.Standard()
 
-    hand = adroit_hand.AdroitHand(
-        observable_options=observations.make_options(
-            observation_set.value,
-            observations.HAND_OBSERVABLES,
-        ),
-    )
+  hand = adroit_hand.AdroitHand(
+    observable_options=observations.make_options(
+      observation_set.value,
+      observations.HAND_OBSERVABLES,
+    ),
+  )
 
-    hand_effector = effectors.HandEffector(hand=hand, hand_name=hand.name)
+  hand_effector = effectors.HandEffector(hand=hand, hand_name=hand.name)
 
-    goal_generator = fingertip_position.FingertipCartesianPosition(hand=hand)
+  goal_generator = fingertip_position.FingertipCartesianPosition(hand=hand)
 
-    return Reach(
-        arena=arena,
-        hand=hand,
-        hand_effector=hand_effector,
-        goal_generator=goal_generator,
-        use_dense_reward=use_dense_reward,
-        visualize_reward=visualize_reward,
-    )
+  return Reach(
+    arena=arena,
+    hand=hand,
+    hand_effector=hand_effector,
+    goal_generator=goal_generator,
+    use_dense_reward=use_dense_reward,
+    visualize_reward=visualize_reward,
+  )
 
 
 @SUITE.add(tags.STATE, tags.DENSE)
 def state_dense() -> task.GoalTask:
-    """Reach task with full state observations and dense reward."""
-    return reach_task(
-        observation_set=observations.ObservationSet.STATE_ONLY,
-        use_dense_reward=True,
-        visualize_reward=True,
-    )
+  """Reach task with full state observations and dense reward."""
+  return reach_task(
+    observation_set=observations.ObservationSet.STATE_ONLY,
+    use_dense_reward=True,
+    visualize_reward=True,
+  )
 
 
 @SUITE.add(tags.STATE, tags.SPARSE)
 def state_sparse() -> task.GoalTask:
-    """Reach task with full state observations and sparse reward."""
-    return reach_task(
-        observation_set=observations.ObservationSet.STATE_ONLY,
-        use_dense_reward=False,
-        visualize_reward=True,
-    )
+  """Reach task with full state observations and sparse reward."""
+  return reach_task(
+    observation_set=observations.ObservationSet.STATE_ONLY,
+    use_dense_reward=False,
+    visualize_reward=True,
+  )

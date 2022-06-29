@@ -1,4 +1,4 @@
-"""Tasks involving in-hand object re-orientation."""
+"""Tasks involving roller grapser."""
 
 import collections
 import dataclasses
@@ -88,7 +88,7 @@ _TARGETPROP_OBSERVABLES = observations.ObservableNames(
 SUITE = containers.TaggedTasks()
 
 
-class ReOrient(task.GoalTask):
+class Roller(task.GoalTask):
   """Manipulate an object to a goal orientation."""
 
   def __init__(
@@ -108,7 +108,7 @@ class ReOrient(task.GoalTask):
       control_timestep: float = _CONTROL_TIMESTEP,
       physics_timestep: float = _PHYSICS_TIMESTEP,
   ) -> None:
-    """Construct a new `ReOrient` task."""
+    """Construct a new `roller` task."""
 
     super().__init__(
       arena=arena,
@@ -321,10 +321,10 @@ def _hintify(entity: composer.Entity, alpha: Optional[float] = None) -> None:
       geom.conaffinity = 0
 
 
-def reorient_task(
+def roller_task(
     observation_set: observations.ObservationSet,
 ) -> composer.Task:
-  """Configure and instantiate a `ReOrient` task."""
+  """Configure and instantiate a `roller` task."""
   arena = arenas.Standard()
 
   hand = shadow_hand_e.ShadowHandSeriesE(
@@ -354,7 +354,7 @@ def reorient_task(
 
   goal_generator = prop_orientation.PropOrientation(prop=prop)
 
-  return ReOrient(
+  return Roller(
     arena=arena,
     hand=hand,
     hand_effector=hand_effector,
@@ -366,6 +366,6 @@ def reorient_task(
 
 @SUITE.add(tags.STATE)
 def state_dense() -> composer.Task:
-  return reorient_task(
+  return roller_task(
     observation_set=observations.ObservationSet.STATE_ONLY,
   )
