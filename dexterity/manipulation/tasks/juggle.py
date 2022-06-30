@@ -128,10 +128,10 @@ class Juggle(task.Task):
     self.ball.set_pose(physics, position=ball_position)
 
   def before_step(
-      self,
-      physics: mjcf.Physics,
-      action: np.ndarray,
-      random_state: np.random.RandomState,
+    self,
+    physics: mjcf.Physics,
+    action: np.ndarray,
+    random_state: np.random.RandomState,
   ) -> None:
     super().before_step(physics, action, random_state)
 

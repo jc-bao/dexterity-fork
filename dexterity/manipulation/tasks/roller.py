@@ -28,7 +28,7 @@ from dexterity.manipulation.shared import tags
 from dexterity.manipulation.shared import workspaces
 from dexterity.models import arenas
 from dexterity.models.hands import dexterous_hand
-from dexterity.models.hands import shadow_hand_e
+from dexterity.models.hands import roller_hand
 from dexterity.utils import mujoco_collisions
 
 
@@ -72,8 +72,8 @@ _STEPS_BEFORE_MOVING_TARGET: int = 5
 _BBOX_SIZE = 0.05
 _WORKSPACE = Workspace(
   prop_bbox=workspaces.BoundingBox(
-    lower=(-_BBOX_SIZE / 2, -0.13 - _BBOX_SIZE / 2, 0.16),
-    upper=(+_BBOX_SIZE / 2, -0.13 + _BBOX_SIZE / 2, 0.16),
+    lower=(-_BBOX_SIZE / 2, -_BBOX_SIZE / 2+0.1, 0.09),
+    upper=(+_BBOX_SIZE / 2, _BBOX_SIZE / 2+0.1, 0.11),
   ),
 )
 
@@ -93,7 +93,7 @@ class Roller(task.GoalTask):
 
   def __init__(
       self,
-      arena: arenas.Arena,
+      arena: arenas.Arena, # env
       hand: dexterous_hand.DexterousHand,
       hand_effector: effector.Effector,
       goal_generator: goal.GoalGenerator,
@@ -327,7 +327,7 @@ def roller_task(
   """Configure and instantiate a `roller` task."""
   arena = arenas.Standard()
 
-  hand = shadow_hand_e.ShadowHandSeriesE(
+  hand = roller_hand.RollerHand(
     observable_options=observations.make_options(
       observation_set.value,
       observations.HAND_OBSERVABLES,
