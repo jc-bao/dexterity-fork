@@ -72,8 +72,8 @@ _STEPS_BEFORE_MOVING_TARGET: int = 5
 _BBOX_SIZE = 0.05
 _WORKSPACE = Workspace(
   prop_bbox=workspaces.BoundingBox(
-    lower=(-0.002, -0.002, 0.03),
-    upper=(0.002, 0.002, 0.06),
+    lower=(-0.002, -0.002, 0.05),
+    upper=(0.002, 0.002, 0.05),
   ),
 )
 
