@@ -146,7 +146,7 @@ class Roller(task.GoalTask):
         workspace.prop_bbox.lower,
         workspace.prop_bbox.upper,
       ),
-      quaternion=rotations.UniformQuaternion(),
+      quaternion=rotations.IDENTITY_QUATERNION,
       settle_physics=False,
       ignore_collisions=True
     )
