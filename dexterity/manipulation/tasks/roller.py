@@ -19,7 +19,7 @@ from dexterity import effectors
 from dexterity import goal
 from dexterity import task
 from dexterity.manipulation import props
-from dexterity.manipulation.goals import prop_orientation
+from dexterity.manipulation.goals import axis_orientation
 from dexterity.manipulation.shared import cameras
 from dexterity.manipulation.shared import constants
 from dexterity.manipulation.shared import observations
@@ -40,7 +40,7 @@ class Workspace:
 # Alpha value of the visual goal hint.
 _HINT_ALPHA = 0.4
 # Position of the hint in the world frame, in meters.
-_HINT_POS = (0.12, 0.0, 0.15)
+_HINT_POS = (0.0, 0.0, 0.1)
 
 # Size of the prop, in meters.
 _PROP_SIZE = 0.02
@@ -72,8 +72,8 @@ _STEPS_BEFORE_MOVING_TARGET: int = 5
 _BBOX_SIZE = 0.05
 _WORKSPACE = Workspace(
   prop_bbox=workspaces.BoundingBox(
-    lower=(-_BBOX_SIZE / 2, -_BBOX_SIZE / 2+0.1, 0.09),
-    upper=(+_BBOX_SIZE / 2, _BBOX_SIZE / 2+0.1, 0.11),
+    lower=(-0.002, -0.002, 0.03),
+    upper=(0.002, 0.002, 0.06),
   ),
 )
 
@@ -148,6 +148,7 @@ class Roller(task.GoalTask):
       ),
       quaternion=rotations.UniformQuaternion(),
       settle_physics=False,
+      ignore_collisions=True
     )
 
     # Add a closeup camera, used for rendering.
@@ -204,9 +205,9 @@ class Roller(task.GoalTask):
     super().after_step(physics, random_state)
 
     self._failure_termination = False
-    if self._fall_termination:
-      if self._is_prop_fallen(physics):
-        self._failure_termination = True
+    # if self._fall_termination:
+    #   if self._is_prop_fallen(physics):
+    #     self._failure_termination = True
 
   def should_terminate_episode(self, physics: mjcf.Physics) -> bool:
     should_terminate = super().should_terminate_episode(physics)
@@ -352,7 +353,7 @@ def roller_task(
     name="target_prop",
   )
 
-  goal_generator = prop_orientation.PropOrientation(prop=prop)
+  goal_generator = axis_orientation.AxisOrientation(prop=prop)
 
   return Roller(
     arena=arena,

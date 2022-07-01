@@ -307,6 +307,21 @@ VELOCITY_LIMITS: Dict[str, Tuple[float, float]] = {
   "A_THJ0": (-2.0, 2.0),
 }
 
+# ====================== #
+# Tendon constants
+# ====================== #
+
+
+"""Tendons of the roller Hand.
+
+These are used to model the underactuation of the *FJ0 and *FJ1 joints of the main
+fingers. A tendon is defined for each *FJ0-*FJ1 pair, and an actuator is used to
+drive it.
+"""
+TENDONS: Tuple[str, ...] = (
+)
+
+
 # The total number of tendons.
 NUM_TENDONS: int = len(TENDONS)
 
@@ -335,8 +350,8 @@ ACTUATOR_TENDON_MAPPING: Dict[str, str] = {
 # ====================== #
 
 FINGERTIP_NAMES: Tuple[str, ...] = (
-  "link8",
-  "link4",
+  "l3",
+  "r3",
 )
 
 # ====================== #

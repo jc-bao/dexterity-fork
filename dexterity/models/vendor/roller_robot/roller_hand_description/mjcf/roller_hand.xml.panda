@@ -1,0 +1,86 @@
+<mujoco>
+  <compiler angle="radian" coordinate="local" meshdir="../meshes" texturedir="../textures"/>
+  
+  <visual>
+    <quality shadowsize="4096" />
+  </visual>
+  
+  <size njmax="500" nconmax="200" />
+  
+  <asset>
+    <mesh name="roller" file="roller.stl" scale="1 1 1" />
+    <mesh name="cube" file="cube.stl" scale="1 1 1" />
+    <mesh name="cube2" file="cube2.stl" scale="1 1 1" />
+    <mesh name="rectangle" file="rectangle.stl" scale="1 1 1" />
+    <mesh name="rectangle2" file="rectangle2.stl" scale="1 1 1" />
+    <mesh name="hand_vis" file="hand_vis.stl" scale="1 1 1" />
+    <mesh name="hand_colli" file="hand_colli.stl" scale="1 1 1" />
+    <mesh name="finger_vis" file="finger_vis.stl" scale="1 1 1" />
+    <mesh name="finger_colli" file="finger_colli.stl" scale="1 1 1" />
+    <texture builtin="none" name="cube_tex" height="32" width="32" rgb1="1 1 1" type="cube" file="wood.png"></texture>
+    <material name="cube" texture="cube_tex" />
+    <texture builtin="none" name="rubik_tex" height="32" width="32" rgb1="1 1 1" type="cube" file="rubik.png"></texture>
+    <material name="rubik" texture="rubik_tex" />
+  </asset>
+  
+  <default>
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="0" />
+    </default>
+    <default class="collision">
+      <geom group="3" />
+    </default>
+  </default>
+
+  <worldbody>
+    <body name="forearm" pos="0 0 0.026625">
+      <inertial pos="0 0 0" euler="0 0 0" mass="0.68" diaginertia="0.1 0.1 0.1" />
+      <geom class="visual" mesh="hand_vis"/>
+
+      <body name="leftfinger_body" pos="0 0 0.15" quat="1 0 0 0">
+        <joint name="leftfinger_joint"  axis="0 1 0" type="slide" range="0 0.1" damping="100" armature='5'/>
+        <geom mesh="finger_vis"/>
+        <body name="leftpitcher_body" pos="0.0 0.0184 0.043525">
+          <joint axis="0 1 0" damping="0.5" name="leftpitcher_joint" pos="0.0 -0.4 0" type="hinge" range="-1.57 1.57" />
+          <geom name="leftpitcher_geom" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
+          <body name="leftroller_body" pos="0.0 0.0184 0.0">
+            <joint axis="0 0 1" damping="0.1" name="leftroller_joint" range="-1.57 1.57" pos="0.0 0 0" type="hinge" />
+            <geom name="leftroller_geom" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" />
+          </body>
+        </body>
+      </body>
+
+      <body name="rightfinger_body" pos="0 0 0.15" quat="1 0 0 0">
+        <joint name="rightfinger_joint" axis="0 -1 0" type="slide" range="0 0.1" damping="100" armature='5'/>
+        <geom quat="0 0 0 1" mesh="finger_vis"/>
+        <body name="rightpitcher_body" pos="0.0 -0.0184 0.043525">
+          <joint axis="0 1 0" damping="0.5" name="rightpitcher_joint" pos="0.0 -0.4 0" type="hinge" range="-1.57 1.57" />
+          <geom name="rightpitcher_geom" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
+          <body name="rightroller_body" pos="0.0 -0.0184 0.0">
+            <joint axis="0 0 1" damping="0.1" name="rightroller_joint" pos="0.0 0 0" range="-1.57 1.57" type="hinge" />
+            <geom name="rightroller_geom" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" />
+          </body>
+        </body>
+      </body>
+    </body>
+
+  </worldbody>
+
+  <actuator>
+    <position name="leftpitcher_act" joint="leftpitcher_joint" kp="20" /> 
+    <position name="leftroller_act" joint="leftroller_joint" kp="500" /> 
+
+    <position name="rightpitcher_act" joint="rightpitcher_joint" kp="20" /> 
+    <position name="rightroller_act" joint="rightroller_joint" kp="500" /> 
+  </actuator>
+
+  <contact>
+    <exclude body1="leftroller_body" body2="leftpitcher_body" />
+    <exclude body1="rightroller_body" body2="rightpitcher_body" />
+    <exclude body1="leftfinger_body" body2="leftpitcher_body" />
+    <exclude body1="rightfinger_body" body2="rightpitcher_body" />
+    <exclude body1="leftfinger_body" body2="leftroller_body" />
+    <exclude body1="rightfinger_body" body2="rightroller_body" />
+  </contact>
+
+</mujoco>

@@ -1,12 +1,12 @@
 <mujoco>
-  <compiler angle="radian" coordinate="local" meshdir="../meshes" texturedir="../textures"/>
-  
+  <compiler angle="radian" coordinate="local" meshdir="../meshes" texturedir="../textures" />
+
   <visual>
     <quality shadowsize="4096" />
   </visual>
-  
+
   <size njmax="500" nconmax="200" />
-  
+
   <asset>
     <mesh name="roller" file="roller.stl" scale="1 1 1" />
     <mesh name="cube" file="cube.stl" scale="1 1 1" />
@@ -18,7 +18,7 @@
     <texture builtin="none" name="rubik_tex" height="32" width="32" rgb1="1 1 1" type="cube" file="rubik.png"></texture>
     <material name="rubik" texture="rubik_tex" />
   </asset>
-  
+
   <default>
     <mesh scale="0.001 0.001 0.001" />
     <joint limited="true" damping="0.1" armature="0.005" margin="0.0" frictionloss="0.1" />
@@ -33,126 +33,83 @@
 
   <worldbody>
     <body name="forearm" pos="0 0 0.026625">
-
-      <joint axis="1 0 0" name="base_jx" range="-1.57 1.57"  pos="0.0 0 0" type="slide" damping="50" />
-      <joint axis="0 1 0" name="base_jy" range="-1.57 1.57" pos="0.0 0 0" type="slide" damping="50" />
-      <joint axis="0 0 1" name="base_jz" range="-1.57 1.57" pos="0.0 0 0" type="slide" damping="50" ref="-0.2" />
-
-      <joint axis="1 0 0" name="base_jrx" range="-1.57 1.57" pos="0.0 0 0" type="hinge" damping="1" />
-      <joint axis="0 1 0" name="base_jry" range="-1.57 1.57" pos="0.0 0 0" type="hinge" damping="1" ref="3.14" />
-      <joint axis="0 0 1" name="base_jrz" range="-1.57 1.57" pos="0.0 0 0" type="hinge" damping="1" />
-
       <geom mass="0.1" pos="0 0 0" rgba="0.855 0.267 0.314 1" size="0.0375 0.026625" type="cylinder" />
+      <!-- <body name="crossbar" pos="0 0 0.02"> -->
+      <geom name="crossbar" mass="0.01" size="0.005 0.1 0.005" rgba="0.063 0.522 0.737 1" type="box" />
+      <!-- </body> -->
 
       <!-- Left -->
-      <body name="link1" pos="0.0 -0.02975 0.056625">
-        <joint axis="1 0 0" name="j1" range="-1.57 1.57" pos="0.0 0 -0.03" type="hinge" damping="0" />
-        <geom name="link1" mass="0.01" size="0.005 0.005 0.03" rgba="0.063 0.522 0.737 1" type="box" />
-
-        <body name="link2" pos="0.0 -0.0262 0.073525">
-          <joint axis="1 0 0" damping="0.1" range="-1.57 1.57" name="j2" pos="0.0 0.0262 -0.043525" type="hinge" />
-          <geom name="link2" mass="0.01" size="0.005 0.005 0.043525" rgba="0.063 0.522 0.737 1" type="box" />
-
-          <body name="link2_crossbar" pos="0 0.0131 -0.043525">
-            <geom name="link2_crossbar" mass="0.01" size="0.005 0.0131 0.005" rgba="0.063 0.522 0.737 1" type="box" />
-          </body>
-
-          <body name="link3" pos="0.0 0.0184 0.043525">
-            <joint axis="0 1 0" damping="0.5" name="j3" pos="0.0 -0.0184 0" type="hinge" range="-1.57 1.57" />
-            <geom name="link3" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
-
-            <body name="link4" pos="0.0 0.0184 0.0">
-              <joint axis="0 0 1" damping="0.1" range="-1.57 1.57" name="j4" pos="0.0 0 0" type="hinge" />
-              <geom name="link4" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" />
-              <body name="link4_visual_aid_top" pos="0 0 -0.025">
-                <geom name="link4_visual_aid_top" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.855 0.267 0.314 1" />
-              </body>
-              <body name="link4_visual_aid_bottom" pos="0 0 0.025">
-                <geom name="link4_visual_aid_bottom" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.063 0.522 0.737 1" />
-              </body>
+      <body name="l1" pos="0.0 -0.08 0.073525">
+        <joint axis="0 1 0" damping="0.1" name="finger_l" pos="0.0 0.05 -0.043525" type="slide" range="-0.02 0.02" />
+        <geom name="l1" mass="0.01" size="0.005 0.005 0.06" rgba="0.063 0.522 0.737 1" type="box" />
+        <site name="sl" pos="0 0 0"/>
+        <body name="l2" pos="0.0 0.0184 0.043525">
+          <joint axis="0 1 0" damping="0.5" name="pitch_l" pos="0.0 -0.0184 0" type="hinge" range="-1.57 1.57" />
+          <geom name="l2" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
+          <body name="l3" pos="0.0 0.0184 0.0">
+            <joint axis="0 0 1" damping="0.1" range="-1.57 1.57" name="roll_l" pos="0.0 0 0" type="hinge" />
+            <geom name="l3" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" />
+            <body name="l3_visual_aid_top" pos="0 0 -0.025">
+              <geom name="l3_visual_aid_top" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.855 0.267 0.314 1" />
+            </body>
+            <body name="l3_visual_aid_bottom" pos="0 0 0.025">
+              <geom name="l3_visual_aid_bottom" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.063 0.522 0.737 1" />
             </body>
           </body>
         </body>
       </body>
 
       <!-- Right -->
-      <body name="link5" pos="0.0 0.02975 0.056625">
-        <joint axis="1 0 0" name="j5" pos="0.0 0 -0.03" range="-1.57 1.57" type="hinge" damping="0" />
-        <geom name="link5" mass="0.01" size="0.005 0.005 0.03" rgba="0.063 0.522 0.737 1" type="box" />
-        <body name="link6" pos="0.0 0.0262 0.073525">
-          <joint axis="1 0 0" damping="0.1" name="j6" pos="0.0 -0.0262 -0.043525" range="-1.57 1.57" type="hinge" />
-          <geom name="link6" mass="0.01" size="0.005 0.005 0.043525" rgba="0.063 0.522 0.737 1" type="box" />
-          <body name="link6_crossbar" pos="0 -0.0131 -0.043525">
-            <geom name="link6_crossbar" mass="0.01" size="0.005 0.0131 0.005" rgba="0.063 0.522 0.737 1" type="box" />
-          </body>
-          <body name="link7" pos="0.0 -0.0184 0.043525">
-            <joint axis="0 1 0" damping="0.5" name="j7" pos="0.0 -0.0184 0" type="hinge" range="-1.57 1.57" />
-            <geom name="link7" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
-            <body name="link8" pos="0.0 -0.0184 0.0">
-              <joint axis="0 0 1" damping="0.1" name="j8" pos="0.0 0 0" range="-1.57 1.57" type="hinge" />
-              <geom name="link8" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" />
-              <body name="link8_visual_aid_top" pos="0 0 -0.025">
-                <geom name="link8_visual_aid_top" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.855 0.267 0.314 1" />
-              </body>
-              <body name="link8_visual_aid_bottom" pos="0 0 0.025">
-                <geom name="link8_visual_aid_bottom" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.063 0.522 0.737 1" />
-              </body>
+      <body name="r1" pos="0.0 0.08 0.073525">
+        <joint axis="0 -1 0" damping="0.1" name="finger_r" pos="0.0 -0.05 -0.043525" type="slide" range="-0.02 0.02" />
+        <geom name="r1" mass="0.01" size="0.005 0.005 0.06" rgba="0.063 0.522 0.737 1" type="box" />
+        <site name="sr" pos="0 0 0"/>
+        <body name="r2" pos="0.0 -0.0184 0.043525">
+          <joint axis="0 1 0" damping="0.5" name="pitch_r" pos="0.0 -0.0184 0" type="hinge" range="-1.57 1.57" />
+          <geom name="r2" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
+          <body name="r3" pos="0.0 -0.0184 0.0">
+            <joint axis="0 0 1" damping="0.1" name="roll_r" pos="0.0 0 0" range="-1.57 1.57" type="hinge" />
+            <geom name="r3" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" />
+            <body name="r3_visual_aid_top" pos="0 0 -0.025">
+              <geom name="r3_visual_aid_top" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.855 0.267 0.314 1" />
+            </body>
+            <body name="r3_visual_aid_bottom" pos="0 0 0.025">
+              <geom name="r3_visual_aid_bottom" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.063 0.522 0.737 1" />
             </body>
           </body>
         </body>
       </body>
     </body>
 
-    <!-- <body name="floor" pos="0 0 0">
-      <geom name="floor" size="1 1 0.01" rgba="0.4 0.678 0.361 0.7" type="plane" />
-    </body>
-
-    <body name="cube" pos="0.2 0 0.1" quat="1.0 0.0 0.0 0.0">
-      <joint damping="0.1" name="cube" pos="0 0 0" type="free" />
-      <geom name="cube" mass="0.01" type="mesh" mesh="cube" rgba="1 1 1 0.5" material="rubik" />
-    </body>
-
-    <body name="goalcube" pos="-0.25 0 0.04" quat="1.0 0.0 0.0 0.0">
-      <joint damping="0.1" name="goalcube" pos="0 0 0" type="free" />
-      <geom name="goalcube" mass="0.01" type="mesh" mesh="cube" rgba="1 1 1 0.5" material="rubik" />
-    </body> -->
-
   </worldbody>
 
   <actuator>
-    <position name="motor_base_x" joint="base_jx" kp="500" />
-    <position name="motor_base_y" joint="base_jy" kp="500" />
-    <position name="motor_base_z" joint="base_jz" kp="500" />
+    <position name="motor2" joint="pitch_l" kp="20" />
+    <position name="motor3" joint="roll_l" kp="500" />
 
-    <position name="motor_base_rx" joint="base_jrx" kp="500" />
-    <position name="motor_base_ry" joint="base_jry" kp="500" />
-    <position name="motor_base_rz" joint="base_jrz" kp="500" />
-
-    <position name="motor1" joint="j1" kp="10" /> 
-    <position name="motor2" joint="j3" kp="20" /> 
-    <position name="motor3" joint="j4" kp="500" /> 
-
-    <position name="motor5" joint="j7" kp="20" /> 
-    <position name="motor6" joint="j8" kp="500" /> 
+    <position name="motor5" joint="pitch_r" kp="20" />
+    <position name="motor6" joint="roll_r" kp="500" />
   </actuator>
 
   <contact>
-    <exclude body1="forearm" body2="link1" />
-    <exclude body1="link1" body2="link2" />
-    <exclude body1="link2" body2="link3" />
-    <exclude body1="link3" body2="link4" />
+    <exclude body1="l1" body2="l2" />
+    <exclude body1="l2" body2="l3" />
 
-    <exclude body1="link4" body2="link4_visual_aid_top" />
-    <exclude body1="link4" body2="link4_visual_aid_bottom" />
+    <exclude body1="l3" body2="l3_visual_aid_top" />
+    <exclude body1="l3" body2="l3_visual_aid_bottom" />
 
-    <exclude body1="forearm" body2="link5" />
-    <exclude body1="link5" body2="link6" />
-    <exclude body1="link6" body2="link7" />
-    <exclude body1="link7" body2="link8" />
+    <exclude body1="r1" body2="r2" />
+    <exclude body1="r2" body2="r3" />
 
-    <exclude body1="link8" body2="link8_visual_aid_top" />
-    <exclude body1="link8" body2="link8_visual_aid_bottom" />
+    <exclude body1="r3" body2="r3_visual_aid_top" />
+    <exclude body1="r3" body2="r3_visual_aid_bottom" />
 
   </contact>
 
+  <tendon>
+    <spatial width="0.002" rgba=".95 .3 .3 1" springlength="0.14" damping="1" stiffness="50">
+      <site site="sl"/>
+      <site site="sr"/>
+    </spatial> 
+  </tendon>
 </mujoco>

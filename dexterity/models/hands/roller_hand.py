@@ -10,7 +10,7 @@ from dexterity.models.hands import roller_hand_constants as consts
 from dexterity.utils import mjcf_utils
 from dexterity.utils import mujoco_utils
 
-_PALM_UPRIGHT_POS = (0.0, 0.0, 0.3)
+_PALM_UPRIGHT_POS = (0.0, 0.0, 0.19)
 _PALM_UPRIGHT_QUAT = (0.0, 0.707, -0.707, 0.0)
 
 
@@ -136,6 +136,7 @@ class RollerHand(dexterous_hand.DexterousHand):
     """Parses MJCF elements that will be exposed as attributes."""
     self._joints = mjcf_utils.safe_find_all(self.mjcf_model, "joint")
     self._actuators = mjcf_utils.safe_find_all(self.mjcf_model, "actuator")
+    self._tendons = mjcf_utils.safe_find_all(self.mjcf_model, "tendon")
 
     # Create joint groups.
     joint_groups = []
