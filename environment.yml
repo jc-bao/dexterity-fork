@@ -23,3 +23,5 @@ dependencies:
       - dm_control >= 1.0.1
       - dm_robotics-geometry
       - dm_robotics-transformations
+      - pillow 
+      - scikit-video
