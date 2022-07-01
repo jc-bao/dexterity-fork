@@ -12,12 +12,14 @@ class QuaternionFromAxisAngle(rotations.base.Variation):
   """Quaternion variation specified in terms of variations in axis and angle."""
   def __call__(self, random_state=None):
     random_state = random_state or np.random
-    axis = random_state.uniform([0,0,0], [0,1,1])
+    self.alpha = random_state.uniform(0, 2 * np.pi)
+    self.beta = random_state.uniform(0, np.pi/2)
+    axis = np.array([np.cos(self.beta)*np.cos(self.alpha) ,np.cos(self.beta)*np.sin(self.alpha) , np.sin(self.beta)])
     # axis = np.array([0,0,1])
     axis = axis / np.linalg.norm(axis)
     angle = random_state.uniform(-np.pi, np.pi)
     # angle = np.pi/2
-    sine, cosine = np.sin(angle / 2), np.cos(angle / 2)
+    sine, cosine = np.sin(angle), np.cos(angle)
     # record the axis and angle for debug purposes
     self.angle = angle
     self.axis = axis

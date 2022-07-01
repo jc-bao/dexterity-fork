@@ -103,12 +103,17 @@ def main(_) -> None:
     obs = timestep.observation
     joint_pos = obs['roller_hand/joint_positions']
     pitch_r, pitch_l = joint_pos[1], joint_pos[4]
-    current_roll = np.arccos(obs['prop/orientation'][0])
-    obj_y = obs['prop/position'][1]
+    obj_quat = obs['prop/orientation']
+    current_roll = np.arccos(obj_quat[0])
+    if obj_quat[3] < 0:
+      current_roll = -current_roll
+    obj_y, obj_z = obs['prop/position'][1:]
+    obj_z -= 0.05
     # target state
     yz = env.task.goal_generator._sampler.axis[1:]
     target_pitch = np.arctan(yz[0]/yz[1])
     target_roll = env.task.goal_generator._sampler.angle
+    obj_disp = -obj_y * np.cos(target_pitch) + obj_z * np.sin(target_pitch)
     # action
     action = np.zeros(action_spec.shape)
     gamma = 0.5
@@ -125,17 +130,22 @@ def main(_) -> None:
       elif target_roll < (current_roll-0.01):
         action[1] = -1
       action[3] = action[1]
-      action[1] += obj_y
-      action[3] -= obj_y
+      action[1] += obj_disp*100
+      action[3] -= obj_disp*100
     return action.astype(action_spec.dtype)
 
-  imgs = []
-  for _ in range(1000):
-    action = handcrafted_policy(timestep)
-    timestep = env.step(action)
-    imgs.append(env.physics.render(camera_id="front_close"))
   import skvideo.io
-  skvideo.io.vwrite("outputvideo.mp4", np.array(imgs))
+  for i in range(10):
+    print('trail: ', i)
+    timestep = env.reset()
+    imgs = []
+    while not timestep.last():
+      action = handcrafted_policy(timestep)
+      timestep = env.step(action)
+      imgs.append(env.physics.render(camera_id="front_close"))
+    if len(imgs) > 0:
+      print('write vid: ', i)
+      skvideo.io.vwrite(f"vid/{i}.mp4", np.array(imgs))
   # viewer.launch(env, policy = handcrafted_policy)
 
 

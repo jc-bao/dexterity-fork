@@ -72,8 +72,8 @@ _STEPS_BEFORE_MOVING_TARGET: int = 5
 _BBOX_SIZE = 0.05
 _WORKSPACE = Workspace(
   prop_bbox=workspaces.BoundingBox(
-    lower=(-0.002, -0.002, 0.05),
-    upper=(0.002, 0.002, 0.05),
+    lower=(-0.000, -0.000, 0.05),
+    upper=(0.000, 0.000, 0.05),
   ),
 )
 
@@ -341,14 +341,14 @@ def roller_task(
   prop_obs_options = observations.make_options(
     observation_set.value, _FREEPROP_OBSERVABLES
   )
-  prop = props.OpenAICube(
+  prop = props.Sphere(
     size=_PROP_SIZE, observable_options=prop_obs_options, name="prop"
   )
 
   target_prop_obs_options = observations.make_options(
     observation_set.value, _TARGETPROP_OBSERVABLES
   )
-  hint_prop = props.OpenAICube(
+  hint_prop = props.Sphere(
     size=_PROP_SIZE,
     observable_options=target_prop_obs_options,
     name="target_prop",
