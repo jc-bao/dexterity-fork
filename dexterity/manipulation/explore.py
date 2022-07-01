@@ -5,6 +5,7 @@ from typing import Sequence
 from absl import app
 from absl import flags
 from dm_control import viewer
+import numpy as np
 
 from dexterity import manipulation
 from dexterity.manipulation.wrappers import ActionNoise
@@ -58,7 +59,12 @@ def main(_) -> None:
   for k, v in timestep.observation.items():
     print(f"{k}: {v.shape}")
 
-  viewer.launch(env)
+  def random_policy(timestep):
+    del timestep  # Unused
+    action = np.random.uniform(env.action_spec.minimum, env.action_spec.maximum)
+    return action.astype(env.action_spec.dtype)
+
+  viewer.launch(env, policy = random_policy)
 
 
 if __name__ == "__main__":
