@@ -47,7 +47,7 @@
           <joint axis="0 1 0" damping="0.5" name="pitch_l" pos="0.0 -0.0184 0" type="hinge" range="-1.57 1.57" />
           <geom name="l2" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
           <body name="l3" pos="0.0 0.0184 0.0">
-            <joint axis="0 0 1" damping="0.1" range="-1.57 1.57" name="roll_l" pos="0.0 0 0" type="hinge" />
+            <joint axis="0 0 1" damping="0.1" range="-1000000 1000000" name="roll_l" pos="0.0 0 0" type="hinge" />
             <geom name="l3" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" />
             <body name="l3_visual_aid_top" pos="0 0 -0.025">
               <geom name="l3_visual_aid_top" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.855 0.267 0.314 1" />
@@ -68,7 +68,7 @@
           <joint axis="0 1 0" damping="0.5" name="pitch_r" pos="0.0 -0.0184 0" type="hinge" range="-1.57 1.57" />
           <geom name="r2" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
           <body name="r3" pos="0.0 -0.0184 0.0">
-            <joint axis="0 0 1" damping="0.1" name="roll_r" pos="0.0 0 0" range="-1.57 1.57" type="hinge" />
+            <joint axis="0 0 1" damping="0.1" name="roll_r" pos="0.0 0 0" range="-1000000 1000000" type="hinge" />
             <geom name="r3" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" />
             <body name="r3_visual_aid_top" pos="0 0 -0.025">
               <geom name="r3_visual_aid_top" mass="0" type="box" size="0.005 0.015 0.005" rgba="0.855 0.267 0.314 1" />
@@ -84,11 +84,11 @@
   </worldbody>
 
   <actuator>
-    <position name="motor2" joint="pitch_l" kp="20" />
-    <position name="motor3" joint="roll_l" kp="500" />
+    <position name="motor_pitch_l" joint="pitch_l" kp="20" ctrlrange="-3.15 3.15"/>
+    <velocity name="motor_roll_l" joint="roll_l" ctrlrange="-1 1"/>
 
-    <position name="motor5" joint="pitch_r" kp="20" />
-    <position name="motor6" joint="roll_r" kp="500" />
+    <position name="motor_pitch_r" joint="pitch_r" kp="20" ctrlrange="-3.15 3.15"/>
+    <velocity name="motor_roll_r" joint="roll_r" ctrlrange="-1 1"/>
   </actuator>
 
   <contact>
@@ -107,7 +107,7 @@
   </contact>
 
   <tendon>
-    <spatial width="0.002" rgba=".95 .3 .3 1" springlength="0.14" damping="1" stiffness="50">
+    <spatial width="0.002" rgba=".95 .3 .3 1" springlength="0.05" damping="1" stiffness="30">
       <site site="sl"/>
       <site site="sr"/>
     </spatial> 

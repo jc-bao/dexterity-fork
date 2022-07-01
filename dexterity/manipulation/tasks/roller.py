@@ -46,7 +46,7 @@ _HINT_POS = (0.0, 0.0, 0.1)
 _PROP_SIZE = 0.02
 
 # Fudge factor for taking the inverse of the orientation error, in radians.
-_ORIENTATION_EPS = 0.1
+_ORIENTATION_EPS = 0.2
 # Threshold for successful orientation, in radians.
 _ORIENTATION_THRESHOLD = 0.1
 # Reward shaping coefficients.
@@ -167,6 +167,7 @@ class Roller(task.GoalTask):
     )
 
     self.set_timesteps(control_timestep, physics_timestep)
+    self.root_entity.mjcf_model.option.gravity = [0,0,0]
 
   @property
   def hand(self) -> dexterous_hand.DexterousHand:

@@ -13,8 +13,10 @@ class QuaternionFromAxisAngle(rotations.base.Variation):
   def __call__(self, random_state=None):
     random_state = random_state or np.random
     axis = random_state.uniform([0,0,0], [0,1,1])
+    # axis = np.array([0,0,1])
     axis = axis / np.linalg.norm(axis)
     angle = random_state.uniform(-np.pi, np.pi)
+    # angle = np.pi/2
     sine, cosine = np.sin(angle / 2), np.cos(angle / 2)
     # record the axis and angle for debug purposes
     self.angle = angle

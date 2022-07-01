@@ -174,6 +174,7 @@ class GoalTask(Task):
       self._goal,
       self._goal_generator.current_state(physics),
     )
+    print(self._goal_distance)
 
     if np.all(self._goal_distance <= self._success_threshold):
       self._success_change_counter += 1

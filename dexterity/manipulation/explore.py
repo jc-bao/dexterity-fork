@@ -59,12 +59,84 @@ def main(_) -> None:
   for k, v in timestep.observation.items():
     print(f"{k}: {v.shape}")
 
+  action_spec = env.action_spec()
   def random_policy(timestep):
     del timestep  # Unused
-    action = np.random.uniform(env.action_spec.minimum, env.action_spec.maximum)
-    return action.astype(env.action_spec.dtype)
+    action = np.random.uniform(action_spec.minimum, action_spec.maximum)
+    return action.astype(action_spec.dtype)
 
-  viewer.launch(env, policy = random_policy)
+  def change_pitch_policy(timestep):
+    # current state
+    obs = timestep.observation
+    joint_pos = obs['roller_hand/joint_positions']
+    pitch_r, pitch_l = joint_pos[1], joint_pos[4]
+    roll_r, roll_l = joint_pos[2], joint_pos[5]
+    # target state
+    yz = env.task.goal_generator._sampler.axis[1:]
+    target_pitch = np.arctan(yz[0]/yz[1])
+    # action
+    action = np.zeros(action_spec.shape)
+    delta_pitch_r =  target_pitch - pitch_r
+    delta_pitch_l =  target_pitch - pitch_l
+    action[0] = np.clip(delta_pitch_l, -0.5, 0.5)
+    action[2] = np.clip(delta_pitch_r, -0.5, 0.5)
+    return action.astype(action_spec.dtype)
+
+  def change_roll_policy(timestep):
+    # current state
+    obs = timestep.observation
+    joint_pos = obs['roller_hand/joint_positions']
+    # target state
+    target_roll = env.task.goal_generator._sampler.angle
+    current_roll = np.arccos(obs['prop/orientation'][0])
+    # action
+    action = np.zeros(action_spec.shape)
+    if target_roll > (current_roll+0.001):
+      action[1] = 1
+    elif target_roll < (current_roll-0.001):
+      action[1] = -1
+    action[3] = action[1]
+    return action.astype(action_spec.dtype)
+  
+  def handcrafted_policy(timestep):
+    # current state
+    obs = timestep.observation
+    joint_pos = obs['roller_hand/joint_positions']
+    pitch_r, pitch_l = joint_pos[1], joint_pos[4]
+    current_roll = np.arccos(obs['prop/orientation'][0])
+    obj_y = obs['prop/position'][1]
+    # target state
+    yz = env.task.goal_generator._sampler.axis[1:]
+    target_pitch = np.arctan(yz[0]/yz[1])
+    target_roll = env.task.goal_generator._sampler.angle
+    # action
+    action = np.zeros(action_spec.shape)
+    gamma = 0.5
+    pitch_err_l = target_pitch - pitch_r
+    pitch_err_r = target_pitch - pitch_l
+    if (abs(pitch_err_l) > 0.01) and (abs(pitch_err_r) > 0.01):
+      action[0] = target_pitch
+      action[2] = target_pitch
+    else:
+      action[0] = target_pitch
+      action[2] = target_pitch
+      if target_roll > (current_roll+0.01):
+        action[1] = 1
+      elif target_roll < (current_roll-0.01):
+        action[1] = -1
+      action[3] = action[1]
+      action[1] += obj_y
+      action[3] -= obj_y
+    return action.astype(action_spec.dtype)
+
+  imgs = []
+  for _ in range(1000):
+    action = handcrafted_policy(timestep)
+    timestep = env.step(action)
+    imgs.append(env.physics.render(camera_id="front_close"))
+  import skvideo.io
+  skvideo.io.vwrite("outputvideo.mp4", np.array(imgs))
+  # viewer.launch(env, policy = handcrafted_policy)
 
 
 if __name__ == "__main__":

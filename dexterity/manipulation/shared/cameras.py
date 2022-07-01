@@ -21,8 +21,8 @@ class CameraConfig:
 
 FRONT_CLOSE = CameraConfig(
   name="front_close",
-  pos=(0.0, -0.5, 0.5),
-  xyaxes=(1.0, 0.0, 0.0, 0.0, 0.7, 0.75),
+  pos=(0.0, -0.3, 0.1),
+  xyaxes=(1.0, 0.0, 0.0, 0.0, 0.0, 0.1),
 )
 
 LEFT_CLOSE = CameraConfig(

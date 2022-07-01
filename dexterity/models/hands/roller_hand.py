@@ -95,10 +95,6 @@ class RollerHand(dexterous_hand.DexterousHand):
   # ================= #
 
   def control_to_joint_positions(self, control: np.ndarray) -> np.ndarray:
-    """Maps a 20-D position control command to a 24-D joint position command.
-
-    The control commands for the coupled joints are evenly split amongst them.
-    """
     if control.shape != (self.num_actuators,):
       raise ValueError(
         f"Expected control of shape ({self.num_actuators}), got"
@@ -107,11 +103,6 @@ class RollerHand(dexterous_hand.DexterousHand):
     return consts.CONTROL_TO_POSITION @ control
 
   def joint_positions_to_control(self, qpos: np.ndarray) -> np.ndarray:
-    """Maps a 24-D joint position command to a 20-D control command.
-
-    The position commands for the coupled joints are summed up to form the control
-    for their corresponding actuator.
-    """
     if qpos.shape != (self.num_joints,):
       raise ValueError(
         f"Expected qpos of shape ({self.num_joints}), got {qpos.shape}"
