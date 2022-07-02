@@ -32,7 +32,7 @@ def save_buffer(buffer, logdir):
   rewards = np.array(rewards, dtype=np.float32)
   terminals = np.array(terminals, dtype=np.float32)
 
-  buffer_path = os.path.join(logdir, 'buffer.hdf5')
+  buffer_path = os.path.join('logs', f'{logdir}.hdf5')
   save_hdf5(observations, actions, rewards, terminals, buffer_path)
 
 
@@ -61,8 +61,8 @@ def collect(env, policy, logdir, final_step):
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
-  parser.add_argument('--seed', type=int, default=0)
-  parser.add_argument('--final-step', type=int, default=1000000)
+  parser.add_argument('--file', type=str, default='buffer')
+  parser.add_argument('--step', type=int, default=1000000)
   parser.add_argument('--policy', type=str, default='handcrafted')
   args = parser.parse_args()
 
@@ -72,4 +72,4 @@ if __name__ == '__main__':
   observation_size = env.observation_space.shape[0]
   action_size = env.action_space.shape[0]
 
-  collect(env, manipulation.ezpolicy, 'logs', args.final_step)
+  collect(env, manipulation.ezpolicy, args.file, args.final_step)
