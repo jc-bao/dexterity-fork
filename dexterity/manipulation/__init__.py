@@ -11,6 +11,7 @@ from dexterity.manipulation.tasks import reach
 from dexterity.manipulation.tasks import reorient
 from dexterity.manipulation.tasks import roller
 from dexterity.utils import mujoco_collisions
+from dexterity.manipulation.ezpolicy import ezpolicy
 
 # Find all domains imported.
 _DOMAINS = {
