@@ -1,5 +1,6 @@
 """A standalone app for visualizing manipulation tasks."""
 
+from os import times
 from typing import Sequence
 
 from absl import app
@@ -146,10 +147,13 @@ def main(_) -> None:
     print('trail: ', i)
     timestep = env.reset()
     imgs = []
+    t = 0
     while not timestep.last():
+      print('===== timestep: ', t)
       action = handcrafted_policy(timestep)
       timestep = env.step(action)
       imgs.append(env.physics.render(camera_id="front_close"))
+      t+=1
     if len(imgs) > 0:
       print('write vid: ', i)
       skvideo.io.vwrite(f"vid/{i}.mp4", np.array(imgs))

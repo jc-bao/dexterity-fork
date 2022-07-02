@@ -48,7 +48,7 @@ _PROP_SIZE = 0.02
 # Fudge factor for taking the inverse of the orientation error, in radians.
 _ORIENTATION_EPS = 0.2
 # Threshold for successful orientation, in radians.
-_ORIENTATION_THRESHOLD = 0.1
+_ORIENTATION_THRESHOLD = 0.2
 # Reward shaping coefficients.
 _ORIENTATION_WEIGHT = 1.0
 _SUCCESS_BONUS_WEIGHT = 800.0
@@ -76,6 +76,8 @@ _WORKSPACE = Workspace(
     upper=(0.000, 0.000, 0.05),
   ),
 )
+
+_ACTION_TRANSFORM = np.array([1.0, 4.0, 1.0, 4.0])
 
 # if object fly away
 _PROP_AWAY_DISTANCE = 0.1
@@ -198,6 +200,7 @@ class Roller(task.GoalTask):
       action: np.ndarray,
       random_state: np.random.RandomState,
   ) -> None:
+    action *= _ACTION_TRANSFORM
     super().before_step(physics, action, random_state)
 
     if self._goal_changed:
