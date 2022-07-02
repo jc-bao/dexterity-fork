@@ -72,4 +72,4 @@ if __name__ == '__main__':
   observation_size = env.observation_space.shape[0]
   action_size = env.action_space.shape[0]
 
-  collect(env, manipulation.ezpolicy, args.file, args.final_step)
+  collect(env, manipulation.ezpolicy, args.file, args.step)
