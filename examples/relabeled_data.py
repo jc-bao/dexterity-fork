@@ -3,6 +3,7 @@ import h5py
 import gym
 from tqdm import tqdm
 import os
+import argparse
 
 from dexterity.utils.dm2gym import GymEnv
 from dexterity import manipulation
@@ -30,10 +31,10 @@ def save_hdf5(observations, actions, rewards, terminals, fname):
     f.create_dataset('rewards', data=rewards)
     f.create_dataset('terminals', data=terminals)
 
-def main():
+def main(args):
   env = GymEnv(domain_name="roller", task_name="state_dense")
   dataset_file = h5py.File(
-      '/Users/reedpan/Desktop/Research/dexterity-fork/examples/logs/origin.hdf5', 'r')
+      f'logs/{args.input}.hdf5', 'r')
   dataset = {k: dataset_file[k][:] for k in get_keys(dataset_file)}
   dataset_file.close()
   dataset['terminals'][-1] = 1
@@ -49,7 +50,7 @@ def main():
       ag = gym.spaces.utils.unflatten(env.observation_space,(dataset['observations'][goal_idx]))['prop/orientation']
       for trans_idx in range(start, goal_idx+1):
         old_obs = dataset['observations'][trans_idx]
-        obs_dict = 
+        obs_dict = gym.spaces.utils.unflatten(env.observation_space, old_obs) 
         obs_dict['target_prop/orientation'] = ag
         obs = gym.spaces.utils.flatten(env.observation_space, obs_dict)
         obs_list.append(obs)
@@ -62,9 +63,13 @@ def main():
   rewards = np.array(rew_list, dtype=np.float32)
   terminals = np.array(term_list, dtype=np.float32)
 
-  buffer_path = os.path.join('logs', 'relabel.hdf5')
+  buffer_path = os.path.join('logs', f'{args.output}.hdf5')
   save_hdf5(observations, actions, rewards, terminals, buffer_path)
 
 
 if __name__ == '__main__':
-  main()
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--input', type=str, default='origin')
+  parser.add_argument('--output', type=str, default='relabel')
+  args = parser.parse_args()
+  main(args)
