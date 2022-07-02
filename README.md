@@ -12,7 +12,7 @@
 
 Software and tasks for dexterous multi-fingered hand manipulation, powered by [MuJoCo](https://mujoco.org/).
 
-<p float="left">
+<p float="left" >
   <img src="https://raw.githubusercontent.com/kevinzakka/dexterity/main/assets/reach.png" height="200">
   <img src="https://raw.githubusercontent.com/kevinzakka/dexterity/main/assets/cube.png" height="200">
 </p>

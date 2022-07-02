@@ -60,6 +60,7 @@ def main(_) -> None:
     print(f"{k}: {v.shape}")
 
   action_spec = env.action_spec()
+
   def random_policy(timestep):
     del timestep  # Unused
     action = np.random.uniform(action_spec.minimum, action_spec.maximum)
@@ -114,9 +115,14 @@ def main(_) -> None:
     target_pitch = np.arctan(yz[0]/yz[1])
     target_roll = env.task.goal_generator._sampler.angle
     obj_disp = -obj_y * np.cos(target_pitch) + obj_z * np.sin(target_pitch)
+    # preprocess angle
+    if current_roll > target_roll + np.pi:
+      current_roll -= 2 * np.pi
+    elif current_roll < target_roll - np.pi:
+      current_roll += 2 * np.pi
+    assert abs(current_roll - target_roll) <= np.pi
     # action
     action = np.zeros(action_spec.shape)
-    gamma = 0.5
     pitch_err_l = target_pitch - pitch_r
     pitch_err_r = target_pitch - pitch_l
     if (abs(pitch_err_l) > 0.01) and (abs(pitch_err_r) > 0.01):
@@ -125,15 +131,16 @@ def main(_) -> None:
     else:
       action[0] = target_pitch
       action[2] = target_pitch
-      if target_roll > (current_roll+0.01):
+      if current_roll<target_roll-0.01:
         action[1] = 1
-      elif target_roll < (current_roll-0.01):
+      elif current_roll>target_roll+0.01:
         action[1] = -1
       action[3] = action[1]
       action[1] += obj_disp*100
       action[3] -= obj_disp*100
     return action.astype(action_spec.dtype)
 
+  # save render video
   import skvideo.io
   for i in range(10):
     print('trail: ', i)

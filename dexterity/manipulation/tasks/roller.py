@@ -77,6 +77,9 @@ _WORKSPACE = Workspace(
   ),
 )
 
+# if object fly away
+_PROP_AWAY_DISTANCE = 0.1
+
 # Observable settings.
 _FREEPROP_OBSERVABLES = observations.ObservableNames(
   prop_pose=("position", "orientation", "linear_velocity", "angular_velocity"),
@@ -206,9 +209,9 @@ class Roller(task.GoalTask):
     super().after_step(physics, random_state)
 
     self._failure_termination = False
-    # if self._fall_termination:
-    #   if self._is_prop_fallen(physics):
-    #     self._failure_termination = True
+    if self._fall_termination:
+      if self._is_prop_away(physics):
+        self._failure_termination = True
 
   def should_terminate_episode(self, physics: mjcf.Physics) -> bool:
     should_terminate = super().should_terminate_episode(physics)
@@ -228,13 +231,10 @@ class Roller(task.GoalTask):
 
   # Helper methods.
 
-  def _is_prop_fallen(self, physics: mjcf.Physics) -> bool:
+  def _is_prop_away(self, physics: mjcf.Physics) -> bool:
     """Returns True if the prop has fallen from the hand."""
-    return mujoco_collisions.has_collision(
-      physics=physics,
-      collision_geom_prefix_1=[f"{self._prop.name}/"],
-      collision_geom_prefix_2=[self._arena.ground.full_identifier],
-    )
+    return self._prop.get_pose(physics=physics)[0][0] > _PROP_AWAY_DISTANCE or \
+            self._prop.get_pose(physics=physics)[0][1] > _PROP_AWAY_DISTANCE
 
 
 def _get_shaped_reorientation_reward(
