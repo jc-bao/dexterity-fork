@@ -1,4 +1,4 @@
-"""Tests for manipulation."""
+"""Test for manipulation."""
 
 import collections
 from typing import Mapping

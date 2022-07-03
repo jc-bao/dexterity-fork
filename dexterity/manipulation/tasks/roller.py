@@ -77,7 +77,7 @@ _WORKSPACE = Workspace(
   ),
 )
 
-_ACTION_TRANSFORM = np.array([1.0, 4.0, 1.0, 4.0])
+_ACTION_TRANSFORM = np.array([2.0, 4.0, 2.0, 4.0])
 
 # if object fly away
 _PROP_AWAY_DISTANCE = 0.1

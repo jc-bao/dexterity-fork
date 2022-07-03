@@ -84,10 +84,12 @@
   </worldbody>
 
   <actuator>
-    <position name="motor_pitch_l" joint="pitch_l" kp="20" ctrlrange="-3.15 3.15"/>
+    <!-- <position name="motor_pitch_l" joint="pitch_l" kp="20" ctrlrange="-3.15 3.15"/> -->
+    <velocity name="motor_pitch_l" joint="pitch_l" ctrlrange="-4 4"/>
     <velocity name="motor_roll_l" joint="roll_l" ctrlrange="-4 4"/>
 
-    <position name="motor_pitch_r" joint="pitch_r" kp="20" ctrlrange="-3.15 3.15"/>
+    <!-- <position name="motor_pitch_r" joint="pitch_r" kp="20" ctrlrange="-3.15 3.15"/> -->
+    <velocity name="motor_pitch_r" joint="pitch_r" ctrlrange="-4 4"/>
     <velocity name="motor_roll_r" joint="roll_r" ctrlrange="-4 4"/>
   </actuator>
 

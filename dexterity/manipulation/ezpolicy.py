@@ -1,6 +1,9 @@
 import numpy as np
 from gym.spaces.utils import unflatten
 
+PITCH_POS2VEL = 20
+ROLL_POS2VEL = 20
+
 def ezpolicy(obs):
   # current state
   joint_pos = obs['roller_hand/joint_positions']
@@ -29,17 +32,25 @@ def ezpolicy(obs):
   action = np.zeros(4)
   pitch_err_l = target_pitch - pitch_r
   pitch_err_r = target_pitch - pitch_l
-  if (abs(pitch_err_l) > 0.01) and (abs(pitch_err_r) > 0.01):
-    action[0] = target_pitch
-    action[2] = target_pitch
+  if pitch_err_l > 0.01:
+    action[0] = np.clip(pitch_err_l*PITCH_POS2VEL, 0, 1)
+  elif pitch_err_l < -0.01:
+    action[0] = np.clip(pitch_err_l*PITCH_POS2VEL, -1, 0)
   else:
-    action[0] = target_pitch
-    action[2] = target_pitch
-    if current_roll < target_roll - 0.01:
-      action[1] = 1
-    elif current_roll > target_roll + 0.01:
-      action[1] = -1
+    action[0] = 0
+  if pitch_err_r > 0.01:
+    action[2] = np.clip(pitch_err_r*PITCH_POS2VEL, 0, 1)
+  elif pitch_err_r < -0.01:
+    action[2] = np.clip(pitch_err_r*PITCH_POS2VEL, -1, 0)
+  else:
+    action[2] = 0
+  if abs(pitch_err_l) < 0.01 and abs(pitch_err_r) < 0.01:
+    roll_err = target_roll - current_roll
+    if roll_err > 0.01:
+      action[1] = np.clip(roll_err*ROLL_POS2VEL, 0, 1)
+    elif roll_err < -0.01:
+      action[1] = np.clip(roll_err*ROLL_POS2VEL, -1, 0)
     action[3] = action[1]
-    action[1] += obj_disp * 100
-    action[3] -= obj_disp * 100
+  action[1] += obj_disp * 100
+  action[3] -= obj_disp * 100
   return action
