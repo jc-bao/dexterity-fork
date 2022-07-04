@@ -142,22 +142,22 @@ def main(_) -> None:
     return action.astype(action_spec.dtype)
 
   # save render video
-  import skvideo.io
-  for i in range(10):
-    print('trail: ', i)
-    timestep = env.reset()
-    imgs = []
-    t = 0
-    while not timestep.last():
-      print('===== timestep: ', t)
-      action = handcrafted_policy(timestep)
-      timestep = env.step(action)
-      imgs.append(env.physics.render(camera_id="front_close"))
-      t+=1
-    if len(imgs) > 0:
-      print('write vid: ', i)
-      skvideo.io.vwrite(f"vid/{i}.mp4", np.array(imgs))
-  # viewer.launch(env, policy = handcrafted_policy)
+  # import skvideo.io
+  # for i in range(10):
+  #   print('trail: ', i)
+  #   timestep = env.reset()
+  #   imgs = []
+  #   t = 0
+  #   while not timestep.last():
+  #     print('===== timestep: ', t)
+  #     action = handcrafted_policy(timestep)
+  #     timestep = env.step(action)
+  #     imgs.append(env.physics.render(camera_id="front_close"))
+  #     t+=1
+  #   if len(imgs) > 0:
+  #     print('write vid: ', i)
+  #     skvideo.io.vwrite(f"vid/{i}.mp4", np.array(imgs))
+  viewer.launch(env, policy = handcrafted_policy)
 
 
 if __name__ == "__main__":

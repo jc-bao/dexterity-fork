@@ -29,7 +29,6 @@ from dexterity.manipulation.shared import workspaces
 from dexterity.models import arenas
 from dexterity.models.hands import dexterous_hand
 from dexterity.models.hands import roller_hand
-from dexterity.utils import mujoco_collisions
 
 
 @dataclasses.dataclass(frozen=True)
@@ -77,7 +76,7 @@ _WORKSPACE = Workspace(
   ),
 )
 
-_ACTION_TRANSFORM = np.array([2.0, 4.0, 2.0, 4.0])
+_ACTION_TRANSFORM = np.array([1.0, 2.0, 4.0, 2.0, 4.0])
 
 # if object fly away
 _PROP_AWAY_DISTANCE = 0.1
@@ -212,9 +211,8 @@ class Roller(task.GoalTask):
     super().after_step(physics, random_state)
 
     self._failure_termination = False
-    if self._fall_termination:
-      if self._is_prop_away(physics):
-        self._failure_termination = True
+    if self._fall_termination and self._is_prop_away(physics):
+      self._failure_termination = True
 
   def should_terminate_episode(self, physics: mjcf.Physics) -> bool:
     should_terminate = super().should_terminate_episode(physics)

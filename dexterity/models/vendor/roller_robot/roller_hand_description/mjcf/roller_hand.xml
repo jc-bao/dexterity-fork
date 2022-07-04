@@ -34,10 +34,8 @@
   <worldbody>
     <body name="forearm" pos="0 0 0.026625">
       <geom mass="0.1" pos="0 0 0" rgba="0.855 0.267 0.314 1" size="0.0375 0.026625" type="cylinder" />
-      <!-- <body name="crossbar" pos="0 0 0.02"> -->
       <geom name="crossbar" mass="0.01" size="0.005 0.1 0.005" rgba="0.063 0.522 0.737 1" type="box" />
-      <!-- </body> -->
-
+      <joint axis="0 0 1" damping="0.5" name="hand_z" pos="0.0 0.0 0" type="hinge" range="-1.57 1.57" />
       <!-- Left -->
       <body name="l1" pos="0.0 -0.08 0.073525">
         <joint axis="0 1 0" damping="0.1" name="finger_l" pos="0.0 0.05 -0.043525" type="slide" range="-0.02 0.02" />
@@ -84,6 +82,8 @@
   </worldbody>
 
   <actuator>
+    <velocity name="motor_hand_z" joint="hand_z" ctrlrange="-4 4"/>
+
     <!-- <position name="motor_pitch_l" joint="pitch_l" kp="20" ctrlrange="-3.15 3.15"/> -->
     <velocity name="motor_pitch_l" joint="pitch_l" ctrlrange="-4 4"/>
     <velocity name="motor_roll_l" joint="roll_l" ctrlrange="-4 4"/>
