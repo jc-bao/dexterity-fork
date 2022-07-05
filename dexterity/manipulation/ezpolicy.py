@@ -5,7 +5,9 @@ from scipy.spatial.transform import Rotation as R
 PITCH_POS2VEL = 20
 ROLL_POS2VEL = 20
 
-def ezpolicy(obs):
+def ezpolicy(obs, observation_space=None):
+  if isinstance(obs, np.ndarray):
+    obs = unflatten(observation_space, obs) 
   # ===parse observation=== 
   goal_orn = R.from_quat([*obs['goal_state'][1:], obs['goal_state'][0]])
   obj_orn = R.from_quat([*obs['prop/orientation'][1:], obs['prop/orientation'][0]])
