@@ -45,13 +45,12 @@ def main(args):
   for i in tqdm(range(len(end_point))):
     start = end_point[i-1] + 1
     end = end_point[i]
-    traj_length = end - start
     for goal_idx in range(start, end+1):
       ag = gym.spaces.utils.unflatten(env.observation_space,(dataset['observations'][goal_idx]))['prop/orientation']
       for trans_idx in range(start, goal_idx+1):
         old_obs = dataset['observations'][trans_idx]
         obs_dict = gym.spaces.utils.unflatten(env.observation_space, old_obs) 
-        obs_dict['target_prop/orientation'] = ag
+        obs_dict['goal_state'] = ag
         obs = gym.spaces.utils.flatten(env.observation_space, obs_dict)
         obs_list.append(obs)
         term = [float(trans_idx == goal_idx)]
