@@ -11,7 +11,7 @@ if __name__=='__main__':
   imgs = []
   for _ in range(1000):
     act = manipulation.ezpolicy(obs)
-    act = env.action_space.sample()
+    # act = env.action_space.sample()
     obs, rew, done, info = env.step(act)
     imgs.append(env.render(mode='rgb_array'))
   skvideo.io.vwrite('vid/gym.mp4', np.array(imgs))

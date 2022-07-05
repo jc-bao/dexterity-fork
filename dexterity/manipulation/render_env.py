@@ -207,7 +207,6 @@ def main(_) -> None:
     obj_pos_local = roller_orn.apply([obj_x, obj_y, obj_z])
     action[2] += obj_pos_local[2] * 1
     action[4] -= obj_pos_local[2] * 1
-    print(obs)
     return action
 
   # save render video

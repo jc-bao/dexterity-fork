@@ -1,10 +1,43 @@
 import numpy as np
 from gym.spaces.utils import unflatten
+from scipy.spatial.transform import Rotation as R
 
 PITCH_POS2VEL = 20
 ROLL_POS2VEL = 20
 
 def ezpolicy(obs):
+  # ===parse observation=== 
+  goal_orn = R.from_quat([*obs['goal_state'][1:], obs['goal_state'][0]])
+  obj_orn = R.from_quat([*obs['prop/orientation'][1:], obs['prop/orientation'][0]])
+  robot_orn = R.from_euler('z', obs['roller_hand/joint_positions'][0])
+  diff_orn = goal_orn * obj_orn.inv()
+  pitch = -obs['roller_hand/joint_positions'][2]%(2*np.pi)
+  # ===calculate angular velocity===
+  omega = 0.5 * 2 * ((diff_orn).as_quat())[:3]
+  if diff_orn.as_quat()[3] < 0:
+    omega = -omega
+  local_omega = robot_orn.apply(omega) * 10
+  local_omega_norm = np.linalg.norm(local_omega)
+  if local_omega_norm > 1:
+    local_omega /= np.linalg.norm(local_omega)
+  # ===calculate action===
+  action = np.zeros(5)
+  action[0] = -(local_omega[2] - local_omega[1] * np.tan(pitch))
+  action[1] = -local_omega[0]
+  action[3] = -local_omega[0]
+  action[2] = local_omega[1] / np.cos(pitch)
+  action[4] = local_omega[1] / np.cos(pitch)
+  # compensate for the drop down
+  roller_orn_local = R.from_euler('x', pitch)
+  roller_orn = roller_orn_local * robot_orn.inv()
+  obj_x, obj_y, obj_z = obs['prop/position']
+  obj_z -= 0.05
+  obj_pos_local = roller_orn.apply([obj_x, obj_y, obj_z])
+  action[2] += obj_pos_local[2] * 1
+  action[4] -= obj_pos_local[2] * 1
+  return action
+
+def ezpolicy_old(obs):
   # current state
   joint_pos = obs['roller_hand/joint_positions']
   pitch_r, pitch_l = joint_pos[1], joint_pos[4]
