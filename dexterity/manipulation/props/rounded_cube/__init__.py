@@ -46,7 +46,7 @@ class RoundedCube(MyPrimitive):
         size: The half-length of the cube.
         name: Optional name for the cube prop.
     """
-    super()._build(geom_type="mesh", size=[size] * 3, name=name, mesh=str(_MESH_PATH), friction=[100,0.01,0.05], density=5000)
+    super()._build(geom_type="mesh", size=[size] * 3, name=name, mesh=str(_MESH_PATH), friction=[100,1,0.05], density=100, condim=4)
 
     self.mjcf_model.asset.add(
       "texture",

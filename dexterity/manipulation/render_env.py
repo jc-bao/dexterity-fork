@@ -7,6 +7,7 @@ from absl import app
 from absl import flags
 from dm_control import viewer
 import numpy as np
+from scipy.spatial.transform import Rotation as R
 
 from dexterity import manipulation
 from dexterity.manipulation.wrappers import ActionNoise
@@ -37,7 +38,7 @@ def prompt_environment_name(values: Sequence[str]) -> str:
 def main(_) -> None:
   if FLAGS.environment_name is None:
     print("\n ".join(["Available environments:"] + manipulation.ALL_NAMES))
-    environment_name = prompt_environment_name(manipulation.ALL_NAMES)
+    environment_name = 'roller.state_dense'
   else:
     environment_name = FLAGS.environment_name
 
@@ -141,23 +142,91 @@ def main(_) -> None:
       action[3] -= obj_disp*100
     return action.astype(action_spec.dtype)
 
+  def handcrafted_policy_2(timestep):
+    obs = timestep.observation
+    # goal: wxyz
+    goal_orn = R.from_quat([*obs['target_prop/orientation'][1:], obs['target_prop/orientation'][0]])
+    # obj: 
+    obj_orn = R.from_quat([*obs['prop/orientation'][1:], obs['prop/orientation'][0]])
+    robot_orn = R.from_euler('z', obs['roller_hand/joint_positions'][0])
+    # step1: move along the z axis
+    diff_orn = goal_orn * obj_orn.inv()
+    delta_z, delta_x, delta_y = diff_orn.as_euler('zxy')
+    if delta_y < 0:
+      delta_y = delta_y + 2 * np.pi
+    print(delta_z, delta_x, delta_y)
+    action = np.zeros(action_spec.shape)
+    if abs(delta_z) > 0.05:
+      action[0] = -np.clip(delta_z*5, -1, 1)
+    elif abs(delta_x) > 0.05:
+      action[1] = -np.clip(delta_x*5, -1, 1)
+      action[3] = action[1]
+    elif abs(delta_y) > 0.05:
+      action[2] = -np.clip(delta_y*5, -1, 1)
+      action[4] = action[2]
+    # compensate for the drop down
+    roller_orn_local = R.from_euler('x', obs['roller_hand/joint_positions'][1])
+    roller_orn = roller_orn_local * robot_orn.inv()
+    obj_x, obj_y, obj_z = obs['prop/position']
+    obj_z -= 0.05
+    obj_pos_local = roller_orn.apply([obj_x, obj_y, obj_z])
+    action[2] += obj_pos_local[2] * 1
+    action[4] -= obj_pos_local[2] * 1
+    return action
+
+  def handcrafted_policy_3(timestep):
+    obs = timestep.observation
+    # goal: wxyz
+    goal_orn = R.from_quat([*obs['goal_state'][1:], obs['goal_state'][0]])
+    # obj: 
+    obj_orn = R.from_quat([*obs['prop/orientation'][1:], obs['prop/orientation'][0]])
+    robot_orn = R.from_euler('z', obs['roller_hand/joint_positions'][0])
+    # step1: move along the z axis
+    diff_orn = goal_orn * obj_orn.inv()
+    omega = 0.5 * 2 * ((diff_orn).as_quat())[:3]
+    if diff_orn.as_quat()[3] < 0:
+      omega = -omega
+    local_omega = robot_orn.apply(omega) * 10
+    local_omega_norm = np.linalg.norm(local_omega)
+    if local_omega_norm > 1:
+      local_omega /= np.linalg.norm(local_omega)
+    action = np.zeros(action_spec.shape)
+    pitch = -obs['roller_hand/joint_positions'][2]
+    pitch = pitch % (2*np.pi)
+    action[0] = -(local_omega[2] - local_omega[1] * np.tan(pitch))
+    action[1] = -local_omega[0]
+    action[3] = -local_omega[0]
+    cos_pitch = np.cos(pitch)
+    action[2] = local_omega[1] / cos_pitch
+    action[4] = local_omega[1] / cos_pitch
+    # compensate for the drop down
+    roller_orn_local = R.from_euler('x', pitch)
+    roller_orn = roller_orn_local * robot_orn.inv()
+    obj_x, obj_y, obj_z = obs['prop/position']
+    obj_z -= 0.05
+    obj_pos_local = roller_orn.apply([obj_x, obj_y, obj_z])
+    action[2] += obj_pos_local[2] * 1
+    action[4] -= obj_pos_local[2] * 1
+    print(obs)
+    return action
+
   # save render video
   # import skvideo.io
-  # for i in range(10):
+  # for i in range(20):
   #   print('trail: ', i)
   #   timestep = env.reset()
   #   imgs = []
   #   t = 0
   #   while not timestep.last():
   #     print('===== timestep: ', t)
-  #     action = handcrafted_policy(timestep)
+  #     action = handcrafted_policy_3(timestep)
   #     timestep = env.step(action)
   #     imgs.append(env.physics.render(camera_id="front_close"))
   #     t+=1
   #   if len(imgs) > 0:
   #     print('write vid: ', i)
   #     skvideo.io.vwrite(f"vid/{i}.mp4", np.array(imgs))
-  viewer.launch(env, policy = handcrafted_policy)
+  viewer.launch(env, policy = handcrafted_policy_3)
 
 
 if __name__ == "__main__":

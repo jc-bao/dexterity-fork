@@ -35,18 +35,18 @@
     <body name="forearm" pos="0 0 0.026625">
       <geom mass="0.1" pos="0 0 0" rgba="0.855 0.267 0.314 1" size="0.0375 0.026625" type="cylinder" />
       <geom name="crossbar" mass="0.01" size="0.005 0.1 0.005" rgba="0.063 0.522 0.737 1" type="box" />
-      <joint axis="0 0 1" damping="0.01" name="hand_z" pos="0.0 0.0 0" type="hinge" range="-10000 10000" />
+      <joint axis="0 0 1" damping="0.5" name="hand_z" pos="0.0 0.0 0" type="hinge" range="-1.57 1.57" />
       <!-- Left -->
       <body name="l1" pos="0.0 -0.08 0.073525">
         <joint axis="0 1 0" damping="0.1" name="finger_l" pos="0.0 0.05 -0.043525" type="slide" range="-0.02 0.02" />
         <geom name="l1" mass="0.01" size="0.005 0.005 0.06" rgba="0.063 0.522 0.737 1" type="box" />
         <site name="sl" pos="0 0 0"/>
         <body name="l2" pos="0.0 0.0184 0.043525">
-          <joint axis="0 1 0" damping="0.5" name="pitch_l" pos="0.0 -0.0184 0" type="hinge" range="-1.5 1.5" />
+          <joint axis="0 1 0" damping="0.5" name="pitch_l" pos="0.0 -0.0184 0" type="hinge" range="-1.57 1.57" />
           <geom name="l2" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
           <body name="l3" pos="0.0 0.0184 0.0">
-            <joint axis="1 0 0" damping="0.1" range="-1000000 1000000" name="roll_l" pos="0.0 0 0" type="hinge" />
-            <geom name="l3" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" quat="0.707 0 0.707 0" condim="4" friction="500 0.05 0.001"/>
+            <joint axis="0 0 1" damping="0.1" range="-1000000 1000000" name="roll_l" pos="0.0 0 0" type="hinge" />
+            <geom name="l3" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" quat="0.707 0 0.707 0"/>
             <body name="l3_visual_aid_top" pos="-0.025 0 0">
               <geom name="l3_visual_aid_top" mass="0" type="box" size="0.005 0.005 0.015" rgba="0.855 0.267 0.314 1" />
             </body>
@@ -63,12 +63,11 @@
         <geom name="r1" mass="0.01" size="0.005 0.005 0.06" rgba="0.063 0.522 0.737 1" type="box" />
         <site name="sr" pos="0 0 0"/>
         <body name="r2" pos="0.0 -0.0184 0.043525">
-          <joint axis="0 1 0" damping="0.5" name="pitch_r" pos="0.0 -0.0184 0" type="hinge" range="-1.5 1.5" />
+          <joint axis="0 1 0" damping="0.5" name="pitch_r" pos="0.0 -0.0184 0" type="hinge" range="-1.57 1.57" />
           <geom name="r2" mass="0.01" size="0.005 0.0184 0.005" rgba="0.063 0.522 0.737 1" type="box" />
           <body name="r3" pos="0.0 -0.0184 0.0">
-            <joint axis="1 0 0" damping="0.1" name="roll_r" pos="0.0 0 0" range="-1000000 1000000" type="hinge" />
-            <geom name="r3" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" quat="0.707 0 0.707 0" condim="4" friction="50 0.05 0.001"/>
-            <!-- <geom name="r3" mass="0.01" type="cylinder" size="0.01 0.02" rgba="0.973 0.741 0.498 0.7" quat="0.707 0 0.707 0"/> -->
+            <joint axis="0 0 1" damping="0.1" name="roll_r" pos="0.0 0 0" range="-1000000 1000000" type="hinge" />
+            <geom name="r3" mass="0.01" type="mesh" mesh="roller" rgba="0.973 0.741 0.498 0.7" quat="0.707 0 0.707 0"/>
             <body name="r3_visual_aid_top" pos="-0.025 0 0">
               <geom name="r3_visual_aid_top" mass="0" type="box" size="0.005 0.005 0.015" rgba="0.855 0.267 0.314 1" />
             </body>
@@ -110,7 +109,7 @@
   </contact>
 
   <tendon>
-    <spatial width="0.002" rgba=".95 .3 .3 1" springlength="0.00" damping="0.01" stiffness="1">
+    <spatial width="0.002" rgba=".95 .3 .3 1" springlength="0.00" damping="0.01" stiffness="0.1">
       <site site="sl"/>
       <site site="sr"/>
     </spatial> 

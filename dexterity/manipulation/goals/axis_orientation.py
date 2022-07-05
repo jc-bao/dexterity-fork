@@ -18,7 +18,7 @@ class QuaternionFromAxisAngle(rotations.base.Variation):
     # axis = np.array([np.cos(self.beta)*np.cos(self.alpha), np.cos(self.beta)*np.sin(self.alpha), np.sin(self.beta)])
     self.theta = random_state.uniform(0, np.pi)
     axis = np.array([0, np.cos(self.theta), np.sin(self.theta)])
-    # axis = np.array([0,0,1])
+    # axis = np.array([1,0,0])
     axis = axis / np.linalg.norm(axis)
     angle = random_state.uniform(-np.pi, np.pi)
     # angle = np.pi/2

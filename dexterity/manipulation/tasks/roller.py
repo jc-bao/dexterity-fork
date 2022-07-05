@@ -19,7 +19,7 @@ from dexterity import effectors
 from dexterity import goal
 from dexterity import task
 from dexterity.manipulation import props
-from dexterity.manipulation.goals import axis_orientation
+from dexterity.manipulation.goals import prop_orientation, axis_orientation
 from dexterity.manipulation.shared import cameras
 from dexterity.manipulation.shared import constants
 from dexterity.manipulation.shared import observations
@@ -76,17 +76,17 @@ _WORKSPACE = Workspace(
   ),
 )
 
-_ACTION_TRANSFORM = np.array([1.0, 2.0, 4.0, 2.0, 4.0])
+_ACTION_TRANSFORM = np.array([4.0, 4.0, 4.0, 4.0, 4.0])
 
 # if object fly away
 _PROP_AWAY_DISTANCE = 0.1
 
 # Observable settings.
 _FREEPROP_OBSERVABLES = observations.ObservableNames(
-  prop_pose=("position", "orientation", "linear_velocity", "angular_velocity"),
+  prop_pose=("position", "orientation"),
 )
 _TARGETPROP_OBSERVABLES = observations.ObservableNames(
-  prop_pose=("orientation",),
+  # prop_pose=("orientation",),
 )
 
 SUITE = containers.TaggedTasks()
@@ -171,7 +171,7 @@ class Roller(task.GoalTask):
     )
 
     self.set_timesteps(control_timestep, physics_timestep)
-    self.root_entity.mjcf_model.option.gravity = [0,0,0]
+    # self.root_entity.mjcf_model.option.gravity = [0,0,0]
 
   @property
   def hand(self) -> dexterous_hand.DexterousHand:
@@ -189,7 +189,6 @@ class Roller(task.GoalTask):
       self, physics: mjcf.Physics, random_state: np.random.RandomState
   ) -> None:
     super().initialize_episode(physics, random_state)
-
     self._hint_prop.set_pose(physics=physics, quaternion=self._goal)
     self._prop_placer(physics=physics, random_state=random_state)
 
@@ -355,7 +354,7 @@ def roller_task(
     name="target_prop",
   )
 
-  goal_generator = axis_orientation.AxisOrientation(prop=prop)
+  goal_generator = prop_orientation.PropOrientation(prop=prop)
 
   return Roller(
     arena=arena,
