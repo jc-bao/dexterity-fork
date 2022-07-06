@@ -341,14 +341,14 @@ def roller_task(
   prop_obs_options = observations.make_options(
     observation_set.value, _FREEPROP_OBSERVABLES
   )
-  prop = props.Sphere(
+  prop = props.OpenAICube(
     size=_PROP_SIZE, observable_options=prop_obs_options, name="prop"
   )
 
   target_prop_obs_options = observations.make_options(
     observation_set.value, _TARGETPROP_OBSERVABLES
   )
-  hint_prop = props.Sphere(
+  hint_prop = props.OpenAICube(
     size=_PROP_SIZE,
     observable_options=target_prop_obs_options,
     name="target_prop",

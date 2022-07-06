@@ -1,8 +1,14 @@
 import gym
 from gym import spaces
 from dm_env import specs
+import io
 import cv2
 import uuid
+from matplotlib import pyplot as plt
+import numpy as np
+from scipy.spatial.transform import Rotation as R
+from PIL import Image
+from dm_robotics.transformations import transformations as tr
 
 from dexterity import manipulation
 
@@ -72,6 +78,9 @@ class GymEnv(gym.Env):
       self.env.observation_spec())
     self.action_space = convert_dm_control_to_gym_space(self.env.action_spec())
     self.viewer = None
+    self.current_obs = {'goal_state': np.zeros(6)}
+    self.orn_errors_list = np.zeros(70)
+    self.step_cnt = 0
 
   def seed(self, seed):
     return self.env.task.random.seed(seed)
@@ -82,17 +91,39 @@ class GymEnv(gym.Env):
     reward = timestep.reward
     done = timestep.last()
     info = {}
+    if done: self.step_cnt = 0
+    if self.current_obs['goal_state'][0] != observation['goal_state'][0]: 
+      self.step_cnt = 0
+      self.orn_errors_list = np.zeros(70)
+    else: 
+      self.step_cnt += 1
+    self.current_obs = observation
     return observation, reward, done, info
 
   def reset(self):
     timestep = self.env.reset()
+    self.current_obs = timestep.observation
     return timestep.observation
 
   def render(self, mode='human', **kwargs):
     if 'camera_id' not in kwargs:
       kwargs['camera_id'] = 0  # Tracking camera
 
+    goal_orn = R.from_quat(np.concatenate([self.current_obs['goal_state'][...,1:], self.current_obs['goal_state'][...,[0]]], axis=-1))
+    obj_orn = R.from_quat(
+      np.concatenate([self.current_obs['prop/orientation'][...,1:], self.current_obs['prop/orientation'][...,[0]]], axis=-1))
+    orn_error = goal_orn * obj_orn.inv()
+    err_quat = orn_error.as_quat()
+    err_quat = np.concatenate([err_quat[...,1:], err_quat[...,[0]]], axis=-1)
+    self.orn_errors_list[self.step_cnt] = abs(tr.quat_angle(err_quat)-np.pi)
+    plt.plot(self.orn_errors_list)
+    plt.axvline(x = self.step_cnt, color = 'r')
+    img_buf = io.BytesIO()
+    plt.savefig(img_buf, format='png', dpi=20)
+    plt.clf()
+    plt_im = np.array(Image.open(img_buf))[..., :3]
     img = self.env.physics.render(**kwargs)
+    img[:plt_im.shape[0], :plt_im.shape[1], :] = plt_im
     if mode == 'rgb_array':
       return img
     elif mode == 'human':
