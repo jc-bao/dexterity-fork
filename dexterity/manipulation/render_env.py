@@ -8,6 +8,8 @@ from absl import flags
 from dm_control import viewer
 import numpy as np
 from scipy.spatial.transform import Rotation as R
+from dexterity.manipulation.shared import cameras
+from dexterity.manipulation.shared import observations
 
 from dexterity import manipulation
 from dexterity.manipulation.wrappers import ActionNoise
@@ -38,7 +40,8 @@ def prompt_environment_name(values: Sequence[str]) -> str:
 def main(_) -> None:
   if FLAGS.environment_name is None:
     print("\n ".join(["Available environments:"] + manipulation.ALL_NAMES))
-    environment_name = 'roller.state_dense'
+    # environment_name = 'roller.state_dense'
+    environment_name = 'roller.state_image'
   else:
     environment_name = FLAGS.environment_name
 

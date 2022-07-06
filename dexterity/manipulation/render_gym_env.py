@@ -13,5 +13,6 @@ if __name__=='__main__':
     act = manipulation.ezpolicy(obs)
     # act = env.action_space.sample()
     obs, rew, done, info = env.step(act)
-    imgs.append(env.render(mode='rgb_array'))
-  skvideo.io.vwrite('vid/gym.mp4', np.array(imgs))
+    # imgs.append(env.render(mode='rgb_array'))
+    env.render()
+  # skvideo.io.vwrite('vid/gym.mp4', np.array(imgs))

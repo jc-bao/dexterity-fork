@@ -187,7 +187,10 @@ class GoalTask(Task):
 
   def should_terminate_episode(self, physics: mjcf.Physics) -> bool:
     del physics  # Unused.
-    if self._successes >= self._successes_needed or (
+    # if self._successes >= self._successes_needed or (
+    #     self._max_time_per_goal is not None and self._exceeded_single_goal_time
+    # ):
+    if (
         self._max_time_per_goal is not None and self._exceeded_single_goal_time
     ):
       return True
