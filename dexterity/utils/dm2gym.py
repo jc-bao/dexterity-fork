@@ -83,7 +83,8 @@ class GymEnv(gym.Env):
     self.step_cnt = 0
 
   def seed(self, seed):
-    return self.env.task.random.seed(seed)
+    pass
+    # return self.env.task.random.seed(seed)
 
   def step(self, action):
     timestep = self.env.step(action)
