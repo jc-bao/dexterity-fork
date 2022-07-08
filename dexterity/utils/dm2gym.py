@@ -79,7 +79,7 @@ class GymEnv(gym.Env):
     self.action_space = convert_dm_control_to_gym_space(self.env.action_spec())
     self.viewer = None
     self.current_obs = {'goal_state': np.zeros(6)}
-    self.orn_errors_list = np.zeros(70)
+    self.orn_errors_list = np.zeros(500)
     self.step_cnt = 0
 
   def seed(self, seed):
@@ -95,7 +95,7 @@ class GymEnv(gym.Env):
     if done: self.step_cnt = 0
     if self.current_obs['goal_state'][0] != observation['goal_state'][0]: 
       self.step_cnt = 0
-      self.orn_errors_list = np.zeros(70)
+      self.orn_errors_list = np.zeros(500)
     else: 
       self.step_cnt += 1
     self.current_obs = observation

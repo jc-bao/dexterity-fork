@@ -22,11 +22,12 @@ def ezpolicy(obs):
   pitch = -obs['roller_hand/joint_positions'][...,2] % (2 * np.pi)
   # ===calculate angular velocity===
   omega = 0.5 * 2 * ((diff_orn).as_quat())[...,:3]
+  # omega *= ((diff_orn.as_quat()[..., 3] > 0) *2 - 1)
   omega *= ((diff_orn.as_quat()[..., 3] > 0) *2 - 1)
   local_omega = robot_orn.apply(omega) * 10
   local_omega_norm = np.linalg.norm(local_omega)
   if local_omega_norm > 1:
-    local_omega /= np.linalg.norm(local_omega)
+    local_omega /= local_omega_norm 
   # ===calculate action===
   if len(obs['roller_hand/joint_positions'].shape) == 1:
     action = np.zeros((1, 5))
@@ -35,6 +36,8 @@ def ezpolicy(obs):
   action[..., 0] = -(local_omega[...,2] - local_omega[...,1] * np.tan(pitch))
   action[..., 1] = -local_omega[..., 0]
   action[..., 3] = -local_omega[..., 0]
+  action[..., 2] = local_omega[..., 1] / np.cos(pitch)
+  action[..., 4] = local_omega[..., 1] / np.cos(pitch)
   action[..., 2] = local_omega[..., 1] / np.cos(pitch)
   action[..., 4] = local_omega[..., 1] / np.cos(pitch)
   # compensate for the drop down

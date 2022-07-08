@@ -148,25 +148,25 @@ def main(_) -> None:
   def handcrafted_policy_2(timestep):
     obs = timestep.observation
     # goal: wxyz
-    goal_orn = R.from_quat([*obs['target_prop/orientation'][1:], obs['target_prop/orientation'][0]])
+    goal_orn = R.from_quat([*obs['goal_state'][1:], obs['goal_state'][0]])
     # obj: 
     obj_orn = R.from_quat([*obs['prop/orientation'][1:], obs['prop/orientation'][0]])
     robot_orn = R.from_euler('z', obs['roller_hand/joint_positions'][0])
+    goal_orn *= robot_orn.inv()
+    obj_orn *= robot_orn.inv()
     # step1: move along the z axis
     diff_orn = goal_orn * obj_orn.inv()
-    delta_z, delta_x, delta_y = diff_orn.as_euler('zxy')
-    if delta_y < 0:
-      delta_y = delta_y + 2 * np.pi
-    print(delta_z, delta_x, delta_y)
+    delta_z, delta_x, delta_y = diff_orn.as_euler('zyx')
+    print(delta_z, delta_y, delta_x)
     action = np.zeros(action_spec.shape)
-    if abs(delta_z) > 0.05:
+    if abs(delta_z) > 0.01:
       action[0] = -np.clip(delta_z*5, -1, 1)
-    elif abs(delta_x) > 0.05:
-      action[1] = -np.clip(delta_x*5, -1, 1)
-      action[3] = action[1]
-    elif abs(delta_y) > 0.05:
+    elif abs(delta_y) > 0.01:
       action[2] = -np.clip(delta_y*5, -1, 1)
       action[4] = action[2]
+    elif abs(delta_x) > 0.01:
+      action[1] = -np.clip(delta_x*5, -1, 1)
+      action[3] = action[1]
     # compensate for the drop down
     roller_orn_local = R.from_euler('x', obs['roller_hand/joint_positions'][1])
     roller_orn = roller_orn_local * robot_orn.inv()

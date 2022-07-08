@@ -63,7 +63,7 @@ _CONTROL_TIMESTEP: float = 0.025
 _SUCCESSED_NEEDED: int = 1
 
 # The maximum allowed time for reaching the current target, in seconds.
-_MAX_STEPS_SINGLE_SOLVE: int = 50
+_MAX_STEPS_SINGLE_SOLVE: int = 500
 _MAX_TIME_SINGLE_SOLVE: float = _MAX_STEPS_SINGLE_SOLVE * _CONTROL_TIMESTEP
 
 _STEPS_BEFORE_MOVING_TARGET: int = 20
